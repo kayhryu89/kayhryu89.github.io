@@ -3,6 +3,7 @@ project:
 
 website:
   title: "LASER"
+  site-url: https://kayhryu89.github.io/
   navbar:
     left:
       - href: index.qmd

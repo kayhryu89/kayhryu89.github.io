@@ -12,7 +12,8 @@
       "Bash(powershell -Command:*)",
       "Bash(python:*)",
       "Bash(dir:*)",
-      "Bash(quarto preview:*)"
+      "Bash(quarto preview:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
