@@ -17,6 +17,8 @@ website:
         text: Publications
       - href: members.qmd
         text: People
+      - href: board.qmd
+        text: Board
 
 format:
   html:

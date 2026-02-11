@@ -1,0 +1,10 @@
+---
+title: "Welcome to LASER"
+author: "LASER"
+date: "2026-02-11"
+categories: [News]
+---
+
+Welcome to the LASER (Laboratory for Autonomous Systems Engineering Research) website.
+
+Stay tuned for updates on our research, publications, and activities.

@@ -2,6 +2,8 @@
 title: "LASER"
 page-layout: full
 toc: false
+filters:
+  - home-loader.lua
 ---
 
 ::: {.laser-hero}
@@ -40,14 +42,8 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 ::: {.laser-card}
 ### Recent Publications
 
-**2025**
-- Variance-weighted curvature criterion for sequential experimental design
-- Sustainable blue hydrogen with membrane-based carbon capture
-- Piecewise response surface methodology
-
-**2024**
-- Robust process identification under deterministic disturbance
-- Sustainability assessment of cement flue gas methanation
+::: {#recent-pubs}
+:::
 
 [See all publications →](publications.qmd)
 :::

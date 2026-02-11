@@ -6,7 +6,12 @@
       "Bash(quarto render:*)",
       "Bash(powershell -Command \"Select-String -Path ''_site/publications.html'' -Pattern ''pub-index|<strong>Kyung|<sup>'' | Select-Object -First 10\")",
       "WebFetch(domain:pandoc.org)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(cmd /c \"icacls .git\\\\worktrees\\\\quarto-publish-worktree-b497cf7ed94ae18c /grant *S-1-5-32-545:F /T\")",
+      "Bash(cmd /c:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(python:*)",
+      "Bash(dir:*)"
     ]
   }
 }

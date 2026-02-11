@@ -2,6 +2,8 @@
 title: "People"
 page-layout: full
 toc: true
+filters:
+  - member-loader.lua
 ---
 
 ## Principal Investigator {#pi}
@@ -43,37 +45,8 @@ Process Systems Engineering, Carbon Capture & Utilization, Process Optimization 
 
 ---
 
-## Graduate Students {#graduate-students}
-
-### M.S. Students
-
-::: {.grid}
-
-::: {.g-col-md-6}
-#### Jae Eun Jeong
-- **Research Topic**: Membrane system modeling and design
-- **Email**: je77@scnu.ac.kr
-- **Joined**: 2024
+::: {#member-sections}
 :::
-
-::: {.g-col-md-6}
-#### Yerin Jeon
-- **Research Topic**: Electrification
-- **Email**: jyr4141@gmail.com
-- **Joined**: 2025
-:::
-
-:::
-
----
-
-## Alumni {#alumni}
-
-### M.S. Graduates
-
-| Name | Graduation | Thesis Title | Current Position |
-|------|------------|--------------|------------------|
-| [Name] | [Year] | [Thesis Title] | [Current Position] |
 
 ---
 

@@ -39,20 +39,21 @@ function Pandoc(doc)
         local doi = body:match("doi%s*=%s*{([^}]+)}")
         local raw_authors = body:match("author%s*=%s*{([^}]+)}")
 
-        -- Parse author names: "Last, First and Last, First" -> "First Last, First Last"
+        -- Parse author names: "Last, First and Last, First" -> list
         local author_list = {}
         if raw_authors then
-          for author in raw_authors:gmatch("([^a][^n][^d]-)%s+and%s+") do
-            table.insert(author_list, author:match("^%s*(.-)%s*$"))
+          local remaining = raw_authors
+          local s, e = remaining:find("%s+and%s+")
+          while s do
+            local author = remaining:sub(1, s - 1):match("^%s*(.-)%s*$")
+            table.insert(author_list, author)
+            remaining = remaining:sub(e + 1)
+            s, e = remaining:find("%s+and%s+")
           end
-          -- Get last author (after last "and")
-          local last_author = raw_authors:match(".*and%s+(.-)%s*$")
-          if last_author then
-            table.insert(author_list, last_author)
-          end
-          -- If no "and" found, it's a single author
-          if #author_list == 0 then
-            table.insert(author_list, raw_authors:match("^%s*(.-)%s*$"))
+          -- Add last (or only) author
+          local last = remaining:match("^%s*(.-)%s*$")
+          if last and last ~= "" then
+            table.insert(author_list, last)
           end
         end
 

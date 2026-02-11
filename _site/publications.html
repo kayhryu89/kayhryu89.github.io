@@ -134,6 +134,10 @@ div.csl-indent {
     <a class="nav-link" href="./members.html"> 
 <span class="menu-text">People</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./board.html"> 
+<span class="menu-text">Board</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -345,18 +349,22 @@ document.addEventListener("DOMContentLoaded", function() {
     let html = item.div.innerHTML;
 
     // Fix em-dash substitution (———.) by replacing with actual authors from bib
-    if (html.match(/^———\./)) {
-      html = html.replace(/^———\./, bibAuthors + ".");
+    let replacedEmDash = false;
+    if (/^\s*———\./.test(html)) {
+      html = html.replace(/^\s*———\./, bibAuthors + ".");
+      replacedEmDash = true;
     }
 
     // Fix first author "Family, Given" format to "Given Family"
-    // CSL renders first author as "Family, Given" - convert to "Given Family"
-    html = html.replace(
-      /^([A-Z][a-zA-Zé\u00C0-\u024F-]+),\s+([A-Z][a-zA-Zé\u00C0-\u024F\s.-]+?)(?=,\s|\.?\s+\d{4})/,
-      function(match, family, given) {
-        return given.trim() + " " + family;
-      }
-    );
+    // Only for entries NOT replaced by em-dash (those already use "Given Family" format)
+    if (!replacedEmDash) {
+      html = html.replace(
+        /^(\s*)([A-Z][a-zA-Zé\u00C0-\u024F-]+),\s+([A-Z][a-zA-Zé\u00C0-\u024F\s.-]+?)(?=,\s|\.?\s+\d{4})/,
+        function(match, ws, family, given) {
+          return ws + given.trim() + " " + family;
+        }
+      );
+    }
 
     // Bold "Kyung Hwan Ryu" with authorship markers
     html = html.replace(/Kyung Hwan Ryu/g, function() {
@@ -370,11 +378,14 @@ document.addEventListener("DOMContentLoaded", function() {
       return "<strong>Kyung Hwan Ryu</strong>" + sup;
     });
 
-    // Add DOI link at the end (before closing, remove any existing DOI text)
+    // Add DOI link at the end
     if (doi) {
-      // Remove existing DOI URL text that citeproc may have added
-      html = html.replace(/\s*https?:\/\/doi\.org\/\S+/g, "");
-      html = html.replace(/<a\s+href="https:\/\/doi\.org\/[^"]*"[^>]*>[^<]*<\/a>\.?/g, "");
+      // Remove DOI pattern: "https://doi.org/<a href="...">...</a>."
+      html = html.replace(/\s*https?:\/\/doi\.org\/<a\s[^>]*>[^<]*<\/a>\.?\s*/g, "");
+      // Remove any remaining standalone DOI anchor tags
+      html = html.replace(/<a\s+href="https?:\/\/doi\.org\/[^"]*"[^>]*>[^<]*<\/a>\.?\s*/g, "");
+      // Remove any remaining standalone DOI URL text
+      html = html.replace(/\s*https?:\/\/doi\.org\/[^\s<]+\.?\s*/g, "");
       // Remove trailing period and whitespace, then add LINK
       html = html.replace(/\.\s*$/, "");
       html += '. <a href="' + doi + '" target="_blank">[LINK]</a>';

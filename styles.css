@@ -62,3 +62,35 @@
   height: 100%;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* Member card styling */
+.member-card {
+  display: flex;
+  gap: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 1em;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.member-photo img {
+  height: 200px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-info h4 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #2c3e50;
+}
+
+.member-info p {
+  margin-bottom: 0.3em;
+}
