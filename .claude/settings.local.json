@@ -11,7 +11,8 @@
       "Bash(cmd /c:*)",
       "Bash(powershell -Command:*)",
       "Bash(python:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(quarto preview:*)"
     ]
   }
 }

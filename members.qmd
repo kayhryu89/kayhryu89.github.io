@@ -11,7 +11,7 @@ filters:
 ::: {.grid}
 
 ::: {.g-col-md-3}
-![Prof. Kyung Hwan Ryu](Info/Images/Pic000.jpg){.rounded}
+![Prof. Kyung Hwan Ryu](Info/Images/pic000.jpg){.rounded}
 :::
 
 ::: {.g-col-md-9}
@@ -21,7 +21,7 @@ filters:
 Department of Chemical Engineering
 Sunchon National University
 
-**Email**: khryu@scnu.ac.kr | **Office**: W3-305 | **Phone**: 061-750-3588
+**Email**: khryu@scnu.ac.kr | **Office**: D3-305 | **Phone**: 061-750-3588
 
 **Research Interests**:
 Process Systems Engineering, Carbon Capture & Utilization, Process Optimization & Control, Sustainable Energy Systems
