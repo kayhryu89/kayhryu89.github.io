@@ -1,7 +1,79 @@
 ---
 title: "LASER"
+page-layout: full
+toc: false
 ---
 
-This is a Quarto website.
+::: {.laser-hero}
+# LASER
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+**Laboratory for Autonomous Systems Engineering Research**
+Process Systems Engineering · Modeling · Optimization · Control · Sustainability
+
+[About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#join-our-lab){.btn .btn-outline-secondary}
+:::
+
+---
+
+## Welcome to LASER
+
+We are a research group in the Department of Chemical Engineering at Sunchon National University, focusing on **Process Systems Engineering (PSE)** with applications in carbon capture, clean energy, and sustainable chemical processes.
+
+---
+
+::: {.grid}
+
+::: {.g-col-md-4}
+::: {.laser-card}
+### Research Focus
+
+- **Carbon Capture & Utilization**: CO₂ reduction and conversion technologies
+- **Clean Energy**: Hydrogen production, oxy-combustion systems
+- **Process Optimization**: Advanced experimental design and optimization
+- **Machine Learning**: Data-driven process modeling and control
+
+[Learn more →](research.qmd)
+:::
+:::
+
+::: {.g-col-md-4}
+::: {.laser-card}
+### Recent Publications
+
+**2025**
+- Variance-weighted curvature criterion for sequential experimental design
+- Sustainable blue hydrogen with membrane-based carbon capture
+- Piecewise response surface methodology
+
+**2024**
+- Robust process identification under deterministic disturbance
+- Sustainability assessment of cement flue gas methanation
+
+[See all publications →](publications.qmd)
+:::
+:::
+
+::: {.g-col-md-4}
+::: {.laser-card}
+### Quick Links
+
+- [Research Areas](research.qmd)
+- [Publications](publications.qmd)
+- [Members](members.qmd)
+- [About & Contact](about.qmd)
+
+**Contact**: khryu@scnu.ac.kr
+:::
+:::
+
+:::
+
+---
+
+:::{.callout-note}
+## We're Recruiting!
+
+We welcome highly motivated graduate students interested in process systems engineering, carbon capture, and sustainable energy systems.
+
+**[Learn how to join →](about.qmd#join-our-lab)**
+:::

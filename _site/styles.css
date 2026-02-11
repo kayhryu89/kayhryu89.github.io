@@ -1,1 +1,64 @@
 /* css styles */
+
+/* Publication index number */
+.pub-index {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-right: 4px;
+}
+
+/* Year headers in publication list */
+#refs h2,
+#refs .pub-year-header {
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #2c3e50;
+  font-size: 1.4em;
+}
+
+/* Bibliography entry spacing */
+#refs .csl-entry {
+  margin-bottom: 0.8em;
+  padding-left: 2em;
+  text-indent: -2em;
+}
+
+/* Project table styling */
+.project-table table {
+  width: 100%;
+  font-size: 0.95em;
+}
+
+.project-table th {
+  background-color: #2c3e50;
+  color: white;
+}
+
+/* Hero section on home page */
+.laser-hero {
+  text-align: center;
+  padding: 2em 1em;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+}
+
+.laser-hero h1 {
+  color: white;
+}
+
+.laser-hero a.btn {
+  margin: 0.3em;
+}
+
+/* Card styling */
+.laser-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.2em;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

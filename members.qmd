@@ -1,0 +1,83 @@
+---
+title: "People"
+page-layout: full
+toc: true
+---
+
+## Principal Investigator {#pi}
+
+::: {.grid}
+
+::: {.g-col-md-3}
+![Prof. Kyung Hwan Ryu](Info/Images/Pic000.jpg){.rounded}
+:::
+
+::: {.g-col-md-9}
+### Kyung Hwan Ryu, Ph.D.
+
+**Associate Professor**
+Department of Chemical Engineering
+Sunchon National University
+
+**Email**: khryu@scnu.ac.kr | **Office**: W3-305 | **Phone**: 061-750-3588
+
+**Research Interests**:
+Process Systems Engineering, Carbon Capture & Utilization, Process Optimization & Control, Sustainable Energy Systems
+
+[Google Scholar](https://scholar.google.com/citations?user=beZrJgsAAAAJ&hl=ko) | [ORCID](https://orcid.org/0000-0001-7981-5090)
+:::
+
+:::
+
+### Education
+
+- **Ph.D.** in Chemical and Biomolecular Engineering (2014--2019), Korea Advanced Institute of Science and Technology (KAIST), Daejeon, Korea; Advisor: Jay H. Lee
+- **M.S.** in Applied Chemical Engineering (2012--2014), Kyungpook National University, Daegu, Korea; Advisor: Su Whan Sung
+- **B.S.** in Chemical Engineering (2008--2012), Kyungpook National University, Daegu, Korea
+
+### Professional Experience
+
+- **Sunchon National University**: Associate Professor (Jul. 2020 -- present)
+- **Korea Institute of Energy Research**: Postdoctoral Research Associate (Mar. 2020 -- Jul. 2020)
+- **Korea Advanced Institute of Science and Technology**: Postdoctoral Research Associate (Mar. 2019 -- Feb. 2020)
+
+---
+
+## Graduate Students {#graduate-students}
+
+### M.S. Students
+
+::: {.grid}
+
+::: {.g-col-md-6}
+#### Jae Eun Jeong
+- **Research Topic**: Membrane system modeling and design
+- **Email**: je77@scnu.ac.kr
+- **Joined**: 2024
+:::
+
+::: {.g-col-md-6}
+#### Yerin Jeon
+- **Research Topic**: Electrification
+- **Email**: jyr4141@gmail.com
+- **Joined**: 2025
+:::
+
+:::
+
+---
+
+## Alumni {#alumni}
+
+### M.S. Graduates
+
+| Name | Graduation | Thesis Title | Current Position |
+|------|------------|--------------|------------------|
+| [Name] | [Year] | [Thesis Title] | [Current Position] |
+
+---
+
+::: {.callout-tip}
+## Join Our Team
+We are always looking for motivated students! See [About](about.qmd#join-our-lab) for more information.
+:::

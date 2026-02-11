@@ -1,5 +1,59 @@
 ---
-title: "About"
+title: "About LASER"
+page-layout: full
 ---
 
-About this site
+## About LASER
+
+**LASER (Laboratory for Autonomous Systems Engineering Research)** is a research laboratory in the Department of Chemical Engineering at Sunchon National University, Republic of Korea.
+
+We develop innovative engineering solutions that address global challenges in energy, environment, and sustainability. Our approach combines rigorous mathematical modeling, advanced computational methods, and experimental validation.
+
+---
+
+## Contact {#contact}
+
+### Location
+
+Department of Chemical Engineering
+Sunchon National University
+255 Jungang-ro, Suncheon-si, Jeollanam-do 57922
+Republic of Korea
+
+### Contact Information
+
+- **Email**: khryu@scnu.ac.kr
+- **Office**: W3-305
+- **Phone**: 061-750-3588
+
+---
+
+## Join Our Lab {#join-our-lab}
+
+We are always looking for highly motivated students and researchers to join our team!
+
+### Open Positions
+
+#### Graduate Students (M.S./Ph.D.)
+We welcome applications from students interested in:
+
+- Process systems engineering
+- Carbon capture and utilization
+- Process optimization and control
+- Machine learning applications in chemical engineering
+
+### How to Apply
+
+If you are interested in joining our lab, please send the following to khryu@scnu.ac.kr:
+
+- CV or resume
+- Transcript
+- Brief statement of research interests
+- Any relevant publications or research experience
+
+---
+
+::: {.callout-note}
+## Prospective Students
+For more information about graduate admissions to Sunchon National University, please visit the [university website](https://www.scnu.ac.kr).
+:::

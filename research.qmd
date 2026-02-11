@@ -1,0 +1,111 @@
+---
+title: "Research"
+page-layout: full
+---
+
+## Research Topics
+
+Our laboratory focuses on advanced process systems engineering with emphasis on sustainability and efficiency.
+
+### Core Methodologies
+
+::: {.grid}
+
+::: {.g-col-md-6}
+#### Process Modeling & Simulation
+- Mathematical modeling of chemical and biological processes
+- Dynamic process simulation
+- Techno-economic analysis (TEA)
+- Life cycle assessment (LCA)
+- Environmental impact evaluation
+:::
+
+::: {.g-col-md-6}
+#### Optimization & Control
+- Process optimization algorithms
+- Advanced process control strategies
+- Model predictive control (MPC)
+- PID controller design and auto-tuning
+- Real-time optimization
+:::
+
+::: {.g-col-md-6}
+#### Experimental Design & Data Analysis
+- Design of experiments (DOE)
+- Response surface methodology (RSM)
+- Sequential experimental design
+- Model-based experimental design
+- Statistical data analysis
+:::
+
+::: {.g-col-md-6}
+#### Machine Learning & Automation
+- Data-driven process modeling
+- Neural network applications
+- Process monitoring and fault detection
+- Smart process automation
+- Digital twin development
+:::
+
+:::
+
+---
+
+## Application Areas
+
+### Energy & Environment
+
+::: {.callout-note appearance="simple"}
+#### Carbon Capture & Utilization (CCU)
+- CO₂ capture processes (membrane, adsorption)
+- Electrochemical CO₂ reduction
+- CO₂ conversion to chemicals and fuels
+- Techno-economic and sustainability assessment
+:::
+
+::: {.callout-note appearance="simple"}
+#### Clean Energy Systems
+- Hydrogen production and utilization
+- Green hydrogen from renewable energy
+- Oxy-combustion systems
+- Bioenergy with carbon capture and storage (BECCS)
+- Energy system integration
+:::
+
+::: {.callout-note appearance="simple"}
+#### Sustainable Chemical Processes
+- Low-carbon chemical production
+- Biomass conversion and valorization
+- Waste-to-energy processes
+- Process intensification
+- Green chemistry applications
+:::
+
+### Biotechnology
+
+::: {.callout-note appearance="simple"}
+#### Microalgae Biorefinery
+- Microalgae cultivation optimization
+- Metabolic modeling
+- Lipid and biomass production
+- Photobioreactor design and operation
+- Downstream processing
+:::
+
+---
+
+## Research Facilities
+
+Our laboratory is equipped with:
+
+- **Computational Resources**: High-performance computing for process simulation and optimization
+- **Experimental Setup**: Pilot-scale reactors and analytical instruments
+- **Software Tools**: Aspen Plus, MATLAB, Python-based modeling platforms
+- **Data Analytics**: Machine learning and statistical analysis tools
+
+---
+
+::: {.callout-tip}
+## Interested in Collaboration?
+We welcome research collaborations and industry partnerships. Please [contact us](about.qmd#contact) for more information.
+:::

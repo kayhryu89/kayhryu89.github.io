@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:sites.google.com)",
+      "Read(//h/01_Personal/01_CV/**)",
+      "Bash(quarto render:*)",
+      "Bash(powershell -Command \"Select-String -Path ''_site/publications.html'' -Pattern ''pub-index|<strong>Kyung|<sup>'' | Select-Object -First 10\")",
+      "WebFetch(domain:pandoc.org)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

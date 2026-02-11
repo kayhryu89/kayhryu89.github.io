@@ -1,0 +1,19 @@
+---
+title: "Projects"
+page-layout: full
+toc: true
+filters:
+  - project-loader.lua
+---
+
+## Ongoing Projects
+
+::: {#ongoing-projects}
+:::
+
+---
+
+## Completed Projects
+
+::: {#completed-projects}
+:::
