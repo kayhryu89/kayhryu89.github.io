@@ -94,3 +94,28 @@
 .member-info p {
   margin-bottom: 0.3em;
 }
+
+/* Publication status badges */
+.pub-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.pub-status-under-review {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.pub-status-under-revision {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Lab member name highlight */
+.lab-member {
+  color: #0066cc;
+  font-weight: 600;
+}

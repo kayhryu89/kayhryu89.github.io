@@ -4,8 +4,12 @@ cd /d "%~dp0"
 echo === LASER Website Deploy ===
 echo.
 
+REM Find Python (prefer Anaconda over Windows Store stub)
+set PYTHON=python
+if exist "C:\Users\RYU\anaconda3\python.exe" set PYTHON=C:\Users\RYU\anaconda3\python.exe
+
 REM Use Python for reliable cross-drive file operations
-python "%~dp0deploy_helper.py" render
+"%PYTHON%" "%~dp0deploy_helper.py" render
 if errorlevel 1 (
     echo ERROR: Render failed
     pause
@@ -21,7 +25,7 @@ git push
 echo.
 
 echo [4/5] Publishing to gh-pages...
-python "%~dp0deploy_helper.py" publish
+"%PYTHON%" "%~dp0deploy_helper.py" publish
 echo.
 
 echo === Deploy complete ===
