@@ -1,5 +1,5 @@
 """Helper script for deploy.bat - handles file operations and gh-pages push."""
-import sys, os, shutil, subprocess, tempfile
+import sys, os, shutil, subprocess, tempfile, time
 
 PROJECT = os.path.dirname(os.path.abspath(__file__))
 SKIP_DIRS = {'.git', '_site', '_freeze', '.quarto', '__pycache__'}
@@ -38,8 +38,19 @@ def render():
     site_src = os.path.join(build_dir, '_site')
     site_dst = os.path.join(PROJECT, '_site')
     if os.path.exists(site_dst):
-        shutil.rmtree(site_dst, ignore_errors=True)
-    shutil.copytree(site_src, site_dst)
+        for attempt in range(3):
+            shutil.rmtree(site_dst, ignore_errors=True)
+            if not os.path.exists(site_dst):
+                break
+            time.sleep(1)
+    os.makedirs(site_dst, exist_ok=True)
+    for item in os.listdir(site_src):
+        s = os.path.join(site_src, item)
+        d = os.path.join(site_dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d)
+        else:
+            shutil.copy2(s, d)
     shutil.rmtree(build_dir, ignore_errors=True)
     print('       Render complete.')
     return 0
@@ -52,9 +63,27 @@ def publish():
         return 1
 
     deploy_dir = os.path.join(tempfile.gettempdir(), 'laser-deploy')
+    # Robust cleanup: kill any lingering git processes, retry rmtree
     if os.path.exists(deploy_dir):
-        shutil.rmtree(deploy_dir, ignore_errors=True)
-    shutil.copytree(site_dir, deploy_dir)
+        subprocess.run(['taskkill', '/F', '/IM', 'git.exe'], capture_output=True, shell=True)
+        time.sleep(0.5)
+        for attempt in range(3):
+            shutil.rmtree(deploy_dir, ignore_errors=True)
+            if not os.path.exists(deploy_dir):
+                break
+            time.sleep(1)
+    # If still exists, use unique name as fallback
+    if os.path.exists(deploy_dir):
+        deploy_dir = os.path.join(tempfile.gettempdir(), f'laser-deploy-{int(time.time())}')
+    os.makedirs(deploy_dir, exist_ok=True)
+    # Copy site contents into deploy dir
+    for item in os.listdir(site_dir):
+        s = os.path.join(site_dir, item)
+        d = os.path.join(deploy_dir, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d)
+        else:
+            shutil.copy2(s, d)
 
     cmds = [
         ['git', 'init', '-b', 'gh-pages'],
