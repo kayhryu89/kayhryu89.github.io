@@ -105,11 +105,10 @@ document.addEventListener("DOMContentLoaded", function() {
       html += '. <a href="' + doi + '" target="_blank">[LINK]</a>';
     }
 
-    // Add status badge for submitted papers
+    // Add status text for submitted papers
     if (status) {
       html = html.replace(/\.\s*$/, "");
-      html += '. <span class="pub-status pub-status-' +
-        status.toLowerCase().replace(/\s+/g, '-') + '">' + status + '</span>';
+      html += ', ' + status + '.';
     }
 
     item.div.innerHTML = html;
