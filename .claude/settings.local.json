@@ -16,7 +16,8 @@
       "Bash(git rm:*)",
       "Bash(where:*)",
       "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" -c \"print\\(''hello''\\)\")",
-      "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" deploy_helper.py render)"
+      "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" deploy_helper.py render)",
+      "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" deploy_helper.py publish)"
     ]
   }
 }
