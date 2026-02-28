@@ -7,10 +7,12 @@ filters:
 ---
 
 ::: {.laser-hero}
+![](Info/Images/LASER_logo.png){height="80px" style="margin-bottom:0.5em;"}
+
 # LASER
 
 **Laboratory for Autonomous Systems Engineering Research**
-Process Systems Engineering · Modeling · Optimization · Control · Sustainability
+Autonomous Learning · Modeling · Decision-Making · Validation · Process Systems Engineering
 
 [About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#join-our-lab){.btn .btn-outline-secondary}
 :::
@@ -19,7 +21,7 @@ Process Systems Engineering · Modeling · Optimization · Control · Sustainabi
 
 ## Welcome to LASER
 
-We are a research group in the Department of Chemical Engineering at Sunchon National University, focusing on **Process Systems Engineering (PSE)** with applications in carbon capture, clean energy, and sustainable chemical processes.
+We are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental methods that make complex process systems **self-directing** — reducing reliance on manual expert iteration across design, operation, and validation.
 
 ---
 
@@ -29,10 +31,10 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 ::: {.laser-card}
 ### Research Focus
 
-- **Carbon Capture & Utilization**: CO₂ reduction and conversion technologies
-- **Clean Energy**: Hydrogen production, oxy-combustion systems
-- **Process Optimization**: Advanced experimental design and optimization
-- **Machine Learning**: Data-driven process modeling and control
+- **Autonomous Learning**: Sequential and Bayesian experimental design
+- **Autonomous Modeling**: Hybrid digital twins, uncertainty-aware surrogates
+- **Decision-Making**: Constrained optimization, robust and stochastic methods
+- **Validation**: TEA/LCA-integrated workflow, monitoring, fault detection
 
 [Learn more →](research.qmd)
 :::
@@ -69,7 +71,7 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 :::{.callout-note}
 ## We're Recruiting!
 
-We welcome highly motivated graduate students interested in process systems engineering, carbon capture, and sustainable energy systems.
+We welcome highly motivated graduate students interested in autonomous systems engineering, process modeling and optimization, and data-efficient learning for complex engineering systems.
 
 **[Learn how to join →](about.qmd#join-our-lab)**
 :::
