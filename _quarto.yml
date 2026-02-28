@@ -7,6 +7,7 @@ website:
   navbar:
     logo: Info/Images/LASER_logo.png
     logo-alt: "LASER — Laboratory for Autonomous Systems Engineering Research"
+    title: false
     left:
       - href: index.qmd
         text: Home
