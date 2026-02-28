@@ -82,7 +82,11 @@ function Pandoc(doc)
     local raw_authors = body:match("author%s*=%s*{([^}]+)}")
     local doi = body:match("doi%s*=%s*{([^}]+)}")
 
-    if raw_authors then
+    local status = body:match("status%s*=%s*{([^}]+)}")
+    local status_lower = (status or ""):lower()
+    local is_pending = status_lower:find("under review") or status_lower:find("under revision")
+
+    if raw_authors and not is_pending then
       -- Get first author (before first " and " or entire string if single author)
       local first_author = raw_authors:match("^(.-)%s+and%s+") or raw_authors:match("^%s*(.-)%s*$")
       first_author = first_author:match("^%s*(.-)%s*$")

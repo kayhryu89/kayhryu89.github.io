@@ -20,7 +20,7 @@ Autonomous Learning · Modeling · Decision-Making · Validation · Process Syst
 
 ## Welcome to LASER
 
-We are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental methods that make complex process systems **self-directing** — reducing reliance on manual expert iteration across design, operation, and validation.
+We are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental methods for self-directing engineered systems, reducing reliance on expert experience and know-how in modeling, design, optimization, and operation.
 
 ---
 
@@ -41,7 +41,7 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 
 ::: {.g-col-md-4}
 ::: {.laser-card}
-### Recent Publications
+### Recent Publications (Students)
 
 ::: {#recent-pubs}
 :::
