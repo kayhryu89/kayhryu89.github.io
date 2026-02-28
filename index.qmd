@@ -7,7 +7,8 @@ filters:
 ---
 
 ::: {.laser-hero}
-![](Info/Images/LASER_logo.png){height="80px" style="margin-bottom:0.5em;"}
+
+# LASER
 
 **Laboratory for Autonomous Systems Engineering Research**
 Autonomous Learning · Modeling · Decision-Making · Validation · Process Systems Engineering
