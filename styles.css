@@ -147,8 +147,9 @@
     margin: 0.25em auto;
   }
 
-  /* Add vertical gap between stacked cards */
+  /* Stack cards vertically (full width) on mobile */
   .g-col-md-4 {
+    grid-column: 1 / -1;
     margin-bottom: 1em;
   }
 
