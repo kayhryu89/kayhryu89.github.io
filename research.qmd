@@ -7,7 +7,7 @@ page-layout: full
 
 LASER develops computational and experimental methods to enable **autonomous systems engineering** — reducing reliance on manual expert iteration across the full lifecycle of process system design, operation, and validation.
 
-Three fundamental challenges structure our research program. First, engineering decisions must satisfy hard physical, safety, and economic constraints; embedding these rigorously within learned or data-driven frameworks remains an open problem. Second, real process systems operate under deep uncertainty — in model parameters, disturbances, and structural assumptions — so decision-making must be robust by design. Third, informative data is structurally scarce in process operations: normal-state records dominate while fault events, rare operating modes, and distribution shifts are underrepresented, demanding data-efficient learning strategies that remain reliable beyond the training regime.
+Three fundamental challenges structure our research program. First, engineering decisions must satisfy hard physical, safety, and economic constraints; embedding these rigorously within learned or data-driven frameworks remains an open problem. Second, real process systems operate under deep uncertainty — in model parameters, disturbances, and structural assumptions — requiring decision-making that is robust by design, not by tuning. Third, informative data is structurally scarce in process operations: normal-state records dominate while fault events, rare operating modes, and distribution shifts are underrepresented, demanding data-efficient learning strategies that remain reliable beyond the training regime.
 
 ---
 
@@ -15,43 +15,43 @@ Three fundamental challenges structure our research program. First, engineering 
 
 ### Pillar 1 — Autonomous Learning & Experimentation
 
-**Problem:** Characterizing a new process, material, or operating condition typically requires many manually designed and individually evaluated experiments. Reducing this expert burden while maximizing information yield per experiment is a core challenge in both computational and physical domains.
+**Problem:** Characterizing a new process, material, or operating condition typically requires many manually designed experiments, each evaluated and interpreted individually before the next is chosen. Reducing this burden — while increasing the information extracted per experiment — requires principled methods for deciding what to measure next, given what has already been observed.
 
-**Key methods:** Design of experiments (DOE), response surface methodology (RSM), Bayesian optimization (BO), informative design of experiments (iDoE), active learning, sequential and model-based experimental design
+**Key methods:** Design of experiments (DOE), response surface methodology (RSM), model-based experimental design (MBDoE), variance-weighted sequential design, Bayesian optimization (BO), active learning, informative design of experiments (iDoE)
 
-**Artifacts:** Benchmark experimental design protocols, reproducible sequential workflow code, experiment decision logs
+**What we have worked on:** Sequential design criteria that account for both variance and model curvature; RSM extended with prior knowledge constraints and piecewise structure; MSE-based model-discriminating DOE with subset selection; uncertainty-penalized surrogate optimization
 
-**Representative applications:** Automated experiment sequencing for electrochemical CO₂ reduction catalyst screening; active learning for photobioreactor operating condition characterization
+**Representative applications:** Sequential experiment design for process characterization and surrogate model building; piecewise RSM for complex response surfaces with discontinuous operating regimes
 
 ---
 
 ### Pillar 2 — Autonomous Modeling & Decision-Making
 
-**Problem:** Process systems combine first-principles structure with uncertain or empirical components. Building surrogate models that respect physical constraints, propagate uncertainty, and support downstream optimization — without requiring a new modeling effort per application — is a persistent bottleneck for autonomous workflows.
+**Problem:** Real process systems combine known first-principles structure with uncertain or empirical components. Building models that respect physical constraints, propagate uncertainty honestly, and can be used directly in optimization — without a fresh modeling effort per problem — is a persistent bottleneck in autonomous workflows. On the decision side, optimization problems must handle nonlinearity, uncertainty, and multiple competing objectives simultaneously.
 
-**Key methods:** Hybrid digital twins, physics-informed surrogate models, uncertainty-aware regression, constrained optimization, stochastic and robust programming, multi-objective decision-making under uncertainty
+**Key methods:** Mathematical modeling (metabolic, kinetic, mechanistic), data-driven and hybrid process identification, surrogate regression with uncertainty quantification, process system optimization, stochastic and two-stage programming, multi-objective decision-making
 
-**Artifacts:** Validated hybrid model libraries, uncertainty quantification benchmarks, reusable constrained optimization templates
+**What we have worked on:** Mathematical modeling of microalgal intracellular metabolism under varying nutrient conditions; nonlinear process identification using pulse response and frequency-domain methods; direct data-driven controller design via fictitious reference methods; two-stage stochastic optimization for electrochemical CO₂ reduction systems under renewable energy variability
 
-**Representative applications:** Hybrid surrogate-based optimization of membrane CO₂ separation processes; uncertainty-aware design of hydrogen production systems
+**Representative applications:** Model-based optimization of microalgal lipid production strategy; robust process identification under deterministic disturbances; optimal design of CO₂ electrolysis systems with renewable energy integration
 
 ---
 
 ### Pillar 3 — Autonomous Operation & Validation
 
-**Problem:** Deploying a model or decision policy into an operating system requires a continuous validation layer — detecting when the model is wrong, when operating conditions have shifted, and when a recommended action would violate admissibility requirements. This layer must be embedded in the workflow architecture, not appended after deployment.
+**Problem:** Deploying a model or decision policy into an operating system requires a continuous validation layer — detecting when the model is wrong, when conditions have shifted, and when a recommended action would violate admissibility requirements. Economic and environmental assessment must be embedded as formal decision criteria, not appended after the fact.
 
-**Key methods:** Process monitoring and anomaly detection, fault detection and diagnosis, advanced process control, model predictive control (MPC), real-time optimization
+**Key methods:** Process monitoring and anomaly detection, fault detection and diagnosis, PID/PIDA/MPC controller design, process identification for control, real-time optimization
 
 **Validation & Decision Metrics:**
 
 - **Decision objectives and constraints:** Techno-economic analysis (TEA), life cycle assessment (LCA), and life cycle costing (LCC) serve as formal objective functions and constraint checkers — not post-hoc annotations
-- **Validator role:** TEA/LCA screens candidate process configurations against economic and sustainability thresholds before any deployment decision is made
-- **Uncertainty layer:** Price volatility, equipment lifetime, and efficiency uncertainty are propagated through TEA/LCA models for risk-aware configuration selection
+- **Validator role:** TEA/LCA screens candidate configurations against economic and sustainability thresholds before any deployment decision is made
+- **Uncertainty layer:** Price, lifetime, and efficiency uncertainty are propagated through TEA/LCA models for risk-aware configuration selection
 
-**Artifacts:** Monitoring and anomaly detection benchmarks, reproducible TEA/LCA workflow templates, validation protocol documentation
+**What we have worked on:** Sustainability assessment frameworks for CCU industries under global market dynamics; TEA/LCA of oxy-combustion, blue hydrogen, and carbon utilization processes; PIDA controller design with explicit tuning rules; pH control under buffer and equivalence point transitions; batch PID controller development
 
-**Representative applications:** Real-time monitoring and fault detection in microalgae bioprocess systems; TEA-guided screening of carbon capture and utilization process configurations
+**Representative applications:** TEA-guided screening of CO₂ capture and utilization configurations; sustainability assessment of oxy-combustion BECCS and DFM-based methanation; PID/PIDA tuning for industrial process control
 
 ---
 
@@ -61,7 +61,7 @@ The three pillars connect through a single **iterative, validation-driven workfl
 
 > **Observe → Model → Decide → Validate → Deploy & Monitor → Update**
 
-At the **Validate** step, formal constraints — physical feasibility, economic viability (TEA/LCA), and risk bounds — are checked before any decision is deployed. The cycle repeats until validation criteria are satisfied. Feedback control is one component within the **Deploy & Monitor** step; it is not the defining identity of the workflow.
+At the **Validate** step, formal constraints — physical feasibility, economic viability (TEA/LCA when relevant), and risk bounds — are checked before any decision is deployed. The cycle repeats until validation criteria are satisfied. Feedback control is one component within the **Deploy & Monitor** step; it is not the defining identity of the workflow.
 
 ---
 
@@ -74,10 +74,10 @@ LASER applies its autonomous workflow methods across process and industrial doma
 ::: {.g-col-md-4}
 ::: {.laser-card}
 #### Process & Industrial Systems
-- Separation processes (membrane, adsorption, distillation)
+- Separation processes (membrane, TSA, adsorption, solvent extraction)
 - Reactor design, modeling, and scale-up
 - Plant-wide operation and optimization
-- Electrification of chemical processes
+- Electrification and decarbonization of industrial processes
 - Process intensification
 :::
 :::
@@ -85,55 +85,29 @@ LASER applies its autonomous workflow methods across process and industrial doma
 ::: {.g-col-md-4}
 ::: {.laser-card}
 #### Electrochemical & Energy Systems
-- Electrochemical CO₂ reduction
+- Electrochemical CO₂ reduction to CO and value-added products
 - Green and blue hydrogen production
-- Fuel cell and battery process modeling
-- Oxy-combustion systems
-- Energy system integration and optimization
+- Oxy-combustion systems with BECCS potential
+- Direct air capture (TSA-based) and CO₂ utilization
+- Energy system integration and techno-economic evaluation
 :::
 :::
 
 ::: {.g-col-md-4}
 ::: {.laser-card}
 #### Bio/Bioprocess Systems
-- Microalgae cultivation optimization
-- Metabolic and kinetic process modeling
-- Photobioreactor design and operation
-- Biomass and lipid production
-- Downstream bioprocess integration
+- Microalgae growth and intracellular metabolic modeling
+- Photobioreactor and open raceway pond design
+- Model-based optimization of lipid and biomass production
+- Nutrient management and operational strategy
 :::
 :::
 
 :::
 
 ::: {.callout-note appearance="minimal"}
-**Sustainability assessment as a validation layer:** TEA and LCA are embedded in our iterative workflow as decision validators and constraint definers. See [Pillar 3](#pillar-3-autonomous-operation-validation) above. They are not listed here as a standalone application area.
+**Sustainability assessment as a validation layer:** TEA and LCA are embedded in our iterative workflow as decision validators and constraint definers. See [Pillar 3](#pillar-3-autonomous-operation-validation) above.
 :::
-
----
-
-## Research Facilities
-
-LASER's infrastructure supports the full iterative workflow — from data collection and experiment sequencing through model deployment and reproducibility verification.
-
-**Computational Resources**
-
-- High-performance computing access for large-scale simulation and optimization
-- Python-based in-house workflow code for sequential experimental design and surrogate modeling
-- Aspen Plus, MATLAB, and open-source platforms (Pyomo, scikit-learn, IDAES ecosystem)
-
-**Experimental Infrastructure**
-
-- Pilot-scale reactor and separation systems
-- Electrochemical cell setup for CO₂ reduction studies
-- Photobioreactor for microalgae cultivation and characterization
-
-**Reproducibility Infrastructure**
-
-- Versioned experiment logs and dataset archives for completed studies
-- Benchmark problem definitions for autonomous learning and DOE evaluation
-- Workflow code documentation and reusable protocol libraries
-- Resources available via collaboration are noted explicitly; nothing is claimed beyond actual access
 
 ---
 
@@ -141,16 +115,17 @@ LASER's infrastructure supports the full iterative workflow — from data collec
 
 ### Representative Publications
 
-Selected peer-reviewed publications are listed on the [Publications page](publications.qmd). Ongoing and recent work spans:
+Full list is available on the [Publications page](publications.qmd). Selected outputs spanning core research themes:
 
-- Sequential and Bayesian experimental design for process systems
-- Hybrid surrogate modeling with uncertainty quantification
-- TEA/LCA-integrated process design and optimization
-- Process monitoring and fault detection in bioprocess systems
+- **Experimental Design:** A Variance-Weighted Curvature Criterion for Sequential Experimental Design — *Korean J. Chem. Eng.*, 2025 · [DOI](https://doi.org/10.1007/s11814-025-00543-9)
+- **Surrogate Modeling:** Piecewise Response Surface Methodology for Enhanced Modeling and Optimization — *Korean J. Chem. Eng.*, 2025 · [DOI](https://doi.org/10.1007/s11814-024-00362-4)
+- **Bioprocess Modeling:** Model-Based Optimization of Microalgal Cultivation for Lipid Production — *Comput. Chem. Eng.*, 2019 · [DOI](https://doi.org/10.1016/j.compchemeng.2018.10.004)
+- **Sustainability Assessment:** Sustainability Analysis Framework for CCU Industry under Global Market Dynamics — *Renew. Sustain. Energy Rev.*, 2022 · [DOI](https://doi.org/10.1016/j.rser.2022.112639)
+- **Process Control:** A New PID Controller Design for the Integrating Process — *Comput. Chem. Eng.*, 2023 · [DOI](https://doi.org/10.1016/j.compchemeng.2022.108105)
 
 ### Representative Projects
 
-Project descriptions, funding sources, and collaboration details are available on the [Projects page](projects.qmd).
+Project descriptions and funding details are available on the [Projects page](projects.qmd).
 
 ---
 

@@ -5,9 +5,9 @@ page-layout: full
 
 ## About LASER
 
-**LASER (Laboratory for Autonomous Systems Engineering Research)** is a research laboratory in the Department of Chemical Engineering at Sunchon National University, Republic of Korea.
+**LASER (Laboratory for Autonomous Systems Engineering Research)** is a research group in the Department of Chemical Engineering at Sunchon National University, Republic of Korea.
 
-We develop innovative engineering solutions that address global challenges in energy, environment, and sustainability. Our approach combines rigorous mathematical modeling, advanced computational methods, and experimental validation.
+Engineering complex process systems — designing experiments, building predictive models, making operational decisions — traditionally demands sustained expert involvement at every step. LASER's research program is built around a single question: how much of that involvement can be replaced by principled, verifiable computation? We address this through methods grounded in sequential experimental design, hybrid surrogate modeling, uncertainty-aware decision-making, and systematic validation, applied across process, electrochemical, and bioprocess domains.
 
 ---
 
@@ -23,37 +23,50 @@ Republic of Korea
 ### Contact Information
 
 - **Email**: khryu@scnu.ac.kr
-- **Office**: W3-305
+- **Office**: D3-305
 - **Phone**: 061-750-3588
 
 ---
 
 ## Join Our Lab {#join-our-lab}
 
-We are always looking for highly motivated students and researchers to join our team!
+We are always looking for motivated people to join the team. Below are current openings.
 
 ### Open Positions
 
-#### Graduate Students (M.S./Ph.D.)
-We welcome applications from students interested in:
+#### Researchers & Postdoctoral Fellows
 
-- Process systems engineering
-- Carbon capture and utilization
-- Process optimization and control
-- Machine learning applications in chemical engineering
+We welcome inquiries from researchers and postdoctoral candidates with a background in one or more of the following areas:
+
+- Process systems engineering, systems modeling, or computational engineering
+- Optimization, optimal control, or decision-making under uncertainty
+- Machine learning, Bayesian methods, or data-driven modeling
+- Experimental design or active learning in engineering contexts
+
+Candidates are encouraged to reach out directly with a CV and a brief description of their research interests.
+
+#### Graduate Students (M.S. / Ph.D.)
+
+We accept applications from students interested in building research skills in:
+
+- Autonomous learning and experimental design (DOE, BO, active learning)
+- Hybrid process modeling and surrogate-based optimization
+- Process monitoring, fault detection, and operational decision-making
+
+No prior research experience is required — curiosity and a willingness to engage with both computation and engineering fundamentals matter more.
 
 ### How to Apply
 
-If you are interested in joining our lab, please send the following to khryu@scnu.ac.kr:
+Please send the following to **khryu@scnu.ac.kr**:
 
 - CV or resume
-- Transcript
-- Brief statement of research interests
-- Any relevant publications or research experience
+- Transcript (for graduate applicants)
+- Brief statement of research interests (1 page or less)
+- Any relevant publications, reports, or research experience (if available)
 
 ---
 
 ::: {.callout-note}
-## Prospective Students
-For more information about graduate admissions to Sunchon National University, please visit the [university website](https://www.scnu.ac.kr).
+## Prospective Graduate Students
+For information about graduate admissions at Sunchon National University, please visit the [university website](https://www.scnu.ac.kr).
 :::
