@@ -41,7 +41,7 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 
 ::: {.g-col-md-4}
 ::: {.laser-card}
-### Recent Publications (Students)
+### Recent Publications
 
 ::: {#recent-pubs}
 :::
