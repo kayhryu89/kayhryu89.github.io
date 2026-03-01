@@ -11,7 +11,7 @@ filters:
 
 **Laboratory for Autonomous Systems Engineering Research**
 
-Autonomous Learning · Modeling · Decision-Making · Validation · Process Systems Engineering
+Autonomous Process-/Experiment-Design · Operation · Decision Engineering
 
 [About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#join-our-lab){.btn .btn-outline-secondary}
 :::
@@ -30,10 +30,9 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 ::: {.laser-card}
 ### Research Focus
 
-- **Autonomous Learning**: Sequential and Bayesian experimental design
-- **Autonomous Modeling**: Hybrid digital twins, uncertainty-aware surrogates
-- **Decision-Making**: Constrained optimization, robust and stochastic methods
-- **Validation**: TEA/LCA-integrated workflow, monitoring, fault detection
+- **Autonomous Process & Experiment Design**: Value-of-information–driven sequential design and active learning for data-efficient engineering (DOE/iDoE)
+- **Decision Engineering**: Constraint- and uncertainty-aware optimization for design and operation, including sustainability assessment
+- **Operation**: Operational strategy and implementation for complex engineered systems (including control, monitoring, and scheduling)
 
 [Learn more →](research.qmd)
 :::
