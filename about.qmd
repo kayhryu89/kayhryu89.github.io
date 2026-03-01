@@ -7,7 +7,7 @@ page-layout: full
 
 **LASER (Laboratory for Autonomous Systems Engineering Research)** is a research group in the Department of Chemical Engineering at Sunchon National University, Republic of Korea.
 
-Engineering complex process systems — designing experiments, building predictive models, making operational decisions — traditionally demands sustained expert involvement at every step. LASER's research program is built around a single question: how much of that involvement can be replaced by principled, verifiable computation? We address this through methods grounded in sequential experimental design, hybrid surrogate modeling, uncertainty-aware decision-making, and systematic validation, applied across process, electrochemical, and bioprocess domains.
+Designing and operating complex engineered systems often relies on sustained expert experience and know-how across experiment design, operation, and decision-making. LASER asks a single question: how much of that reliance can be reduced through principled, verifiable computation? We develop methods grounded in sequential experiment design, hybrid surrogate modeling, uncertainty-aware decision engineering, and rigorous verification and assessment, with applications spanning classic chemical processes as well as electrochemical and bioprocess systems.
 
 ---
 
@@ -15,16 +15,14 @@ Engineering complex process systems — designing experiments, building predicti
 
 ### Location
 
-Department of Chemical Engineering
-Sunchon National University
-255 Jungang-ro, Suncheon-si, Jeollanam-do 57922
-Republic of Korea
+Department of Chemical Engineering, Sunchon National University  
+255 Jungang-ro, Suncheon, Jeollanam-do 57922, Republic of Korea
 
 ### Contact Information
 
 - **Email**: khryu@scnu.ac.kr
 - **Office**: D3-305
-- **Phone**: 061-750-3588
+- **Phone**: +82 61-750-3588
 
 ---
 
@@ -36,24 +34,23 @@ We are always looking for motivated people to join the team. Below are current o
 
 #### Researchers & Postdoctoral Fellows
 
-We welcome inquiries from researchers and postdoctoral candidates with a background in one or more of the following areas:
+We are looking for highly motivated researchers and postdoctoral candidates who are eager to bridge the gap between fundamental systems engineering and advanced data intelligence. We especially value expertise in one or more of the following areas:
 
-- Process systems engineering, systems modeling, or computational engineering
-- Optimization, optimal control, or decision-making under uncertainty
-- Machine learning, Bayesian methods, or data-driven modeling
-- Experimental design or active learning in engineering contexts
+- Systems Engineering for Complex Processes: High-fidelity modeling, multi-objective optimization, and advanced control (e.g., MPC, RL)
+- Computational Intelligence & Reliable Decision-Making: Advancing robust optimization frameworks, Bayesian inference, and risk-aware strategic planning under uncertainty.
+- Data-Centric & Hybrid Engineering: Strategic data acquisition through active learning, sequential experimental design, and physics-informed data-driven approaches.
 
-Candidates are encouraged to reach out directly with a CV and a brief description of their research interests.
+Innovation in systems engineering thrives on diverse perspectives. We are not limited to Chemical Engineering; we enthusiastically welcome applicants from any quantitative background—such as Mechanical/Electrical Engineering, Applied Mathematics, Data Science, or Biology—who are eager to apply their expertise to complex engineered systems.
 
 #### Graduate Students (M.S. / Ph.D.)
 
-We accept applications from students interested in building research skills in:
+We are looking for students who are interested in the intersection of Process Systems Engineering and Data Science. In the LASER Lab, our research focuses on:
 
-- Autonomous learning and experimental design (DOE, BO, active learning)
-- Hybrid process modeling and surrogate-based optimization
-- Process monitoring, fault detection, and operational decision-making
+- Autonomous Learning & Experimental Design: Developing data-efficient experimentation strategies using active learning, Bayesian optimization, and other informatics-driven methodologies.
+- Reliable Design & Process Optimization: Investigating computational frameworks to design and optimize complex systems, with an emphasis on making reliable decisions under uncertainty and constraints.
+- Intelligent Operations & Hybrid Modeling: Developing frameworks for process monitoring, control, and hybrid (physics + data) modeling for real-world engineering systems.
 
-No prior research experience is required — curiosity and a willingness to engage with both computation and engineering fundamentals matter more.
+Prior research experience is not a prerequisite. We primarily look for intellectual curiosity, a solid mathematical or engineering foundation, and a genuine interest in solving engineering problems through computational methods.
 
 ### How to Apply
 
