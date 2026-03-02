@@ -1,0 +1,184 @@
+/* css styles */
+
+/* Publication index number */
+.pub-index {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-right: 4px;
+}
+
+/* Year headers in publication list */
+#refs h2,
+#refs .pub-year-header {
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #2c3e50;
+  font-size: 1.4em;
+}
+
+/* Bibliography entry spacing */
+#refs .csl-entry {
+  margin-bottom: 0.8em;
+  padding-left: 2em;
+  text-indent: -2em;
+}
+
+/* Project table styling */
+.project-table table {
+  width: 100%;
+  font-size: 0.95em;
+}
+
+.project-table th {
+  background-color: #2c3e50;
+  color: white;
+}
+
+/* Hero section on home page */
+.laser-hero {
+  text-align: center;
+  padding: 2em 1em;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+}
+
+.laser-hero h1 {
+  color: white;
+}
+
+.laser-hero a.btn {
+  margin: 0.3em;
+}
+
+/* Card styling */
+.laser-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.2em;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Member card styling */
+.member-card {
+  display: flex;
+  gap: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 1em;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.member-photo img {
+  height: 200px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-info h4 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #2c3e50;
+}
+
+.member-info p {
+  margin-bottom: 0.3em;
+}
+
+/* Publication status badges */
+.pub-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.pub-status-under-review {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.pub-status-under-revision {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Lab member name highlight */
+.lab-member {
+  color: #0066cc;
+  font-weight: 600;
+}
+
+/* ===== Mobile responsive overrides (≤767px) ===== */
+@media (max-width: 767px) {
+
+  /* Hero: shrink font and padding */
+  .laser-hero {
+    padding: 1.2em 0.8em;
+    border-radius: 4px;
+    margin-bottom: 1em;
+  }
+
+  .laser-hero h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.2em;
+  }
+
+  .laser-hero p,
+  .laser-hero strong {
+    font-size: 0.92em;
+  }
+
+  /* Stack buttons vertically so they don't overflow */
+  .laser-hero .btn {
+    display: block;
+    width: fit-content;
+    margin: 0.25em auto;
+  }
+
+  /* Stack cards vertically (full width) on mobile */
+  .g-col-md-4 {
+    grid-column: 1 / -1;
+    margin-bottom: 1em;
+  }
+
+  .laser-card {
+    height: auto;
+  }
+
+  /* Member cards: horizontal → vertical on mobile */
+  .member-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1em;
+  }
+
+  .member-photo img {
+    height: 130px;
+    width: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .member-info {
+    text-align: left;
+  }
+
+  /* Prevent project table from overflowing */
+  .project-table {
+    overflow-x: auto;
+    display: block;
+  }
+}
