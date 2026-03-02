@@ -117,8 +117,16 @@ function Pandoc(doc)
     html = html .. '<th>Name</th><th>Graduation</th><th>Thesis Title</th><th>Current Position</th>'
     html = html .. '</tr></thead>\n<tbody>\n'
     for _, s in ipairs(alumni) do
+      local eng_name = s.name:match("^(.-)%s*%(") or s.name
+      local kor_name = s.name:match("%((.-)%)")
+      local name_cell
+      if kor_name then
+        name_cell = eng_name .. '<br><span style="color:#666;font-size:0.88em;">(' .. kor_name .. ')</span>'
+      else
+        name_cell = s.name
+      end
       html = html .. '<tr>'
-      html = html .. '<td>' .. s.name .. '</td>'
+      html = html .. '<td>' .. name_cell .. '</td>'
       html = html .. '<td>' .. s.graduation .. '</td>'
       html = html .. '<td>' .. s.thesis .. '</td>'
       html = html .. '<td>' .. s.position .. '</td>'
