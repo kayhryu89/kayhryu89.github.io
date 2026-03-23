@@ -4,9 +4,10 @@ cd /d "%~dp0"
 echo === LASER Website Deploy ===
 echo.
 
-REM Find Python (prefer Anaconda over Windows Store stub)
-set PYTHON=python
-if exist "C:\Users\RYU\anaconda3\python.exe" set PYTHON=C:\Users\RYU\anaconda3\python.exe
+REM Find Python: 포터블 파이썬 (스크립트와 같은 드라이브 기준)
+set DRIVE=%~d0
+set PYTHON=%DRIVE%\07_LASER\03_App\00_Python\python.exe
+if not exist "%PYTHON%" set PYTHON=python
 
 REM Use Python for reliable cross-drive file operations
 "%PYTHON%" "%~dp0deploy_helper.py" render

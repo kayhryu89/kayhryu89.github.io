@@ -4,6 +4,12 @@ import sys, os, shutil, subprocess, tempfile, time
 PROJECT = os.path.dirname(os.path.abspath(__file__))
 SKIP_DIRS = {'.git', '_site', '_freeze', '.quarto', '__pycache__'}
 
+# Quarto 경로: 드라이브 문자가 바뀌어도 대응 (스크립트 위치 기준 상대 경로)
+# 구조: (드라이브)\07_LASER\01_Homepage\01_git\kayhryu89.github.io\deploy_helper.py
+#       (드라이브)\07_LASER\03_App\00_Python\Lib\quarto\bin\quarto.cmd
+_DRIVE = os.path.splitdrive(PROJECT)[0]  # 예: 'E:'
+QUARTO = os.path.join(_DRIVE, os.sep, '07_LASER', '03_App', '00_Python', 'Lib', 'quarto', 'bin', 'quarto.cmd')
+
 def copy_project(dst):
     """Copy project to dst, excluding .git and build artifacts."""
     for item in os.listdir(PROJECT):
@@ -29,7 +35,7 @@ def render():
     copy_project(build_dir)
 
     print('[2/5] Rendering site...')
-    result = subprocess.run(['quarto', 'render'], cwd=build_dir, shell=True)
+    result = subprocess.run([QUARTO, 'render'], cwd=build_dir, shell=True)
     if result.returncode != 0:
         shutil.rmtree(build_dir, ignore_errors=True)
         return 1
