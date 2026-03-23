@@ -91,15 +91,22 @@ def publish():
         else:
             shutil.copy2(s, d)
 
+    # Get user info from main repo for the temp repo
+    user_name = subprocess.run(['git', 'config', 'user.name'], cwd=PROJECT, capture_output=True, text=True, shell=True).stdout.strip() or 'deploy'
+    user_email = subprocess.run(['git', 'config', 'user.email'], cwd=PROJECT, capture_output=True, text=True, shell=True).stdout.strip() or 'deploy@localhost'
+
     cmds = [
         ['git', 'init', '-b', 'gh-pages'],
+        ['git', 'config', 'user.name', user_name],
+        ['git', 'config', 'user.email', user_email],
         ['git', 'add', '.'],
         ['git', 'commit', '-m', 'Built site for gh-pages'],
         ['git', 'remote', 'add', 'origin', 'https://github.com/kayhryu89/kayhryu89.github.io.git'],
         ['git', 'push', '--force', 'origin', 'gh-pages'],
     ]
     for cmd in cmds:
-        r = subprocess.run(cmd, cwd=deploy_dir, capture_output=(cmd[1] != 'push'), shell=True)
+        show = cmd[1] in ('push', 'commit')
+        r = subprocess.run(cmd, cwd=deploy_dir, capture_output=not show, shell=True)
         if r.returncode != 0 and cmd[1] == 'init':
             # Fallback for older git without -b flag
             subprocess.run(['git', 'init'], cwd=deploy_dir, capture_output=True, shell=True)

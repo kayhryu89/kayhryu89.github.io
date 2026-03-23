@@ -4,12 +4,11 @@ cd /d "%~dp0"
 echo === LASER Website Deploy ===
 echo.
 
-REM Find Python: 포터블 파이썬 (스크립트와 같은 드라이브 기준)
+REM Find Python (portable, same drive as script)
 set DRIVE=%~d0
 set PYTHON=%DRIVE%\07_LASER\03_App\00_Python\python.exe
 if not exist "%PYTHON%" set PYTHON=python
 
-REM Use Python for reliable cross-drive file operations
 "%PYTHON%" "%~dp0deploy_helper.py" render
 if errorlevel 1 (
     echo ERROR: Render failed
@@ -19,9 +18,10 @@ if errorlevel 1 (
 
 echo [3/5] Committing source to main...
 git add -A
-set /p "MSG=Commit message (Enter for 'Update site'): "
-if "!MSG!"=="" set MSG=Update site
-git commit -m "!MSG!"
+set "MSG="
+set /p MSG=Commit message (Enter for Update site): 
+if "%MSG%"=="" set MSG=Update site
+git commit -m "%MSG%"
 git push
 echo.
 

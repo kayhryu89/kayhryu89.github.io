@@ -17,7 +17,12 @@
       "Bash(where:*)",
       "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" -c \"print\\(''hello''\\)\")",
       "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" deploy_helper.py render)",
-      "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" deploy_helper.py publish)"
+      "Bash(\"C:\\\\Users\\\\RYU\\\\anaconda3\\\\python.exe\" deploy_helper.py publish)",
+      "Bash(printf '@echo off\\\\r\\\\nsetlocal EnableDelayedExpansion\\\\r\\\\ncd /d \"\"%%~dp0\"\"\\\\r\\\\necho === LASER Website Deploy ===\\\\r\\\\necho.\\\\r\\\\n\\\\r\\\\nREM Find Python \\(portable, same drive as script\\)\\\\r\\\\nset DRIVE=%%~d0\\\\r\\\\nset PYTHON=%%DRIVE%%\\\\\\\\07_LASER\\\\\\\\03_App\\\\\\\\00_Python\\\\\\\\python.exe\\\\r\\\\nif not exist \"\"%%PYTHON%%\"\" set PYTHON=python\\\\r\\\\n\\\\r\\\\n\"\"%%PYTHON%%\"\" \"\"%%~dp0deploy_helper.py\"\" render\\\\r\\\\nif errorlevel 1 \\(\\\\r\\\\n    echo ERROR: Render failed\\\\r\\\\n    pause\\\\r\\\\n    exit /b 1\\\\r\\\\n\\)\\\\r\\\\n\\\\r\\\\necho [3/5] Committing source to main...\\\\r\\\\ngit add -A\\\\r\\\\nset \"\"MSG=\"\"\\\\r\\\\nset /p MSG=Commit message \\(Enter for Update site\\): \\\\r\\\\nif \"\"%%MSG%%\"\"==\"\"\"\" set MSG=Update site\\\\r\\\\ngit commit -m \"\"%%MSG%%\"\"\\\\r\\\\ngit push\\\\r\\\\necho.\\\\r\\\\n\\\\r\\\\necho [4/5] Publishing to gh-pages...\\\\r\\\\n\"\"%%PYTHON%%\"\" \"\"%%~dp0deploy_helper.py\"\" publish\\\\r\\\\necho.\\\\r\\\\n\\\\r\\\\necho === Deploy complete ===\\\\r\\\\necho Published to https://kayhryu89.github.io/\\\\r\\\\necho NOTE: GitHub Pages caching may delay changes by a few minutes.\\\\r\\\\npause\\\\r\\\\n')",
+      "Bash(cp /tmp/deploy.bat \"e:/07_LASER/01_Homepage/01_git/kayhryu89.github.io/deploy.bat\")",
+      "Bash(python3 -c \":*)",
+      "Bash(\"E:/07_LASER/03_App/00_Python/python.exe\" -c \":*)",
+      "Bash(\"E:/07_LASER/03_App/00_Python/python.exe\" \"e:/07_LASER/01_Homepage/01_git/kayhryu89.github.io/_fix_deploy.py\")"
     ]
   }
 }
