@@ -31,7 +31,7 @@ Department of Chemical Engineering, Sunchon National University
 
 ::: {.column width="58%"}
 <iframe
-  src="https://www.google.com/maps?q=Sunchon+National+University,+255+Jungang-ro,+Suncheon,+Jeollanam-do,+Republic+of+Korea&output=embed"
+  src="https://www.google.com/maps?q=Sunchon+National+University,+255+Jungang-ro,+Suncheon,+Jeollanam-do,+Republic+of+Korea&output=embed&hl=en"
   width="100%" height="260" style="border:0; border-radius:6px;" allowfullscreen="" loading="lazy">
 </iframe>
 :::

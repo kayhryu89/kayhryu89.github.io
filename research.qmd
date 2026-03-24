@@ -3,11 +3,13 @@ title: "Research"
 page-layout: full
 ---
 
-## Research Topics
-
 LASER develops computational and experimental methods to enable **autonomous systems engineering** — reducing reliance on manual expert iteration across the full lifecycle of process system design, operation, and validation.
 
-Three fundamental challenges structure our research program. First, engineering decisions must satisfy hard physical, safety, and economic constraints; embedding these rigorously within learned or data-driven frameworks remains an open problem. Second, real process systems operate under deep uncertainty — in model parameters, disturbances, and structural assumptions — requiring decision-making that is robust by design, not by tuning. Third, informative data is structurally scarce in process operations: normal-state records dominate while fault events, rare operating modes, and distribution shifts are underrepresented, demanding data-efficient learning strategies that remain reliable beyond the training regime.
+Three fundamental challenges structure our research program:
+
+- **Constraint satisfaction**: Engineering decisions must satisfy hard physical, safety, and economic constraints. Embedding these rigorously within learned or data-driven frameworks remains an open problem.
+- **Deep uncertainty**: Real process systems operate under uncertainty in model parameters, disturbances, and structural assumptions — requiring decision-making that is robust by design, not by tuning.
+- **Data scarcity**: Informative data is structurally scarce in process operations. Normal-state records dominate while fault events and rare operating modes are underrepresented, demanding data-efficient learning that remains reliable beyond the training regime.
 
 ---
 
@@ -23,6 +25,8 @@ Three fundamental challenges structure our research program. First, engineering 
 
 **Representative applications:** Sequential experiment design for process characterization and surrogate model building; piecewise RSM for complex response surfaces with discontinuous operating regimes
 
+![Pillar 1: Iterative Sequential Experimental Design](Info/Images/pillar1.svg){width=100% fig-alt="Iterative loop diagram of sequential experimental design"}
+
 ---
 
 ### Pillar 2 — Autonomous Modeling & Decision-Making
@@ -34,6 +38,8 @@ Three fundamental challenges structure our research program. First, engineering 
 **What we have worked on:** Mathematical modeling of microalgal intracellular metabolism under varying nutrient conditions; nonlinear process identification using pulse response and frequency-domain methods; direct data-driven controller design via fictitious reference methods; two-stage stochastic optimization for electrochemical CO₂ reduction systems under renewable energy variability
 
 **Representative applications:** Model-based optimization of microalgal lipid production strategy; robust process identification under deterministic disturbances; optimal design of CO₂ electrolysis systems with renewable energy integration
+
+![Pillar 2: Hybrid Modeling and Decision-Making Architecture](Info/Images/pillar2.svg){width=100% fig-alt="Hybrid modeling architecture diagram combining first-principles and data-driven models"}
 
 ---
 
@@ -52,6 +58,8 @@ Three fundamental challenges structure our research program. First, engineering 
 **What we have worked on:** Sustainability assessment frameworks for CCU industries under global market dynamics; TEA/LCA of oxy-combustion, blue hydrogen, and carbon utilization processes; PIDA controller design with explicit tuning rules; pH control under buffer and equivalence point transitions; batch PID controller development
 
 **Representative applications:** TEA-guided screening of CO₂ capture and utilization configurations; sustainability assessment of oxy-combustion BECCS and DFM-based methanation; PID/PIDA tuning for industrial process control
+
+![Pillar 3: Autonomous Operation and Validation Gateway](Info/Images/pillar3.svg){width=100% fig-alt="Validation gateway flowchart for autonomous operation and deployment"}
 
 ---
 
@@ -87,6 +95,7 @@ LASER applies its autonomous workflow methods across process and industrial doma
 #### Electrochemical & Energy Systems
 - Electrochemical CO₂ reduction to CO and value-added products
 - Green and blue hydrogen production
+- Solid-state hydrogen storage system modeling and design
 - Oxy-combustion systems with BECCS potential
 - Direct air capture (TSA-based) and CO₂ utilization
 - Energy system integration and techno-economic evaluation
@@ -113,19 +122,7 @@ LASER applies its autonomous workflow methods across process and industrial doma
 
 ## Selected Outputs
 
-### Representative Publications
-
-Full list is available on the [Publications page](publications.qmd). Selected outputs spanning core research themes:
-
-- **Experimental Design:** A Variance-Weighted Curvature Criterion for Sequential Experimental Design — *Korean J. Chem. Eng.*, 2025 · [DOI](https://doi.org/10.1007/s11814-025-00543-9)
-- **Surrogate Modeling:** Piecewise Response Surface Methodology for Enhanced Modeling and Optimization — *Korean J. Chem. Eng.*, 2025 · [DOI](https://doi.org/10.1007/s11814-024-00362-4)
-- **Bioprocess Modeling:** Model-Based Optimization of Microalgal Cultivation for Lipid Production — *Comput. Chem. Eng.*, 2019 · [DOI](https://doi.org/10.1016/j.compchemeng.2018.10.004)
-- **Sustainability Assessment:** Sustainability Analysis Framework for CCU Industry under Global Market Dynamics — *Renew. Sustain. Energy Rev.*, 2022 · [DOI](https://doi.org/10.1016/j.rser.2022.112639)
-- **Process Control:** A New PID Controller Design for the Integrating Process — *Comput. Chem. Eng.*, 2023 · [DOI](https://doi.org/10.1016/j.compchemeng.2022.108105)
-
-### Representative Projects
-
-Project descriptions and funding details are available on the [Projects page](projects.qmd).
+Representative publications are available on the [Publications page](publications.qmd), and funded projects are listed on the [Projects page](projects.qmd).
 
 ---
 

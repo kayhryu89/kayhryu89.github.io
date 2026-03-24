@@ -1,0 +1,132 @@
+<svg viewBox="0 0 700 560" xmlns="http://www.w3.org/2000/svg"
+     font-family="'Helvetica Neue', Arial, sans-serif">
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#3a3a3a"/>
+    </marker>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#1e3a5f"/>
+    </marker>
+    <marker id="arr-r" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#8b1a1a"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="560" fill="white"/>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-size="13.5"
+        font-weight="bold" fill="#1e3a5f">Pillar 3 · Autonomous Operation and Validation</text>
+  <line x1="60" y1="39" x2="640" y2="39" stroke="#1e3a5f" stroke-width="0.8"/>
+
+  <!-- ══ Input Box: Candidate Design ══ -->
+  <rect x="205" y="50" width="290" height="52" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="205" y1="70" x2="495" y2="70" stroke="#2c5282" stroke-width="1"/>
+  <text x="350" y="64" text-anchor="middle" font-size="11"
+        font-weight="bold" fill="#1e3a5f">Candidate Design / Control Policy</text>
+  <text x="350" y="88" text-anchor="middle" font-size="9.5" fill="#444">
+    From Pillar 1 (design) or Pillar 2 (model-based policy)
+  </text>
+
+  <!-- Arrow: Input → Gate -->
+  <line x1="350" y1="102" x2="350" y2="120" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+
+  <!-- ══ Validation Gate (large box) ══ -->
+  <rect x="90" y="120" width="520" height="140" rx="7"
+        fill="#f5f8fc" stroke="#1e3a5f" stroke-width="2"/>
+  <rect x="90" y="120" width="520" height="26" rx="7" fill="#1e3a5f"/>
+  <rect x="90" y="135" width="520" height="11" fill="#1e3a5f"/>
+  <text x="350" y="138" text-anchor="middle" font-size="12"
+        font-weight="bold" fill="white">VALIDATION GATE</text>
+
+  <!-- 4 criteria in 2 columns -->
+  <!-- Left column -->
+  <text x="115" y="170" font-size="10" fill="#1e3a5f" font-weight="bold">□</text>
+  <text x="128" y="170" font-size="9.5" fill="#222">Physical feasibility</text>
+  <text x="128" y="183" font-size="8.5" fill="#666">   mass balance · thermodynamic limits</text>
+
+  <text x="115" y="204" font-size="10" fill="#1e3a5f" font-weight="bold">□</text>
+  <text x="128" y="204" font-size="9.5" fill="#222">Risk / safety bounds</text>
+  <text x="128" y="217" font-size="8.5" fill="#666">   uncertainty propagation · constraint check</text>
+
+  <!-- Right column -->
+  <text x="375" y="170" font-size="10" fill="#1e3a5f" font-weight="bold">□</text>
+  <text x="388" y="170" font-size="9.5" fill="#222">Economic viability  (TEA)</text>
+  <text x="388" y="183" font-size="8.5" fill="#666">   cost threshold · NPV · LCOX</text>
+
+  <text x="375" y="204" font-size="10" fill="#1e3a5f" font-weight="bold">□</text>
+  <text x="388" y="204" font-size="9.5" fill="#222">Sustainability  (LCA / LCC)</text>
+  <text x="388" y="217" font-size="8.5" fill="#666">   emission limit · life-cycle cost</text>
+
+  <!-- Vertical divider -->
+  <line x1="362" y1="150" x2="362" y2="252" stroke="#c8d8e8" stroke-width="0.8"/>
+
+  <!-- Arrow: Gate → Diamond -->
+  <line x1="350" y1="260" x2="350" y2="283" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+
+  <!-- ══ Decision Diamond ══ -->
+  <polygon points="350,283 398,313 350,343 302,313"
+           fill="#dce8f5" stroke="#1e3a5f" stroke-width="1.5"/>
+  <text x="350" y="308" text-anchor="middle" font-size="9.5"
+        font-weight="bold" fill="#1e3a5f">Validated?</text>
+  <text x="350" y="321" text-anchor="middle" font-size="8.5" fill="#444">All criteria met?</text>
+
+  <!-- ── YES arrow: down ── -->
+  <line x1="350" y1="343" x2="350" y2="370" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="358" y="360" font-size="9" fill="#1a7a1a" font-weight="bold">Yes</text>
+
+  <!-- ── NO arrow: right → Revise box ── -->
+  <line x1="398" y1="313" x2="480" y2="313" stroke="#8b1a1a" stroke-width="1.5"
+        marker-end="url(#arr-r)"/>
+  <text x="432" y="306" text-anchor="middle" font-size="9" fill="#8b1a1a" font-weight="bold">No</text>
+
+  <!-- Revise box (right side) -->
+  <rect x="480" y="283" width="158" height="60" rx="7"
+        fill="#fdf0f0" stroke="#8b1a1a" stroke-width="1.5"/>
+  <text x="559" y="302" text-anchor="middle" font-size="10"
+        font-weight="bold" fill="#8b1a1a">Revise Design</text>
+  <text x="559" y="317" text-anchor="middle" font-size="8.5" fill="#555">Return to Pillar 1/2</text>
+  <text x="559" y="331" text-anchor="middle" font-size="8.5" fill="#777">re-model / re-optimize</text>
+
+  <!-- ══ Deploy & Monitor Box ══ -->
+  <rect x="130" y="370" width="440" height="85" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="130" y1="393" x2="570" y2="393" stroke="#2c5282" stroke-width="1"/>
+  <text x="350" y="386" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">① Deploy &amp; Monitor</text>
+  <text x="350" y="409" text-anchor="middle" font-size="9.5" fill="#222">PID / PIDA / MPC · Real-time optimization</text>
+  <text x="350" y="424" text-anchor="middle" font-size="9.5" fill="#333">pH control · Batch control · Integrating processes</text>
+  <text x="350" y="439" text-anchor="middle" font-size="9"   fill="#555">Closed-loop operation under validated policy</text>
+
+  <!-- Arrow: Deploy → Anomaly -->
+  <line x1="350" y1="455" x2="350" y2="475" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="378" y="469" text-anchor="start" font-size="8.5"
+        fill="#b06000" font-style="italic">drift / fault signal</text>
+
+  <!-- ══ Anomaly Detection Box ══ -->
+  <rect x="130" y="475" width="440" height="72" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="130" y1="496" x2="570" y2="496" stroke="#2c5282" stroke-width="1"/>
+  <text x="350" y="489" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">② Anomaly Detection / Fault Diagnosis</text>
+  <text x="350" y="511" text-anchor="middle" font-size="9.5" fill="#222">Process monitoring · Distribution shift detection</text>
+  <text x="350" y="526" text-anchor="middle" font-size="9.5" fill="#333">Fault detection and diagnosis (FDD)</text>
+  <text x="350" y="540" text-anchor="middle" font-size="9"   fill="#555">Triggers model update when conditions change</text>
+
+  <!-- ── Feedback loop: Anomaly → Validation Gate (dashed, left side) ── -->
+  <path d="M 130 511 L 55 511 L 55 190 L 90 190"
+        fill="none" stroke="#1e3a5f" stroke-width="1.2"
+        stroke-dasharray="5,3" marker-end="url(#arr-b)"/>
+  <text x="43" y="365" text-anchor="middle" font-size="8.5" fill="#1e3a5f"
+        font-style="italic" transform="rotate(-90 43 365)">Update / Retrain → Re-validate</text>
+
+</svg>

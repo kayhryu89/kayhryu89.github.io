@@ -1,0 +1,119 @@
+<svg viewBox="0 0 700 490" xmlns="http://www.w3.org/2000/svg"
+     font-family="'Helvetica Neue', Arial, sans-serif">
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#3a3a3a"/>
+    </marker>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#1e3a5f"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="490" fill="white"/>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-size="13.5"
+        font-weight="bold" fill="#1e3a5f">Pillar 1 · Iterative Sequential Experimental Design</text>
+  <line x1="60" y1="39" x2="640" y2="39" stroke="#1e3a5f" stroke-width="0.8"/>
+
+  <!-- ── Input (dashed) ── -->
+  <line x1="172" y1="48" x2="172" y2="62" stroke="#1e3a5f" stroke-width="1.2"
+        stroke-dasharray="4,2" marker-end="url(#arr-b)"/>
+  <text x="172" y="46" text-anchor="middle" font-size="8.5" fill="#1e3a5f">
+    Initial data  𝒟₀  /  prior knowledge
+  </text>
+
+  <!-- ══ Box 1: Surrogate Model (top-left) ══ -->
+  <rect x="60" y="62" width="225" height="110" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="60" y1="85" x2="285" y2="85" stroke="#2c5282" stroke-width="1"/>
+  <text x="172" y="78" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">① Surrogate Model</text>
+  <text x="172" y="101" text-anchor="middle" font-size="10" fill="#1a1a1a">Prediction  ŷ(x),  Uncertainty  σ(x)</text>
+  <text x="172" y="116" text-anchor="middle" font-size="9.5" fill="#333">GPR · Polynomial · Piecewise RSM</text>
+  <text x="172" y="131" text-anchor="middle" font-size="9"   fill="#555">Trained on  𝒟 = {(xᵢ, yᵢ)}</text>
+  <text x="172" y="146" text-anchor="middle" font-size="9"   fill="#777">Updated at every iteration</text>
+  <text x="172" y="161" text-anchor="middle" font-size="8.5" fill="#999">(iDoE / MBDoE calibration)</text>
+
+  <!-- ══ Box 2: Acquisition Function (top-right) ══ -->
+  <rect x="415" y="62" width="225" height="110" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="415" y1="85" x2="640" y2="85" stroke="#2c5282" stroke-width="1"/>
+  <text x="527" y="78" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">② Acquisition Function</text>
+  <text x="527" y="101" text-anchor="middle" font-size="10" fill="#1a1a1a">x* = argmax α(x; ŷ, σ)</text>
+  <text x="527" y="116" text-anchor="middle" font-size="9.5" fill="#333">EI · UCB · Variance-weighted curvature</text>
+  <text x="527" y="131" text-anchor="middle" font-size="9"   fill="#555">Bayesian Optimization · Active Learning</text>
+  <text x="527" y="146" text-anchor="middle" font-size="9"   fill="#777">Balances exploitation ↔ exploration</text>
+  <text x="527" y="161" text-anchor="middle" font-size="8.5" fill="#999">(MBDoE · iDoE criteria)</text>
+
+  <!-- ══ Box 3: Experiment (bottom-right) ══ -->
+  <rect x="415" y="305" width="225" height="110" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="415" y1="328" x2="640" y2="328" stroke="#2c5282" stroke-width="1"/>
+  <text x="527" y="321" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">③ Experiment / Evaluation</text>
+  <text x="527" y="344" text-anchor="middle" font-size="10" fill="#1a1a1a">Observe  y* = f(x*) + ε</text>
+  <text x="527" y="359" text-anchor="middle" font-size="9.5" fill="#333">Lab experiment · Process measurement</text>
+  <text x="527" y="374" text-anchor="middle" font-size="9"   fill="#555">High-fidelity simulation</text>
+  <text x="527" y="389" text-anchor="middle" font-size="9"   fill="#777">Execute at selected point x*</text>
+  <text x="527" y="404" text-anchor="middle" font-size="8.5" fill="#999">(physical or computational)</text>
+
+  <!-- ══ Box 4: Dataset Update (bottom-left) ══ -->
+  <rect x="60" y="305" width="225" height="110" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="60" y1="328" x2="285" y2="328" stroke="#2c5282" stroke-width="1"/>
+  <text x="172" y="321" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">④ Dataset Update</text>
+  <text x="172" y="344" text-anchor="middle" font-size="10" fill="#1a1a1a">𝒟 ← 𝒟 ∪ {(x*, y*)}</text>
+  <text x="172" y="359" text-anchor="middle" font-size="9.5" fill="#333">Retrain / update surrogate model</text>
+  <text x="172" y="374" text-anchor="middle" font-size="9"   fill="#555">Evaluate stopping criterion</text>
+  <text x="172" y="389" text-anchor="middle" font-size="9"   fill="#777">budget · convergence · threshold</text>
+  <text x="172" y="404" text-anchor="middle" font-size="8.5" fill="#999">(N ≥ N_max or |Δŷ| ≤ ε)</text>
+
+  <!-- ══ Cyclic Arrows ══ -->
+
+  <!-- 1 → 2: right at y=117 -->
+  <line x1="285" y1="117" x2="415" y2="117" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="350" y="111" text-anchor="middle" font-size="8.5"
+        fill="#b06000" font-style="italic">optimize criterion</text>
+
+  <!-- 2 → 3: down at x=527 -->
+  <line x1="527" y1="172" x2="527" y2="305" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="575" y="242" text-anchor="middle" font-size="8.5" fill="#b06000"
+        font-style="italic" transform="rotate(90 575 242)">next query point  x*</text>
+
+  <!-- 3 → 4: left at y=360 -->
+  <line x1="415" y1="360" x2="285" y2="360" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="350" y="374" text-anchor="middle" font-size="8.5"
+        fill="#b06000" font-style="italic">new observation  (x*, y*)</text>
+
+  <!-- 4 → 1: up at x=172 -->
+  <line x1="172" y1="305" x2="172" y2="172" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="124" y="242" text-anchor="middle" font-size="8.5" fill="#b06000"
+        font-style="italic" transform="rotate(-90 124 242)">updated model</text>
+
+  <!-- Center dashed ellipse -->
+  <ellipse cx="350" cy="237" rx="63" ry="42" fill="none"
+           stroke="#2c5282" stroke-width="1" stroke-dasharray="5,3"/>
+  <text x="350" y="231" text-anchor="middle" font-size="10"
+        fill="#1e3a5f" font-style="italic">Iterative</text>
+  <text x="350" y="246" text-anchor="middle" font-size="10"
+        fill="#1e3a5f" font-style="italic">Design Loop</text>
+
+  <!-- ── Output (dashed) ── -->
+  <line x1="172" y1="415" x2="172" y2="453" stroke="#1e3a5f" stroke-width="1.2"
+        stroke-dasharray="4,2" marker-end="url(#arr-b)"/>
+  <rect x="75" y="454" width="194" height="24" rx="5" fill="#1e3a5f"/>
+  <text x="172" y="470" text-anchor="middle" font-size="9.5" fill="white">
+    Optimized Design / Final Model
+  </text>
+
+</svg>

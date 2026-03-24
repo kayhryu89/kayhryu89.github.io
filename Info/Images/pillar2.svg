@@ -1,0 +1,113 @@
+<svg viewBox="0 0 700 510" xmlns="http://www.w3.org/2000/svg"
+     font-family="'Helvetica Neue', Arial, sans-serif">
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#3a3a3a"/>
+    </marker>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,1.5 L8.5,5 L0,8.5 Z" fill="#1e3a5f"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="510" fill="white"/>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-size="13.5"
+        font-weight="bold" fill="#1e3a5f">Pillar 2 · Hybrid Modeling and Decision-Making Architecture</text>
+  <line x1="60" y1="39" x2="640" y2="39" stroke="#1e3a5f" stroke-width="0.8"/>
+
+  <!-- ── Inputs (dashed) ── -->
+  <line x1="170" y1="48" x2="170" y2="62" stroke="#1e3a5f" stroke-width="1.2"
+        stroke-dasharray="4,2" marker-end="url(#arr-b)"/>
+  <text x="170" y="46" text-anchor="middle" font-size="8.5" fill="#1e3a5f">Domain knowledge</text>
+
+  <line x1="530" y1="48" x2="530" y2="62" stroke="#1e3a5f" stroke-width="1.2"
+        stroke-dasharray="4,2" marker-end="url(#arr-b)"/>
+  <text x="530" y="46" text-anchor="middle" font-size="8.5" fill="#1e3a5f">Process data  {(xᵢ, yᵢ)}</text>
+
+  <!-- ══ Box 1: First-Principles (top-left) ══ -->
+  <rect x="55" y="62" width="230" height="130" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="55" y1="85" x2="285" y2="85" stroke="#2c5282" stroke-width="1"/>
+  <text x="170" y="78" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">First-Principles Model</text>
+  <text x="170" y="101" text-anchor="middle" font-size="10.5" fill="#1a1a1a">y = f (x; θ)</text>
+  <text x="170" y="117" text-anchor="middle" font-size="9.5" fill="#333">Mass / energy balance · Kinetics</text>
+  <text x="170" y="132" text-anchor="middle" font-size="9.5" fill="#333">Thermodynamics · Transport</text>
+  <text x="170" y="147" text-anchor="middle" font-size="9"   fill="#555">Known structure, uncertain θ</text>
+  <text x="170" y="162" text-anchor="middle" font-size="9"   fill="#777">Encodes physical constraints</text>
+  <text x="170" y="177" text-anchor="middle" font-size="8.5" fill="#999">(metabolic · kinetic · mechanistic)</text>
+
+  <!-- ══ Box 2: Data-Driven (top-right) ══ -->
+  <rect x="415" y="62" width="230" height="130" rx="7"
+        fill="#eaf1f8" stroke="#2c5282" stroke-width="1.5"/>
+  <line x1="415" y1="85" x2="645" y2="85" stroke="#2c5282" stroke-width="1"/>
+  <text x="530" y="78" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="#1e3a5f">Data-Driven Model</text>
+  <text x="530" y="101" text-anchor="middle" font-size="10.5" fill="#1a1a1a">ε = g(x; φ)   or   ŷ = h(x; φ)</text>
+  <text x="530" y="117" text-anchor="middle" font-size="9.5" fill="#333">Gaussian Process · Neural Network</text>
+  <text x="530" y="132" text-anchor="middle" font-size="9.5" fill="#333">Polynomial regression · LSSVM</text>
+  <text x="530" y="147" text-anchor="middle" font-size="9"   fill="#555">Learns empirical patterns from data</text>
+  <text x="530" y="162" text-anchor="middle" font-size="9"   fill="#777">Provides uncertainty quantification</text>
+  <text x="530" y="177" text-anchor="middle" font-size="8.5" fill="#999">(GPR · PINN · surrogate regression)</text>
+
+  <!-- ── Merge labels (between top boxes and hybrid) ── -->
+  <text x="350" y="220" text-anchor="middle" font-size="8.5"
+        fill="#b06000" font-style="italic">Series:    ŷ = f(x; θ) + g(x; φ)</text>
+  <text x="350" y="234" text-anchor="middle" font-size="8.5" fill="#888">— or —</text>
+  <text x="350" y="248" text-anchor="middle" font-size="8.5"
+        fill="#b06000" font-style="italic">Parallel:  ŷ = w · f(x; θ) + (1−w) · g(x; φ)</text>
+
+  <!-- ── Converging arrows ── -->
+  <!-- Box1 bottom-center → Hybrid top-left area -->
+  <line x1="170" y1="192" x2="300" y2="280" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <!-- Box2 bottom-center → Hybrid top-right area -->
+  <line x1="530" y1="192" x2="400" y2="280" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+
+  <!-- ══ Box 3: Hybrid Model (center, emphasis) ══ -->
+  <rect x="175" y="280" width="350" height="110" rx="7"
+        fill="#dce8f5" stroke="#1e3a5f" stroke-width="2"/>
+  <line x1="175" y1="304" x2="525" y2="304" stroke="#1e3a5f" stroke-width="1.5"/>
+  <text x="350" y="297" text-anchor="middle" font-size="12"
+        font-weight="bold" fill="#1e3a5f">Hybrid Model</text>
+  <text x="350" y="323" text-anchor="middle" font-size="10.5" fill="#1a1a1a">
+    Prediction  ŷ(x)  +  Uncertainty  σ(x)
+  </text>
+  <text x="350" y="339" text-anchor="middle" font-size="9.5" fill="#333">
+    Respects physical constraints · Propagates uncertainty
+  </text>
+  <text x="350" y="354" text-anchor="middle" font-size="9.5" fill="#333">
+    Generalizes reliably beyond training regime
+  </text>
+  <text x="350" y="370" text-anchor="middle" font-size="9" fill="#555">
+    Calibrated in closed loop with Pillar 1 (data-efficient)
+  </text>
+
+  <!-- Arrow: Hybrid → Decision -->
+  <line x1="350" y1="390" x2="350" y2="425" stroke="#3a3a3a" stroke-width="1.5"
+        marker-end="url(#arr)"/>
+  <text x="378" y="412" text-anchor="start" font-size="8.5"
+        fill="#b06000" font-style="italic">ŷ, σ  →  optimize</text>
+
+  <!-- ══ Box 4: Optimization / Decision (dark, emphasis) ══ -->
+  <rect x="165" y="425" width="370" height="62" rx="7"
+        fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.5"/>
+  <text x="350" y="449" text-anchor="middle" font-size="11.5"
+        font-weight="bold" fill="white">Optimization / Decision-Making</text>
+  <text x="350" y="467" text-anchor="middle" font-size="9.5" fill="#b8ccdf">
+    min / max  F(x)  ·  s.t. constraints  ·  under uncertainty
+  </text>
+
+  <!-- Output arrow -->
+  <line x1="350" y1="487" x2="350" y2="503" stroke="#1e3a5f" stroke-width="1.2"
+        stroke-dasharray="4,2" marker-end="url(#arr-b)"/>
+  <text x="350" y="510" text-anchor="middle" font-size="8.5" fill="#1e3a5f">
+    Optimal operating policy / design variable x*
+  </text>
+
+</svg>
