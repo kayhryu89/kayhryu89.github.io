@@ -54,7 +54,7 @@ function Pandoc(doc)
       html = html .. '<td style="text-align:center">' .. i .. '</td>'
       html = html .. '<td>' .. e.title .. '</td>'
       html = html .. '<td>' .. e.funding .. '</td>'
-      html = html .. '<td>' .. e.period:gsub("%-%-", "–") .. '</td>'
+      html = html .. '<td style="white-space:nowrap">' .. e.period:gsub("%-%-", "–<br>") .. '</td>'
       html = html .. '</tr>\n'
     end
     html = html .. '</tbody></table>\n</div>'
