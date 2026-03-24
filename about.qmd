@@ -3,19 +3,20 @@ title: "About LASER"
 page-layout: full
 ---
 
-## About LASER
+**LASER (Laboratory for Autonomous Systems Engineering Research)** is a research group in the Department of Chemical Engineering at Sunchon National University, Republic of Korea. The lab is led by [Prof. Kyung Hwan Ryu](/members.html).
 
-**LASER (Laboratory for Autonomous Systems Engineering Research)** is a research group in the Department of Chemical Engineering at Sunchon National University, Republic of Korea.
-
-Designing and operating complex engineered systems often relies on sustained expert experience and know-how across experiment design, operation, and decision-making. LASER asks a single question: how much of that reliance can be reduced through principled, verifiable computation? We develop methods grounded in sequential experiment design, hybrid surrogate modeling, uncertainty-aware decision engineering, and rigorous verification and assessment, with applications spanning classic chemical processes as well as electrochemical and bioprocess systems.
+Designing and operating complex engineered systems often relies on sustained expert experience and know-how across experiment design, operation, and decision-making. LASER asks a single question: how much of that reliance can be reduced through principled, verifiable computation? Our methods draw from sequential experiment design, hybrid surrogate modeling, uncertainty-aware decision engineering, and rigorous verification and assessment. We apply these across chemical, electrochemical, and bioprocess systems.
 
 ---
 
 ## Contact {#contact}
 
+:::: {.columns}
+
+::: {.column width="38%"}
 ### Location
 
-Department of Chemical Engineering, Sunchon National University  
+Department of Chemical Engineering, Sunchon National University
 255 Jungang-ro, Suncheon, Jeollanam-do 57922, Republic of Korea
 
 ### Contact Information
@@ -23,6 +24,19 @@ Department of Chemical Engineering, Sunchon National University
 - **Email**: khryu@scnu.ac.kr
 - **Office**: D3-305
 - **Phone**: +82 61-750-3588
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="58%"}
+<iframe
+  src="https://www.google.com/maps?q=Sunchon+National+University,+255+Jungang-ro,+Suncheon,+Jeollanam-do,+Republic+of+Korea&output=embed"
+  width="100%" height="260" style="border:0; border-radius:6px;" allowfullscreen="" loading="lazy">
+</iframe>
+:::
+
+::::
 
 ---
 
@@ -34,23 +48,21 @@ We are always looking for motivated people to join the team. Below are current o
 
 #### Researchers & Postdoctoral Fellows
 
-We are looking for highly motivated researchers and postdoctoral candidates who are eager to bridge the gap between fundamental systems engineering and advanced data intelligence. We especially value expertise in one or more of the following areas:
+We are looking for highly motivated researchers and postdoctoral candidates who are ready to lead independent research at the intersection of systems engineering and data intelligence. We especially value demonstrated expertise in one or more of the following areas:
 
-- Systems Engineering for Complex Processes: High-fidelity modeling, multi-objective optimization, and advanced control (e.g., MPC, RL)
-- Computational Intelligence & Reliable Decision-Making: Advancing robust optimization frameworks, Bayesian inference, and risk-aware strategic planning under uncertainty.
-- Data-Centric & Hybrid Engineering: Strategic data acquisition through active learning, sequential experimental design, and physics-informed data-driven approaches.
+- **Systems Engineering Leadership**: Leading high-fidelity modeling, multi-objective optimization, and advanced control strategies (e.g., MPC, RL) for complex process systems.
+- **Robust Computational Methods**: Advancing Bayesian inference, robust optimization, and risk-aware decision frameworks applicable to real-world engineering uncertainty.
+- **Physics-Informed Data Science**: Driving innovation in active learning, sequential experimental design, and physics-constrained machine learning for data-scarce engineering problems.
 
 Innovation in systems engineering thrives on diverse perspectives. We are not limited to Chemical Engineering; we enthusiastically welcome applicants from any quantitative background—such as Mechanical/Electrical Engineering, Applied Mathematics, Data Science, or Biology—who are eager to apply their expertise to complex engineered systems.
 
 #### Graduate Students (M.S. / Ph.D.)
 
-We are looking for students who are interested in the intersection of Process Systems Engineering and Data Science. In the LASER Lab, our research focuses on:
+We are looking for students curious about the intersection of Process Systems Engineering and Data Science. No prior research experience is required — we primarily look for intellectual curiosity, a solid mathematical or engineering foundation, and a genuine interest in solving problems through computation. Research topics include:
 
-- Autonomous Learning & Experimental Design: Developing data-efficient experimentation strategies using active learning, Bayesian optimization, and other informatics-driven methodologies.
-- Reliable Design & Process Optimization: Investigating computational frameworks to design and optimize complex systems, with an emphasis on making reliable decisions under uncertainty and constraints.
-- Intelligent Operations & Hybrid Modeling: Developing frameworks for process monitoring, control, and hybrid (physics + data) modeling for real-world engineering systems.
-
-Prior research experience is not a prerequisite. We primarily look for intellectual curiosity, a solid mathematical or engineering foundation, and a genuine interest in solving engineering problems through computational methods.
+- **Autonomous Learning & Experimental Design**: Exploring data-efficient experimentation using active learning and Bayesian optimization to reduce experimental cost.
+- **Process Design & Optimization under Uncertainty**: Applying and extending computational frameworks to design and optimize engineering systems with reliable, uncertainty-aware decision-making.
+- **Process Monitoring & Hybrid Modeling**: Building expertise in physics-data hybrid modeling, process monitoring, and control strategies for real-world systems.
 
 ### How to Apply
 
@@ -65,5 +77,5 @@ Please send the following to **khryu@scnu.ac.kr**:
 
 ::: {.callout-note}
 ## Prospective Graduate Students
-For information about graduate admissions at Sunchon National University, please visit the [university website](https://www.scnu.ac.kr).
+For information about graduate admissions at Sunchon National University, please visit the [university website](https://www.scnu.ac.kr/neweng/main.do).
 :::
