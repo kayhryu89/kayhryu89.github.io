@@ -1,3 +1,564 @@
+
+https://kayhryu89.github.io/ 의 research 페이지 검토해줘 지금 구성이 이상해.
+
+페이지 구조를 직접 확인해서, 정보 배치·카테고리·문장 흐름 관점에서 어디가 어색한지 먼저 짚어보겠습니다. 그다음 바로 손볼 수 있게 개편 방향까지 같이 정리하겠습니다.
+
+지금 research 페이지를 보니 내용 자체가 나쁜 건 아닌데, “연구 소개”라기보다 “랩 철학 + 방법론 프레임워크 + 시설 소개”가 한 페이지에 동시에 들어가 있어서 중심축이 흐려진 상태입니다. 특히 About 페이지와 역할이 겹칠 가능성이 커 보입니다.
+
+Thought for 1m 9s
+지금 페이지의 가장 큰 문제는 한 페이지 안에 서로 다른 기준의 분류 체계가 동시에 들어가 있어서, 방문자가 “이 랩은 정확히 무엇을 연구하는가?”를 빠르게 파악하기 어렵다는 점입니다. 현재는 상단에서 Research Topics로 철학적·개념적 설명을 하고, 이어서 Autonomy Pillars로 방법론 축을 제시한 뒤, 뒤늦게 Application Areas에서 도메인 축을 따로 보여주고 있습니다. 즉, 문제 정의 / 방법론 / 적용 분야 / 검증 철학이 한 레벨에서 병렬로 놓여 있어 구조가 흔들립니다. 
+
+더 구체적으로 보면, 첫 도입부는 “autonomous systems engineering”, “hard constraints”, “deep uncertainty”, “data scarcity” 같은 중요한 메시지를 담고 있지만, 처음 방문한 사람에게는 다소 추상적입니다. 반면 실제로 사용자가 보고 싶은 것은 보통 “어떤 주제를 연구하는지”, “어떤 방식으로 연구하는지”, “대표 사례가 무엇인지”인데, 이런 내용은 아래로 내려가야 나옵니다. 그래서 현재 순서는 랩의 연구 내용을 보여주기보다 연구 철학을 먼저 설득하려는 구성처럼 읽힙니다. 
+
+또 하나의 핵심 문제는 Autonomy Pillars와 Application Areas가 서로 경쟁하는 두 개의 메인 메뉴처럼 보인다는 점입니다. 전자는 방법론 기준이고, 후자는 응용 분야 기준인데, 둘 다 페이지의 중심처럼 배치되어 있습니다. 방문자는 “이 페이지가 methods page인지, domains page인지” 헷갈리게 됩니다. 특히 현재 Pillar 1–3는 이미 충분히 큰 구조인데, 그 뒤에 다시 Process & Industrial, Electrochemical & Energy, Bio/Bioprocess를 별도 큰 구조로 두면서 초점이 분산됩니다. 
+
+Pillar 3도 상대적으로 과밀합니다. Pillar 1과 Pillar 2는 문제·방법·아티팩트·응용 예시 정도로 비교적 균형이 맞는데, Pillar 3는 여기에 더해 Validation & Decision Metrics까지 별도 bullet로 길게 들어가 있습니다. 그래서 세 pillar가 병렬 구조처럼 보이지 않고, 결과적으로 Validation/TEA/LCA가 페이지 전체를 설명하는 상위 개념인지, Pillar 3 내부의 하위 요소인지가 모호해집니다. 
+
+Iterative Workflow는 메시지 자체는 좋지만, 현재 위치와 분량에서는 중복으로 느껴집니다. 이미 상단 도입부와 pillars에서 “learning-modeling-operation-validation”의 연결성을 설명하고 있기 때문에, 별도 섹션으로 다시 설명하면 페이지가 더 길어지고 개념 반복이 생깁니다. 이 내용은 오히려 상단 요약 그림 또는 한 줄짜리 workflow statement로 압축하는 편이 더 강합니다. 
+
+Research Facilities도 연구 페이지의 핵심 흐름을 끊습니다. 시설 자체가 나쁜 것은 아니지만, 현재 research page의 목적이 “무엇을 연구하는가”를 설명하는 것이라면, 시설은 보조 정보입니다. 특히 Computational Resources, Experimental Infrastructure, Reproducibility Infrastructure까지 길게 들어가면서 연구 주제 페이지가 아니라 랩 소개 브로셔처럼 보이기 시작합니다. 이 섹션은 About 페이지나 별도 Facilities/Resources 페이지로 보내는 편이 더 자연스럽습니다. 
+
+Selected Outputs 역시 현재는 효과가 약합니다. 실질적으로는 “Publications page 보라”, “Projects page 보라”는 안내에 가까워서, 긴 페이지의 마지막 섹션으로 두기에는 밀도가 낮습니다. 차라리 여기서는 3~4개의 아주 짧은 대표 사례를 직접 보여주는 편이 좋습니다. 예를 들면 “sequential experiment design”, “uncertainty-aware surrogate optimization”, “bioprocess monitoring”, “TEA/LCA-guided process screening”처럼요. 지금 구조는 링크 허브 역할은 하지만, 읽고 난 뒤 남는 인상이 약합니다. 
+
+그리고 About 페이지와도 역할이 일부 겹칩니다. About 페이지는 이미 랩 정체성, 소속, 전반적 접근, 연락처, 모집 정보를 담고 있습니다. 그런데 Research 페이지 상단도 다시 랩 철학과 접근법을 꽤 길게 설명하고 있어, 두 페이지가 명확히 분업되지 않습니다. **About은 “누구인가”, Research는 “무엇을 연구하는가”**로 더 선명하게 갈라주는 것이 좋습니다. 
+
+제가 보기에는, 지금 페이지는 “내용이 부족해서 이상한” 것이 아니라 내용이 너무 많이 들어가서 중심축이 흐려진 상태입니다. 그래서 고칠 때는 내용을 더 추가하기보다, 먼저 한 페이지에 하나의 주 분류 체계만 남기는 것이 중요합니다. 
+
+추천하는 방향은 다음과 같습니다.
+
+권장 개편 원칙
+첫째, 이 페이지의 주 질문을 하나로 고정하는 것이 좋습니다.
+가장 적합한 질문은 아마 **“LASER는 어떤 연구를 하는가?”**입니다. 그러면 methods와 domains 중 하나를 메인으로, 다른 하나를 서브로 둬야 합니다. 개인적으로는 이 랩의 브랜딩상 methods-first 구조가 더 잘 맞습니다. 즉, Autonomous Learning, Autonomous Modeling, Autonomous Decision & Validation, Autonomous Operation 같은 연구 방향을 메인으로 두고, 각 방향 아래에 대표 응용 분야를 1줄씩 붙이는 방식이 가장 정리됩니다. 
+
+둘째, Research Topics와 Iterative Workflow는 합치는 것이 좋습니다.
+지금의 문제의식 설명은 버릴 필요는 없지만, 별도 장으로 두기보다 페이지 상단의 1개 소개 문단과 1줄 workflow로 압축하는 편이 좋습니다. 예를 들면:
+“LASER develops autonomous engineering workflows that couple experiment design, modeling, decision-making, and validation under physical and economic constraints.”
+그리고 바로 아래에
+“Observe → Learn → Model → Decide → Validate → Deploy”
+같이 짧게 두는 식입니다. 
+
+셋째, Pillar 3는 분리 또는 재명명하는 것이 좋습니다.
+지금은 Autonomous Operation & Validation인데, validation은 사실 세 pillar 전체를 가로지르는 개념처럼 서술되고 있습니다. 그래서 이름을
+
+Autonomous Operation, Monitoring & Control
+로 두고,
+
+Validation layer: physics, economics, sustainability, risk
+를 각 섹션 공통 하단 설명으로 빼는 편이 더 깔끔합니다. 지금처럼 TEA/LCA가 Pillar 3 안에 깊게 들어가면, “왜 이것만 따로 여기 있지?”라는 느낌이 납니다. 
+
+넷째, Application Areas는 축소해야 합니다.
+지금은 별도 큰 섹션인데, 이렇게 되면 페이지가 두 번 시작하는 느낌이 납니다. 차라리 각 research direction 아래에 Representative applications를 2~3개만 넣고, 페이지 하단에 Application domains include process systems, electrochemical/energy systems, and bioprocess systems. 정도로 짧게 정리하는 편이 더 강합니다. 
+
+다섯째, Research Facilities는 이 페이지에서 빼는 것이 좋습니다.
+남기더라도 한 문단짜리 Research environment 정도로 줄이고, 자세한 목록은 About 또는 별도 page로 분리하는 편이 좋습니다. 지금은 연구 개요 페이지의 몰입도를 떨어뜨립니다. 
+
+제가 추천하는 새 구조
+아래 정도로 재편하면 훨씬 안정적일 것 같습니다.
+
+Research Overview
+짧은 1문단.
+랩의 핵심 미션 + autonomous engineering workflow 한 줄.
+
+Core Research Directions
+3개 또는 4개 카드/섹션
+
+Autonomous Learning & Experiment Design
+
+Autonomous Modeling & Surrogate Construction
+
+Autonomous Decision-Making under Constraints & Uncertainty
+
+Monitoring, Control & Validation
+
+Representative Application Domains
+짧게 3개 묶음
+
+Process & industrial systems
+
+Electrochemical & energy systems
+
+Bio/bioprocess systems
+
+Selected Examples / Recent Work
+논문 제목 나열 말고, 3~4개 사례를 1문장씩
+
+Collaborate / Explore More
+Publications, Projects로 연결
+
+이렇게 가면 페이지의 논리가
+무엇을 하는가 → 어떻게 하는가 → 어디에 적용하는가 → 무엇을 해왔는가
+순서가 됩니다. 지금보다 훨씬 자연스럽습니다.
+
+현재 페이지를 최소 수정으로 살리는 방법
+페이지를 완전히 뜯어고치지 않고도 많이 좋아질 수 있습니다.
+
+Research Topics를 1문단으로 줄이기
+
+Autonomy Pillars를 메인으로 유지
+
+Iterative Workflow는 한 줄 도식으로 축소
+
+Application Areas는 각 pillar 안으로 흡수
+
+Research Facilities는 삭제 또는 About으로 이동
+
+Selected Outputs는 대표 사례 3~4개로 바꾸기
+
+이 정도만 해도 훨씬 덜 산만해질 것입니다. 
+
+한 문장으로 요약하면, 지금 페이지는 **“좋은 내용이 너무 많이 한곳에 모여 있어서, 방문자가 읽는 순서와 우선순위가 무너진 상태”**입니다.
+따라서 핵심은 내용을 더 보태는 것이 아니라, 연구 방향(method)과 응용 분야(domain) 중 무엇을 메인 구조로 둘지 먼저 결정하고 나머지는 보조로 내리는 것입니다. 
+
+원하면 다음 단계로 바로 이어서, 제가 이 페이지를 기준으로 새 목차안과 섹션별 실제 문장 초안까지 바로 써드리겠습니다.
+
+
+About 페이지도 검토해줘. Research를 gpt assistant랑 같이 수정햇다니 내용이 좀 틀어졋어 내용이야기를 좀하고 재구성해보자
+
+About 페이지와 Research 페이지를 같이 보면서, 두 페이지의 역할이 어디서 겹치고 어디서 틀어졌는지 먼저 분리해보겠습니다. 그다음 “내용 정리”와 “재구성 원칙”을 기준으로 다시 틀을 잡겠습니다.
+
+
+아니야 그냥 우선 어바웃페이지 내용만 단독으로 이야기해보자
+
+About 페이지만 기준으로 보겠습니다. 내용의 역할, 첫인상, 문단 흐름, 페이지 내부 중복을 중심으로 점검하겠습니다.
+
+Thought for 1m 49s
+좋습니다. About 페이지만 단독으로 보면, 가장 큰 문제는 페이지 제목은 About인데 실제 체감은 “Contact + Recruiting” 페이지에 더 가깝다는 점입니다. 현재 구성은 About LASER에서 랩 소개를 짧게 한 뒤 곧바로 Contact, 그리고 가장 큰 분량으로 Join Our Lab이 이어집니다. 그래서 방문자가 이 페이지를 읽고 남는 인상도 “이 랩이 누구인가”보다 “지원 안내가 많다” 쪽으로 기울게 됩니다. 
+
+내용 자체는 나쁘지 않습니다. 특히 첫 문단에서 LASER가 순천대 화학공학과 소속 연구실이고, “expert experience and know-how”에 대한 의존을 얼마나 principled, verifiable computation으로 줄일 수 있는가라는 질문을 던지는 부분은 랩의 문제의식을 잘 보여줍니다. 또 sequential experiment design, hybrid surrogate modeling, uncertainty-aware decision engineering, verification and assessment를 언급한 점도 연구실의 방향성을 분명하게 드러냅니다. 
+
+다만 About 페이지의 첫 소개 문단은 좋은데 너무 빨리 끝납니다. 실제로 “랩의 정체성”을 말하는 부분은 3문장 정도이고, 그 뒤부터는 바로 행정 정보와 모집 정보로 넘어갑니다. About 페이지라면 보통 방문자는 여기서 “이 연구실은 어떤 철학으로 연구하는가”, “어떤 스타일의 연구를 하는가”, “어떤 사람을 원하는가”, “왜 이 랩이 독특한가”를 조금 더 기대하는데, 지금은 그 설명이 충분히 펼쳐지기 전에 페이지가 다른 기능으로 전환됩니다. 
+
+또 한 가지는, 현재 첫 문단의 내용이 Research 페이지에서 다뤄야 할 방법론 설명과 일부 겹친다는 점입니다. About에서 sequential design, hybrid surrogate, uncertainty-aware decision engineering까지 자세히 열거하면, About이 사람과 정체성을 설명하는 페이지라기보다 miniature Research page처럼 보입니다. About에서는 방법론 이름을 길게 나열하기보다, “무엇을 위해 어떤 문제를 푸는 연구실인가”를 먼저 잡아주는 편이 더 자연스럽습니다. 
+
+Join Our Lab 섹션은 정보량이 많고 성실하게 쓰여 있지만, 현재는 너무 무겁고 다소 과장된 톤이 섞여 있습니다. 예를 들면 postdoc/researcher 파트의 “ready to lead independent research”, “systems engineering and data intelligence”, “enthusiastically welcome applicants” 같은 표현은 내용상 틀리진 않지만, About 페이지 전체 톤과 비교하면 약간 채용 공고 문체처럼 튑니다. 특히 “data intelligence”는 다소 추상적이고, 연구실의 실제 강점이 process systems engineering 기반의 autonomous engineering이라면 그 표현이 더 직접적으로 드러나는 편이 낫습니다. 
+
+대학원생 모집 문단은 상대적으로 더 좋습니다. “No prior research experience is required”와 “intellectual curiosity, a solid mathematical or engineering foundation” 같은 문장은 접근성이 있고, 지원자 입장에서 읽기 편합니다. 다만 여기서도 연구주제를 다시 3개로 정리하고 있어서, About 페이지 안에서 “랩 소개”보다 “모집용 연구주제 소개”가 더 눈에 들어옵니다. 즉, 내용은 좋지만 위치상 About의 중심을 빼앗고 있습니다. 
+
+정리하면, 지금 About 페이지는 세 가지 서로 다른 목적을 동시에 수행하려고 합니다.
+하나는 랩 소개, 둘째는 연락처 안내, 셋째는 채용/리크루팅입니다. 이 셋을 한 페이지에 둘 수는 있지만, 지금은 비중이 랩 소개 < 모집 안내로 기울어 있어서 About 본래의 역할이 약해졌습니다. 
+
+제가 보기에는 About 페이지는 우선 아래 질문들에 답해야 합니다.
+
+LASER는 어떤 연구실인가
+
+어떤 관점으로 문제를 다루는가
+
+어떤 연구문화를 지향하는가
+
+어떤 사람이 잘 맞는가
+
+어떻게 연락하면 되는가
+
+현재 페이지는 1번과 2번을 아주 짧게 말하고, 5번과 채용 정보에 많은 공간을 쓰고 있습니다. 그래서 “Who we are”가 약하고 “How to apply”가 강한 상태입니다. 
+
+내용 재구성 방향은 꽤 명확합니다. About 페이지에서는 우선 연구실 소개를 조금 더 사람 중심, 정체성 중심으로 확장하는 것이 좋습니다. 예를 들어 지금 첫 문단의 핵심 문제의식은 유지하되, 그 다음에 “LASER is interested in building engineering workflows that are less heuristic, more data-efficient, and more verifiable under constraints” 같은 식으로 연구실의 스타일을 한두 문장 더 붙여 줄 수 있습니다. 그러면 About이 Research보다 덜 기술적이면서도 훨씬 살아납니다. 이 내용은 현재 첫 문단의 연장선으로 자연스럽게 들어갈 수 있습니다. 
+
+그다음 Contact는 지금처럼 짧게 두는 것이 괜찮습니다. 연락처 정보는 이미 충분히 명확합니다. 문제는 Contact 자체가 아니라, Contact가 너무 일찍 등장해서 소개 흐름을 끊는다는 점입니다. Contact는 About 소개와 “Who we work with / Who should join” 뒤쪽으로 내리는 편이 더 자연스럽습니다. 
+
+Join Our Lab은 아예 별도 page로 분리하는 것이 가장 깔끔하지만, About에 남기려면 훨씬 압축하는 것이 좋습니다. 현재처럼 researcher/postdoc과 graduate student를 길게 쓰기보다, “We welcome graduate students and researchers interested in autonomous engineering, process systems, and data-efficient scientific computation” 정도의 짧은 소개 후 자세한 내용은 Join page로 넘기는 편이 About 페이지의 중심을 지킬 수 있습니다. 
+
+즉, About 페이지는 이런 구조가 더 잘 맞습니다.
+
+About LASER
+
+Our mission / how we think
+
+What kind of research environment we aim to build
+
+Who may be a good fit
+
+Contact
+
+Short recruiting note with link
+
+이렇게 가면 About은 “정체성 페이지”가 되고, Research는 “연구 방향 페이지”가 됩니다.
+
+한 문장으로 요약하면, 지금 About 페이지의 문제는 문장이 이상하다기보다, 소개 페이지가 채용 페이지에 밀려서 자기 역할을 충분히 못 하고 있다는 것입니다. 첫 문단의 핵심 메시지는 좋기 때문에, 버릴 필요는 없고 그 메시지를 중심으로 사람·문화·연구실 정체성을 조금 더 살리고, 모집 안내는 뒤로 빼거나 줄이는 방향이 가장 적절합니다. 
+
+원하시면 다음 답변에서 바로 이어서, 제가 About 페이지에 들어갈 내용 구조안만 먼저 1안/2안으로 제시해보겠습니다.
+
+
+지금 버전에서 그람 어떻게 수정하면 좋을까?제시해줘. 구인은 별도페이지 안만들거야
+
+현재 About 페이지 기준으로, 별도 채용 페이지 없이도 자연스럽게 보이도록 “남길 것 / 줄일 것 / 옮길 순서” 중심으로 바로 수정안을 제시하겠습니다.
+
+Thought for 59s
+지금 버전에서 별도 구인 페이지를 만들지 않는다면, About 페이지 안에 recruiting을 남기되 비중을 줄이고, “랩 소개”가 먼저 살아나도록 재배치하는 게 가장 좋습니다. 현재 페이지는 소개 문단이 아주 짧고, 바로 Contact와 Join Our Lab로 넘어가서 About보다 모집 페이지처럼 읽힙니다. 또 Open Positions 아래의 postdoc/researcher 설명과 graduate topics는 꽤 구체적이라, About이라기보다 mini research/recruiting page처럼 보입니다. 마지막의 Note Prospective Graduate Students도 형식상 다소 뜬 느낌입니다. 
+
+제가 추천하는 건 새 페이지를 만들지 않고, 지금 페이지를 아래 순서로 다시 짜는 것입니다.
+
+1) 페이지 순서부터 바꾸기
+현재는
+About LASER → Contact → Join Our Lab → How to Apply → Note
+순서입니다. 
+
+이걸 아래처럼 바꾸는 게 좋습니다.
+
+About LASER → How We Think / What We Do → Join LASER → How to Apply → Contact
+
+이렇게 하면 페이지가 먼저 “우리는 어떤 연구실인가”를 말하고, 그 다음 “어떤 사람이 잘 맞는가”로 넘어갑니다. 지금처럼 소개 직후에 주소와 전화번호가 나오면 흐름이 끊깁니다. Contact는 맨 아래로 보내는 편이 훨씬 자연스럽습니다. 
+
+2) 첫 소개 문단은 유지하되, 1문단 더 붙이기
+현재 첫 부분은 핵심 메시지가 좋습니다.
+특히 다음 세 요소는 살릴 가치가 큽니다.
+
+Chemical Engineering at SCNU 소속 연구실이라는 점
+
+expert know-how 의존을 principled, verifiable computation으로 얼마나 줄일 수 있는가라는 문제의식
+
+chemical, electrochemical, bioprocess systems에 적용한다는 점 
+
+문제는 너무 빨리 끝난다는 것입니다. 지금은 3문장으로 끝나서, About page의 정체성이 충분히 형성되기 전에 다음 섹션으로 넘어갑니다. 
+
+그래서 첫 문단 뒤에 짧은 2문장 정도를 더 붙이는 게 좋습니다. 핵심은 방법론 이름을 더 늘리는 게 아니라, 랩의 스타일을 보여주는 것입니다.
+
+예를 들면 이런 방향입니다.
+
+LASER develops computational and experimental workflows for complex engineered systems in which modeling, experimentation, operation, and decision-making are tightly connected. We are particularly interested in data-scarce, high-consequence settings where physical consistency, uncertainty awareness, and verifiable performance matter.
+
+이 문단이 들어가면 About 페이지가 훨씬 “랩 소개”처럼 보입니다.
+
+3) Contact는 아래로 내리기
+현재 Contact가 소개 바로 뒤에 옵니다. 위치/이메일/오피스/전화번호 정보 자체는 좋지만, 이게 너무 앞에 나오면 읽는 리듬이 끊깁니다. 
+
+그래서 How to Apply 아래, 페이지 맨 마지막으로 보내는 것을 권합니다.
+즉, 연락처는 “읽고 난 뒤 필요한 정보”로 배치하는 편이 맞습니다.
+
+4) Join Our Lab은 제목과 톤을 바꾸기
+현재 Join Our Lab 아래에
+We are always looking for motivated people to join the team. Below are current openings.
+이라고 되어 있는데, 이 표현은 상시 채용 공고 페이지 느낌이 강합니다. 
+
+별도 모집 페이지를 만들지 않을 거라면, 제목을 조금 덜 공고형으로 바꾸는 게 좋습니다.
+
+추천 제목:
+
+Opportunities at LASER
+
+Joining LASER
+
+Prospective Students and Researchers
+
+그리고 첫 문장도 더 차분하게 바꾸는 것이 좋습니다.
+
+예:
+
+We welcome inquiries from students and researchers who are interested in autonomous engineering, process systems, and data-efficient scientific computation.
+
+이렇게 하면 About 페이지의 톤과 더 잘 맞습니다.
+
+5) Postdoc/Researcher 설명은 줄이고 덜 과장되게
+현재 researcher/postdoc 문단은
+“ready to lead independent research”,
+“intersection of systems engineering and data intelligence”,
+“enthusiastically welcome applicants”
+같은 표현이 들어가 있고, 아래 expertise bullets도 꽤 강합니다. 
+
+이건 틀린 내용은 아니지만, About 페이지에서는 조금 무겁고 채용공고처럼 느껴집니다.
+여기서는 자격요건을 세게 쓰기보다, 어떤 배경의 사람이 잘 맞는지를 보여주는 편이 좋습니다.
+
+지금의 긴 bullet 3개는 다음처럼 압축하는 것이 낫습니다.
+
+We welcome researchers and postdoctoral applicants with backgrounds in process systems engineering, modeling and optimization, control, uncertainty-aware decision-making, or data-driven scientific computing. Applicants from related quantitative fields, including mechanical or electrical engineering, applied mathematics, biology, and data science, are also encouraged to apply.
+
+이 정도면 현재 내용은 유지하면서도 훨씬 자연스럽습니다. 현재의 세부 bullet들은 Research 페이지에서 다루는 편이 더 적절합니다. 
+
+6) Graduate student 부분은 살리되, 연구주제 나열은 줄이기
+현재 대학원생 섹션에서 가장 좋은 문장은 이것입니다.
+
+No prior research experience is required ... intellectual curiosity, a solid mathematical or engineering foundation... 
+
+이 문장은 남기는 것이 좋습니다.
+다만 그 아래 연구주제 3개는 지금 형태로는 About보다는 Research 페이지에 더 가깝습니다. 
+
+그래서 이렇게 바꾸는 것이 좋습니다.
+
+Research topics in the lab broadly include autonomous experimentation, modeling and optimization under uncertainty, and monitoring and control of complex engineered systems.
+
+즉, topic은 넓게 한 줄로 정리하고, 자세한 키워드는 Research 페이지에서 푸는 식입니다.
+
+7) How to Apply는 유지, 다만 heading 위계만 정리
+현재 How to Apply 자체는 깔끔합니다.
+CV, transcript, statement, relevant outputs 요구도 무난합니다. 
+
+다만 지금은 Join Our Lab → Open Positions → Researchers... / Graduate Students... → How to Apply 구조인데, 전체가 다소 길게 느껴집니다. 
+
+그래서 이렇게 단순화하면 좋습니다.
+
+Joining LASER
+
+Researchers & Postdoctoral Fellows
+
+Graduate Students
+
+How to Apply
+
+Open Positions는 없어도 됩니다.
+
+8) 맨 아래 Note는 문장으로 흡수
+현재 마지막의
+Note Prospective Graduate Students
+다음에 대학원 입학 홈페이지 링크가 나오는데, 형식상 제목도 어색하고 본문과 분리되어 떠 있습니다. 
+
+이건 How to Apply 마지막 문장으로 합치는 편이 더 좋습니다.
+
+예:
+
+For formal graduate admissions information at Sunchon National University, please also refer to the university website.
+
+이렇게 하면 훨씬 정돈됩니다.
+
+지금 버전 기준 추천 구조안
+아래 구조로 바로 바꾸는 것을 권합니다.
+
+About LASER
+짧은 2문단
+랩 소개 + 연구 스타일/철학
+
+Joining LASER
+두 개 소제목
+
+Researchers & Postdoctoral Fellows
+
+Graduate Students
+
+How to Apply
+현재 리스트 유지
+
+Contact
+현재 정보 유지
+
+거의 바로 쓸 수 있는 수정 방향
+현재 페이지를 최소 수정으로 고치려면 아래만 해도 많이 좋아집니다.
+
+소개 문단 뒤에 2문장 추가
+
+Contact를 맨 아래로 이동
+
+Join Our Lab를 Joining LASER 또는 Opportunities at LASER로 변경
+
+postdoc bullet 3개 삭제하고 1문단으로 압축
+
+graduate topics 3개를 1문장으로 압축
+
+마지막 note를 How to Apply 안으로 흡수
+
+한 번에 정리한 권장 초안 뼈대
+영문 페이지라서, 실제로는 아래 정도 톤이 가장 무난합니다.
+
+About LASER
+LASER (Laboratory for Autonomous Systems Engineering Research) is a research group in the Department of Chemical Engineering at Sunchon National University, Republic of Korea, led by Prof. Kyung Hwan Ryu.
+We study how complex engineered systems can be modeled, designed, operated, and improved with less dependence on ad hoc expert heuristics and greater reliance on principled, verifiable computation.
+Our work connects experimentation, modeling, optimization, monitoring, and decision-making under physical constraints and uncertainty, with applications in chemical, electrochemical, and bioprocess systems.
+
+Joining LASER
+We welcome inquiries from students and researchers who are interested in autonomous engineering, process systems, and data-efficient scientific computation.
+
+Researchers & Postdoctoral Fellows
+
+We welcome applicants with backgrounds in process systems engineering, modeling and optimization, control, uncertainty-aware decision-making, or scientific machine learning. Applicants from related quantitative disciplines are also encouraged to apply.
+
+Graduate Students
+
+No prior research experience is required. We value intellectual curiosity, a solid mathematical or engineering foundation, and a genuine interest in solving real-world problems through computation. Research in the lab broadly includes autonomous experimentation, modeling and optimization under uncertainty, and monitoring and control of complex engineered systems.
+
+How to Apply
+현재 리스트 거의 유지
+
+Contact
+현재 정보 유지
+
+이 정도면 지금 버전의 장점은 살리고, About 페이지가 recruiting에 끌려가는 문제를 많이 줄일 수 있습니다.
+
+원하시면 다음 단계에서 제가 현재 About 페이지 전체를 통째로 새 문안으로 다시 써서, 바로 붙여넣을 수 있게 정리해드리겠습니다.
+
+
+정리해줘
+
+현재 About 페이지 기준으로, 바로 반영할 수 있는 형태로 구조와 문안 방향을 한 번에 정리하겠습니다.
+
+Thought for 15s
+좋습니다. 지금 About 페이지 기준으로 무엇을 바꾸면 좋은지만 깔끔하게 정리하면 아래와 같습니다. 현재 페이지는 About LASER 소개가 짧게 끝난 뒤 바로 Contact, Join Our Lab, Open Positions, How to Apply, 마지막에 대학원 안내 note가 붙는 구조입니다. 그래서 About 페이지라기보다 recruiting 정보가 더 강하게 보입니다. 
+
+1. 핵심 문제
+현재 페이지의 핵심 문제는 세 가지입니다.
+
+첫째, 랩 소개가 너무 짧습니다.
+실질적인 소개는 3문장 정도인데, 그 안에 연구 철학, 방법론, 적용 분야까지 다 담으려다 보니 소개가 충분히 펼쳐지지 않습니다. 
+
+둘째, Contact가 너무 앞에 있습니다.
+소개 직후에 위치/이메일/전화가 나오면서 읽는 흐름이 끊깁니다. 
+
+셋째, Join Our Lab 파트가 너무 크고 강합니다.
+특히 Researchers & Postdoctoral Fellows, Graduate Students 아래의 설명과 bullet들이 꽤 길어서 About 페이지보다 모집 페이지처럼 느껴집니다. 
+
+2. 수정 원칙
+별도 구인 페이지를 만들지 않을 거라면, 방향은 간단합니다.
+
+About는 정체성 중심,
+Recruiting은 보조 정보
+이렇게 비중을 조정하면 됩니다.
+
+즉,
+
+랩이 어떤 연구실인지 먼저 보이게 하고
+
+어떤 사람이 잘 맞는지 그다음에 보여주고
+
+연락처는 마지막에 두는 구조가 좋습니다.
+
+3. 추천 구조
+현재 구조 대신 아래 순서를 권합니다.
+
+About LASER
+랩 소개 2문단
+
+Joining LASER
+Researchers & Postdoctoral Fellows
+
+Graduate Students
+
+How to Apply
+지원 방법
+
+Contact
+연락처와 위치
+
+이 순서가 더 자연스럽습니다. 현재 페이지처럼 Contact가 소개 바로 뒤에 오는 구조는 About의 흐름을 약하게 만듭니다. 
+
+4. 섹션별 수정 방향
+A. About LASER
+지금 문단은 완전히 버릴 필요는 없습니다.
+오히려 첫 3문장은 좋습니다. 다만 한 문단 더 추가해야 합니다.
+
+현재 문단의 역할:
+
+소속과 랩 이름 소개
+
+핵심 문제의식 제시
+
+적용 분야 제시 
+
+여기에 추가해야 할 것은:
+
+랩이 어떤 스타일의 연구를 하는지
+
+어떤 종류의 engineering workflow를 지향하는지
+
+즉, 방법론 이름을 더 나열하는 대신
+“less heuristic, more principled, more verifiable”
+같은 정체성 문장을 1~2문장 더 넣는 것이 좋습니다.
+
+B. Contact
+현재 내용은 충분히 좋습니다.
+문제는 내용이 아니라 위치입니다.
+맨 아래로 내리면 됩니다. 
+
+C. Join Our Lab
+제목부터 조금 완화하는 것이 좋습니다.
+
+추천:
+
+Joining LASER
+
+Opportunities at LASER
+
+Prospective Students and Researchers
+
+현재의
+“We are always looking for motivated people...”
+는 다소 공고 느낌이 강합니다. 
+
+조금 더 차분하게 바꾸면 좋습니다. 예를 들면:
+
+We welcome inquiries from students and researchers interested in autonomous engineering, process systems, and data-efficient scientific computation.
+
+D. Researchers & Postdoctoral Fellows
+지금은 설명이 다소 강합니다.
+특히 independent research, systems engineering and data intelligence, 세부 bullet 3개는 About 페이지에서는 무겁습니다. 
+
+이 부분은 긴 bullet 목록 대신 1문단 요약으로 줄이는 것이 좋습니다.
+
+핵심만 남기면:
+
+PSE
+
+modeling/optimization/control
+
+uncertainty-aware decision-making
+
+scientific machine learning
+
+related quantitative fields welcome
+
+이 정도면 충분합니다.
+
+E. Graduate Students
+이 부분은 현재도 비교적 좋습니다.
+특히 “No prior research experience is required”는 유지하는 것이 좋습니다. 
+
+다만 아래의 3개 topic bullet은 Research 페이지 성격이 강하므로, About에서는 한 문장으로 줄이는 것이 좋습니다.
+
+예:
+
+Research in the lab broadly includes autonomous experimentation, modeling and optimization under uncertainty, and monitoring and control of complex engineered systems.
+
+F. How to Apply
+이 부분은 현재 구조를 거의 그대로 써도 됩니다.
+CV, transcript, statement, relevant outputs 구성은 충분히 적절합니다. 
+
+G. 마지막 Note
+현재 Note Prospective Graduate Students는 제목도 조금 어색하고, 본문과 분리되어 떠 있습니다. 
+
+이건 별도 섹션으로 두지 말고, How to Apply 마지막 문장으로 흡수하는 것이 좋습니다.
+
+예:
+
+For formal graduate admissions information at Sunchon National University, please also refer to the university website.
+
+5. 최소 수정 버전으로 요약
+정말 최소한만 고친다면 아래 6가지만 해도 많이 좋아집니다.
+
+About 소개 문단 뒤에 2문장 추가
+
+Contact를 맨 아래로 이동
+
+Join Our Lab를 Joining LASER로 변경
+
+Researchers/Postdocs bullet 3개 삭제 후 1문단으로 압축
+
+Graduate topic 3개를 1문장으로 압축
+
+마지막 Note를 How to Apply 안으로 흡수
+
+6. 바로 적용 가능한 최종 틀
+아래 틀로 가면 됩니다.
+
+About LASER
+랩 소개
+
+연구 철학/스타일
+
+적용 분야 간단 소개
+
+Joining LASER
+Researchers & Postdoctoral Fellows
+짧은 1문단
+
+Graduate Students
+짧은 1문단
+
+How to Apply
+현재 리스트 유지 + 대학원 입학 링크 문장 포함
+
+Contact
+현재 내용 유지
+
+원하시면 다음 단계에서 제가 현재 About 페이지 전체를 바로 붙여넣을 수 있는 영문 완성본으로 써드리겠습니다.
+
+
+현재 about의 qmd 인데, 이거에 맞춰서 수정해줘.
+
 ---
 title: "About LASER"
 page-layout: full
@@ -79,3 +640,77 @@ Please send the following to **khryu@scnu.ac.kr**:
 ## Prospective Graduate Students
 For information about graduate admissions at Sunchon National University, please visit the [university website](https://www.scnu.ac.kr/neweng/main.do).
 :::
+
+Thought for 12s
+아래처럼 고치면 됩니다.
+핵심은 About 소개를 조금 더 살리고, recruiting은 남기되 톤을 완화하고, Contact를 맨 아래로 이동한 것입니다.
+
+---
+title: "About LASER"
+page-layout: full
+---
+
+**LASER (Laboratory for Autonomous Systems Engineering Research)** is a research group in the Department of Chemical Engineering at Sunchon National University, Republic of Korea. The lab is led by [Prof. Kyung Hwan Ryu](/members.html).
+
+Designing and operating complex engineered systems often relies on sustained expert experience and know-how across experiment design, operation, and decision-making. LASER asks a single question: how much of that reliance can be reduced through principled, verifiable computation?
+
+Our research connects experimentation, modeling, optimization, monitoring, and decision-making under physical constraints and uncertainty. We are particularly interested in data-scarce and high-consequence settings where physical consistency, uncertainty awareness, and reliable assessment matter. Our work spans chemical, electrochemical, and bioprocess systems.
+
+---
+
+## Joining LASER {#joining-laser}
+
+We welcome inquiries from students and researchers interested in autonomous engineering, process systems, and data-efficient scientific computation.
+
+### Researchers & Postdoctoral Fellows
+
+We welcome applicants with backgrounds in process systems engineering, modeling and optimization, control, uncertainty-aware decision-making, or scientific machine learning. Applicants from related quantitative disciplines, including Mechanical Engineering, Electrical Engineering, Applied Mathematics, Data Science, and Biology, are also encouraged to apply if they are interested in complex engineered systems.
+
+### Graduate Students (M.S. / Ph.D.)
+
+No prior research experience is required. We primarily look for intellectual curiosity, a solid mathematical or engineering foundation, and a genuine interest in solving problems through computation. Research in the lab broadly includes autonomous experimentation, modeling and optimization under uncertainty, and monitoring and control of complex engineered systems.
+
+## How to Apply {#how-to-apply}
+
+Please send the following to **khryu@scnu.ac.kr**:
+
+- CV or resume
+- Transcript (for graduate applicants)
+- Brief statement of research interests (1 page or less)
+- Any relevant publications, reports, or research experience (if available)
+
+::: {.callout-note}
+## Prospective Graduate Students
+For formal graduate admissions information at Sunchon National University, please also visit the [university website](https://www.scnu.ac.kr/neweng/main.do).
+:::
+
+---
+
+## Contact {#contact}
+
+:::: {.columns}
+
+::: {.column width="38%"}
+### Location
+
+Department of Chemical Engineering, Sunchon National University  
+255 Jungang-ro, Suncheon, Jeollanam-do 57922, Republic of Korea
+
+### Contact Information
+
+- **Email**: khryu@scnu.ac.kr
+- **Office**: D3-305
+- **Phone**: +82 61-750-3588
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="58%"}
+<iframe
+  src="https://www.google.com/maps?q=Sunchon+National+University,+255+Jungang-ro,+Suncheon,+Jeollanam-do,+Republic+of+Korea&output=embed&hl=en"
+  width="100%" height="260" style="border:0; border-radius:6px;" allowfullscreen="" loading="lazy">
+</iframe>
+:::
+
+::::
