@@ -13,7 +13,7 @@ filters:
 
 Autonomous Process-/Experiment-Design · Operation · Decision Engineering
 
-[About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#join-our-lab){.btn .btn-outline-secondary}
+[About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#joining-laser){.btn .btn-outline-secondary}
 :::
 
 ---
@@ -71,5 +71,5 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 
 We welcome highly motivated graduate students interested in autonomous systems engineering, process modeling and optimization, and data-efficient learning for complex engineering systems.
 
-**[Learn how to join →](about.qmd#join-our-lab)**
+**[Learn how to join →](about.qmd#joining-laser)**
 :::

@@ -11,7 +11,7 @@ filters:
 ::: {.grid}
 
 ::: {.g-col-md-3}
-![Prof. Kyung Hwan Ryu](Info/Images/pic000.jpg){.rounded}
+![Prof. Kyung Hwan Ryu](Info/Images/Pic000.jpg){.rounded}
 :::
 
 ::: {.g-col-md-9}
@@ -52,5 +52,5 @@ Process Systems Engineering, Carbon Capture & Utilization, Process Optimization 
 
 ::: {.callout-tip}
 ## Join Our Team
-We are always looking for motivated students! See [About](about.qmd#join-our-lab) for more information.
+We are always looking for motivated students! See [About](about.qmd#joining-laser) for more information.
 :::

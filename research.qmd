@@ -5,4 +5,45 @@ page-layout: full
 
 LASER studies how expert-driven engineering decisions can be reformulated into principled and computationally tractable workflows. Rather than treating design, modeling, operation, and assessment as isolated tasks, we investigate how they can be progressively structured, connected, and partially automated under physical constraints, uncertainty, and limited data. Our research is organized around several decision-making problems that repeatedly arise in engineering practice, including how to design informative experiments, construct usable models, and search over structural and operational choices that have traditionally depended on heuristics.
 
-Renew in progress...
+## Research Themes
+
+### Autonomous Process & Experiment Design
+
+We develop data-efficient design strategies for engineering systems where experiments or high-fidelity simulations are expensive. Our work combines sequential design of experiments, response-surface modeling, uncertainty-aware surrogate construction, and value-of-information reasoning to decide what should be measured next and why.
+
+Representative problems include:
+
+- sequential experimental design under limited budgets
+- intensified design of experiments for nonlinear process behavior
+- surrogate-assisted optimization with physical and statistical constraints
+- active learning workflows for process and material systems
+
+### Decision Engineering
+
+Many engineering decisions are made under uncertainty, incomplete models, and competing objectives. LASER studies computational decision workflows that connect model prediction, constraint handling, uncertainty quantification, and sustainability assessment. The goal is not only to find an optimum, but to make the reasoning behind a design or operating choice auditable.
+
+Representative problems include:
+
+- model-based design and optimization of chemical and energy systems
+- techno-economic and environmental assessment
+- uncertainty-penalized optimization
+- screening and ranking of process alternatives
+
+### Operation, Monitoring & Control
+
+We investigate operation strategies for systems whose behavior changes over time or is difficult to model perfectly. This includes control-oriented modeling, data-driven controller design, monitoring logic, scheduling, and operational decision support for complex engineered systems.
+
+Representative problems include:
+
+- process identification and control-oriented modeling
+- data-driven controller design
+- monitoring and diagnostic logic for energy and chemical processes
+- operational strategy for electrified and low-carbon systems
+
+## Application Domains
+
+Our methods are developed through problems in chemical, electrochemical, energy, and bioprocess systems. Current and recent applications include carbon capture and utilization, membrane gas separation, electrified thermal systems, hydrogen systems, power-generation processes, and sustainability assessment of emerging technologies.
+
+## Current Direction
+
+LASER is moving toward integrated autonomous engineering workflows: systems that can design informative experiments, update models, evaluate uncertainty, and recommend next decisions while respecting physical constraints and engineering objectives. This direction connects our work on DOE/iDoE, surrogate modeling, optimization, operation, and assessment into a single research agenda.

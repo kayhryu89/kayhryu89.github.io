@@ -1,5 +1,5 @@
 -- home-loader.lua
--- Reads journal.bib and student.csv to show 2 recent publications by lab members
+-- Reads Journal.bib and student.csv to show 2 recent publications by lab members
 
 function Pandoc(doc)
   -- Read student.csv for lab member names
@@ -61,10 +61,10 @@ function Pandoc(doc)
     return false
   end
 
-  -- Read journal.bib
-  local bib_f = io.open("./Info/Bib/journal.bib", "r")
+  -- Read Journal.bib
+  local bib_f = io.open("./Info/Bib/Journal.bib", "r")
   if not bib_f then
-    bib_f = io.open("Info/Bib/journal.bib", "r")
+    bib_f = io.open("Info/Bib/Journal.bib", "r")
   end
   if not bib_f then return doc end
 

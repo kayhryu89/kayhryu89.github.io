@@ -2,7 +2,7 @@
 title: "Publications"
 page-layout: full
 toc: true
-bibliography: ./Info/Bib/journal.bib
+bibliography: ./Info/Bib/Journal.bib
 nocite: |
   @*
 filters:

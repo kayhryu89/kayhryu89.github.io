@@ -1,4 +1,4 @@
-"""Helper script for deploy.bat - handles file operations and gh-pages push."""
+"""Helper script for deploy.bat - renders the Quarto site locally."""
 import sys, os, shutil, subprocess, tempfile, time
 
 PROJECT = os.path.dirname(os.path.abspath(__file__))
@@ -62,57 +62,13 @@ def render():
     return 0
 
 def publish():
-    """Push _site to gh-pages branch without using git worktrees."""
-    site_dir = os.path.join(PROJECT, '_site')
-    if not os.path.exists(site_dir):
-        print('ERROR: _site not found. Run render first.')
-        return 1
+    """Legacy entry point kept for compatibility.
 
-    deploy_dir = os.path.join(tempfile.gettempdir(), 'laser-deploy')
-    # Robust cleanup: kill any lingering git processes, retry rmtree
-    if os.path.exists(deploy_dir):
-        subprocess.run(['taskkill', '/F', '/IM', 'git.exe'], capture_output=True, shell=True)
-        time.sleep(0.5)
-        for attempt in range(3):
-            shutil.rmtree(deploy_dir, ignore_errors=True)
-            if not os.path.exists(deploy_dir):
-                break
-            time.sleep(1)
-    # If still exists, use unique name as fallback
-    if os.path.exists(deploy_dir):
-        deploy_dir = os.path.join(tempfile.gettempdir(), f'laser-deploy-{int(time.time())}')
-    os.makedirs(deploy_dir, exist_ok=True)
-    # Copy site contents into deploy dir
-    for item in os.listdir(site_dir):
-        s = os.path.join(site_dir, item)
-        d = os.path.join(deploy_dir, item)
-        if os.path.isdir(s):
-            shutil.copytree(s, d)
-        else:
-            shutil.copy2(s, d)
-
-    # Get user info from main repo for the temp repo
-    user_name = subprocess.run(['git', 'config', 'user.name'], cwd=PROJECT, capture_output=True, text=True, shell=True).stdout.strip() or 'deploy'
-    user_email = subprocess.run(['git', 'config', 'user.email'], cwd=PROJECT, capture_output=True, text=True, shell=True).stdout.strip() or 'deploy@localhost'
-
-    cmds = [
-        ['git', 'init', '-b', 'gh-pages'],
-        ['git', 'config', 'user.name', user_name],
-        ['git', 'config', 'user.email', user_email],
-        ['git', 'add', '.'],
-        ['git', 'commit', '-m', 'Built site for gh-pages'],
-        ['git', 'remote', 'add', 'origin', 'https://github.com/kayhryu89/kayhryu89.github.io.git'],
-        ['git', 'push', '--force', 'origin', 'gh-pages'],
-    ]
-    for cmd in cmds:
-        show = cmd[1] in ('push', 'commit')
-        r = subprocess.run(cmd, cwd=deploy_dir, capture_output=not show, shell=True)
-        if r.returncode != 0 and cmd[1] == 'init':
-            # Fallback for older git without -b flag
-            subprocess.run(['git', 'init'], cwd=deploy_dir, capture_output=True, shell=True)
-            subprocess.run(['git', 'checkout', '-b', 'gh-pages'], cwd=deploy_dir, capture_output=True, shell=True)
-
-    shutil.rmtree(deploy_dir, ignore_errors=True)
+    Direct gh-pages force-push deployment is intentionally disabled. Push main
+    instead; GitHub Actions validates, renders, and publishes gh-pages.
+    """
+    print('Direct gh-pages publishing is disabled.')
+    print('Use deploy.bat, or push main and let GitHub Actions publish the site.')
     return 0
 
 if __name__ == '__main__':
