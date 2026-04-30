@@ -11,7 +11,7 @@ filters:
 
 **Laboratory for Autonomous Systems Engineering Research**
 
-Autonomous Process-/Experiment-Design · Operation · Decision Engineering
+Autonomous Process and Experiment Design · Operation · Decision Engineering
 
 [About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#joining-laser){.btn .btn-outline-secondary}
 :::
@@ -20,7 +20,7 @@ Autonomous Process-/Experiment-Design · Operation · Decision Engineering
 
 ## Welcome to LASER
 
-We are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental methods for self-directing engineered systems, reducing reliance on expert experience and know-how in modeling, design, optimization, and operation.
+We are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental workflows that help complex engineered systems become more autonomous, reliable, and data-efficient.
 
 ---
 
