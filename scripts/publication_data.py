@@ -396,6 +396,7 @@ def render_publication_text(record: PublicationRecord, meta: dict[str, object], 
     fields = record.fields
     authors = parse_authors(fields.get("author", ""))
     pi_roles = [str(role) for role in meta.get("pi_roles", [])] if isinstance(meta.get("pi_roles"), list) else []
+    status = str(meta.get("status", "published"))
     parts = [
         format_author_list(authors, lab_members, pi_roles),
         html.escape(decode_latex(fields.get("title", ""))),
@@ -418,14 +419,13 @@ def render_publication_text(record: PublicationRecord, meta: dict[str, object], 
         detail_parts.append(f"({html.escape(number.strip())})")
     if pages.strip():
         detail_parts.append(html.escape(pages.strip()))
-    if year.strip():
+    if year.strip() and status not in {"under_review", "under_revision"}:
         detail_parts.append(html.escape(year.strip()))
     if detail_parts:
         parts.append(", ".join(detail_parts))
 
     text = ". ".join(part for part in parts if part).strip()
     doi = doi_url(fields.get("doi"))
-    status = str(meta.get("status", "published"))
     group = status_group(status)
     status_text = render_status_text(status) if group != "published" else ""
 

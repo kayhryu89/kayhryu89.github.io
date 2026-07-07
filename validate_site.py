@@ -242,9 +242,9 @@ def validate_publications(errors: list[str], warnings: list[str]) -> None:
             if doi != normalized:
                 warnings.append(f"data/publications.bib entry {record.key} DOI should be stored without URL prefix")
             if status in {"accepted", "in_press"}:
-                warnings.append(
+                errors.append(
                     f"data/publication_meta.yml key {record.key} is {status} but has a DOI; "
-                    "consider marking it as published"
+                    "use status: published"
                 )
             if normalized in seen_dois:
                 errors.append(
