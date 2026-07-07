@@ -2,6 +2,7 @@
 _site/
 _freeze/
 .quarto/
+_generated/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

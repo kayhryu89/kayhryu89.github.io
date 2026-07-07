@@ -2,8 +2,6 @@
 title: "LASER at SCNU"
 page-layout: full
 toc: false
-filters:
-  - home-loader.lua
 ---
 
 ::: {.laser-hero}
@@ -42,8 +40,7 @@ We are a research group in the Department of Chemical Engineering at Sunchon Nat
 ::: {.laser-card}
 ### Recent Publications
 
-::: {#recent-pubs}
-:::
+{{< include _generated/recent_publications.md >}}
 
 [See all publications →](publications.qmd)
 :::

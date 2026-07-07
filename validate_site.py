@@ -7,6 +7,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+SCRIPTS_DIR = ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+import publication_data as pubdata
 
 EXTERNAL_PREFIXES = (
     "http://",
@@ -27,6 +32,19 @@ LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 YAML_PATH_RE = re.compile(r"^\s*(?:logo|bibliography)\s*:\s*['\"]?([^'\"\s]+)", re.MULTILINE)
 IO_OPEN_RE = re.compile(r"io\.open\(['\"]([^'\"]+)['\"]")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)(?:\s+\{#([A-Za-z0-9_-]+)\})?\s*$")
+ALLOWED_PUBLICATION_STATUSES = {
+    "draft",
+    "submitted",
+    "under_review",
+    "under_revision",
+    "accepted",
+    "in_press",
+    "published",
+    "rejected",
+    "withdrawn",
+}
+ALLOWED_VISIBILITY = {"public", "private"}
+ALLOWED_PI_ROLES = {"first", "co_first", "corresponding"}
 
 
 def display(path: Path) -> str:
@@ -162,6 +180,84 @@ def validate_placeholders(errors: list[str]) -> None:
                 errors.append(f"{display(path)} still contains placeholder text: {pattern}")
 
 
+def validate_publications(errors: list[str], warnings: list[str]) -> None:
+    bib_path = ROOT / "data" / "publications.bib"
+    meta_path = ROOT / "data" / "publication_meta.yml"
+    if not bib_path.exists():
+        errors.append("data/publications.bib is missing")
+        return
+    if not meta_path.exists():
+        errors.append("data/publication_meta.yml is missing")
+        return
+
+    try:
+        records = pubdata.parse_bibtex(bib_path)
+        meta = pubdata.load_publication_meta(meta_path)
+    except Exception as exc:
+        errors.append(f"publication data failed to load: {exc}")
+        return
+
+    seen_keys: set[str] = set()
+    seen_dois: dict[str, str] = {}
+    record_keys = [record.key for record in records]
+
+    for key in record_keys:
+        if key in seen_keys:
+            errors.append(f"data/publications.bib contains duplicate key: {key}")
+        seen_keys.add(key)
+
+    for record in records:
+        fields = record.fields
+        if not fields.get("title", "").strip():
+            errors.append(f"data/publications.bib entry {record.key} is missing title")
+        if not fields.get("author", "").strip():
+            errors.append(f"data/publications.bib entry {record.key} is missing author")
+        year = fields.get("year", "").strip()
+        if not re.fullmatch(r"\d{4}", year):
+            errors.append(f"data/publications.bib entry {record.key} has invalid year: {year or '<empty>'}")
+
+        if record.key not in meta:
+            errors.append(f"data/publication_meta.yml is missing key for publication: {record.key}")
+            continue
+
+        record_meta = meta[record.key]
+        status = pubdata.canonical_status(record_meta.get("status"))
+        visibility = str(record_meta.get("visibility", ""))
+        if status not in ALLOWED_PUBLICATION_STATUSES:
+            errors.append(f"data/publication_meta.yml key {record.key} has invalid status: {status}")
+        if visibility not in ALLOWED_VISIBILITY:
+            errors.append(f"data/publication_meta.yml key {record.key} has invalid visibility: {visibility}")
+
+        pi_roles = record_meta.get("pi_roles", [])
+        if not isinstance(pi_roles, list):
+            errors.append(f"data/publication_meta.yml key {record.key} has non-list pi_roles")
+        else:
+            for role in pi_roles:
+                if str(role) not in ALLOWED_PI_ROLES:
+                    errors.append(f"data/publication_meta.yml key {record.key} has invalid pi_role: {role}")
+
+        doi = fields.get("doi", "").strip()
+        if doi:
+            normalized = pubdata.normalize_doi(doi)
+            if doi != normalized:
+                warnings.append(f"data/publications.bib entry {record.key} DOI should be stored without URL prefix")
+            if normalized in seen_dois:
+                errors.append(
+                    "data/publications.bib has duplicate DOI "
+                    f"{normalized} for {seen_dois[normalized]} and {record.key}"
+                )
+            else:
+                seen_dois[normalized] = record.key
+
+        title = fields.get("title", "")
+        if "\\textcolor" in title:
+            errors.append(f"data/publications.bib entry {record.key} title still contains LaTeX review markup")
+
+    for meta_key in meta:
+        if meta_key not in seen_keys:
+            errors.append(f"data/publication_meta.yml contains unknown key: {meta_key}")
+
+
 def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
@@ -169,6 +265,7 @@ def main() -> int:
     validate_paths(errors)
     validate_privacy(errors, warnings)
     validate_placeholders(errors)
+    validate_publications(errors, warnings)
 
     for warning in warnings:
         print(f"WARNING: {warning}")

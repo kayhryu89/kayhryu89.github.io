@@ -1,0 +1,215 @@
+2026_06:
+  status: under_review
+  visibility: public
+  pi_roles:
+    - corresponding
+
+2026_05:
+  status: under_revision
+  visibility: public
+  pi_roles:
+    - corresponding
+
+2026_04:
+  status: under_revision
+  visibility: public
+  pi_roles:
+    - corresponding
+
+2026_03:
+  status: accepted
+  visibility: public
+  pi_roles:
+    - corresponding
+
+2026_02:
+  status: accepted
+  visibility: public
+  pi_roles:
+    - corresponding
+
+kim2026uncertainty:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+kim2025variance:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+mun2025enhancing:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+yun2025towards:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+cheon2025techno:
+  status: published
+  visibility: public
+  pi_roles:
+
+kim2025dependency:
+  status: published
+  visibility: public
+  pi_roles:
+
+kim2025piecewise:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+yook2024robust:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+ryu2024sustainability:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+kim2023enhancing:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+kim2023sustainability:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+park2023green:
+  status: published
+  visibility: public
+  pi_roles:
+
+heo2023new:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+lim2023pulse:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+lim2023new:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+moon2023economic:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+lim2022perturbation:
+  status: published
+  visibility: public
+  pi_roles:
+
+ryu2022sustainability:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
+
+lee2022optimal:
+  status: published
+  visibility: public
+  pi_roles:
+
+heo2022shallow:
+  status: published
+  visibility: public
+  pi_roles:
+    - corresponding
+
+kim2022feature:
+  status: published
+  visibility: public
+  pi_roles:
+
+kim2022mean:
+  status: published
+  visibility: public
+  pi_roles:
+
+lee2021catholyte:
+  status: published
+  visibility: public
+  pi_roles:
+
+lee2020techno:
+  status: published
+  visibility: public
+  pi_roles:
+
+ryu2019mathematical:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
+
+ryu2019improved:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
+
+ryu2019model:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
+
+ryu2018mathematical:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
+
+kwon2018development:
+  status: published
+  visibility: public
+  pi_roles:
+
+yun2017modeling:
+  status: published
+  visibility: public
+  pi_roles:
+
+ryu2014discrete:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
+
+jin2014pid:
+  status: published
+  visibility: public
+  pi_roles:
+
+ryu2013modeling:
+  status: published
+  visibility: public
+  pi_roles:
+    - first
