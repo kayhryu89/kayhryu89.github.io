@@ -241,6 +241,11 @@ def validate_publications(errors: list[str], warnings: list[str]) -> None:
             normalized = pubdata.normalize_doi(doi)
             if doi != normalized:
                 warnings.append(f"data/publications.bib entry {record.key} DOI should be stored without URL prefix")
+            if status in {"accepted", "in_press"}:
+                warnings.append(
+                    f"data/publication_meta.yml key {record.key} is {status} but has a DOI; "
+                    "consider marking it as published"
+                )
             if normalized in seen_dois:
                 errors.append(
                     "data/publications.bib has duplicate DOI "

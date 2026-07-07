@@ -1,2 +1,28 @@
-# Auto-detect text files and normalize line endings
+# Default: normalize text, keep repository content portable.
 * text=auto
+
+# Source and content files should stay LF across platforms.
+*.md text eol=lf
+*.qmd text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.py text eol=lf
+*.lua text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.bib text eol=lf
+*.csv text eol=lf
+
+# Windows shell scripts are more comfortable as CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.pdf binary

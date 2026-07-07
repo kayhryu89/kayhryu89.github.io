@@ -388,10 +388,8 @@ def format_author_list(authors: list[dict[str, str]], lab_members: set[str], pi_
     return ", ".join(format_author_html(author["full"], lab_members, pi_roles) for author in authors)
 
 
-def render_status_badge(status: str) -> str:
-    label = status.replace("_", " ").title()
-    css_suffix = status.replace("_", "-")
-    return f'<span class="pub-status pub-status-{css_suffix}">{html.escape(label)}</span>'
+def render_status_text(status: str) -> str:
+    return status.replace("_", " ").title()
 
 
 def render_publication_text(record: PublicationRecord, meta: dict[str, object], lab_members: set[str]) -> str:
@@ -426,19 +424,18 @@ def render_publication_text(record: PublicationRecord, meta: dict[str, object], 
         parts.append(", ".join(detail_parts))
 
     text = ". ".join(part for part in parts if part).strip()
-    if not text.endswith("."):
-        text += "."
-
     doi = doi_url(fields.get("doi"))
-    if doi:
-        text += f' <a href="{html.escape(doi)}" target="_blank" rel="noopener">[LINK]</a>'
-
     status = str(meta.get("status", "published"))
     group = status_group(status)
-    if group != "published":
-        text += f" {render_status_badge(status)}"
+    status_text = render_status_text(status) if group != "published" else ""
 
-    return text
+    if doi and status_text:
+        return f'{text}. <a href="{html.escape(doi)}" target="_blank" rel="noopener">[LINK]</a>, {html.escape(status_text)}.'
+    if doi:
+        return f'{text}. <a href="{html.escape(doi)}" target="_blank" rel="noopener">[LINK]</a>'
+    if status_text:
+        return f"{text}, {html.escape(status_text)}."
+    return f"{text}."
 
 
 def render_publication_sections(records: list[PublicationRecord], meta: dict[str, dict[str, object]], lab_members: list[str]) -> str:
