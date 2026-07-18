@@ -5,10 +5,11 @@
     - corresponding
 
 2026_05:
-  status: under_revision
-  visibility: public
+  status: "under_review"
+  visibility: "public"
   pi_roles:
-    - corresponding
+    - "corresponding"
+  status_updated: "2026-07-19"
 
 2026_04:
   status: under_revision
