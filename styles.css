@@ -167,3 +167,264 @@
     display: block;
   }
 }
+
+/* ===== Research page ===== */
+.research-vision {
+  max-width: 1180px;
+  margin: 0 auto 2.4rem;
+  padding: 2rem 2.2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #f6f9fd 0%, #eef5fc 100%);
+  border: 1px solid #d9e5f1;
+  border-radius: 14px;
+}
+
+.research-eyebrow {
+  margin-bottom: 0.65rem;
+  color: #2b6da8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.research-vision > p {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.research-principles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+}
+
+.research-principles span {
+  padding: 0.42rem 0.75rem;
+  color: #24496a;
+  font-size: 0.84rem;
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid #cbdceb;
+  border-radius: 999px;
+}
+
+.framework-figure {
+  max-width: 1500px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.framework-scroll {
+  overflow-x: auto;
+  padding: 0.4rem;
+  background: #fff;
+  border: 1px solid #dfe6ee;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(20, 45, 75, 0.08);
+}
+
+.framework-scroll p {
+  margin: 0;
+}
+
+.research-framework-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.framework-figure > p {
+  max-width: 1020px;
+  margin: 0.85rem auto 0;
+  color: #5b6571;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.framework-link,
+.research-text-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.research-theme-grid,
+.application-grid,
+.direction-grid,
+.selected-research-grid {
+  max-width: 1320px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.research-theme-card,
+.application-card,
+.direction-card,
+.selected-research-card {
+  position: relative;
+  height: 100%;
+  padding: 1.45rem;
+  background: #fff;
+  border: 1px solid #dde4eb;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(28, 48, 73, 0.07);
+}
+
+.research-theme-card {
+  padding-top: 1.8rem;
+  border-top-width: 5px;
+}
+
+.research-theme-card h3,
+.application-card h3,
+.direction-card h3,
+.selected-research-card h3 {
+  margin-top: 0;
+  color: #22384d;
+}
+
+.theme-blue { border-top-color: #2374c6; }
+.theme-green { border-top-color: #3b934f; }
+.theme-purple { border-top-color: #7548a5; }
+
+.theme-number {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.95rem;
+  color: #afbbc7;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.theme-question {
+  min-height: 3.1rem;
+  margin: 0.65rem 0 1rem;
+  color: #47647e;
+  font-size: 0.93rem;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.research-theme-card p,
+.application-card p,
+.direction-card p,
+.selected-research-card p,
+.research-theme-card li,
+.selected-research-card li {
+  font-size: 0.93rem;
+  line-height: 1.58;
+}
+
+.research-theme-card ul,
+.selected-research-card ul {
+  margin-bottom: 1rem;
+  padding-left: 1.15rem;
+}
+
+.theme-examples {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  color: #596979;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  border-top: 1px solid #e7ebef;
+}
+
+.theme-examples a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.application-card {
+  padding-left: 1.7rem;
+  border-left-width: 5px;
+}
+
+.application-blue { border-left-color: #2374c6; }
+.application-green { border-left-color: #3b934f; }
+.application-purple { border-left-color: #7548a5; }
+.application-orange { border-left-color: #d87825; }
+
+.direction-card {
+  padding-left: 4rem;
+  background: #fafbfd;
+}
+
+.direction-label {
+  position: absolute;
+  top: 1.45rem;
+  left: 1.25rem;
+  color: #2f6da2;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.selected-research-card {
+  border-top: 3px solid #aebdca;
+}
+
+.research-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.research-actions .btn {
+  min-width: 170px;
+}
+
+@media (max-width: 767px) {
+  .research-vision {
+    padding: 1.4rem 1rem;
+    text-align: left;
+  }
+
+  .research-eyebrow {
+    text-align: center;
+  }
+
+  .research-vision > p {
+    font-size: 0.98rem;
+  }
+
+  .research-principles {
+    justify-content: flex-start;
+  }
+
+  .framework-scroll {
+    padding: 0.25rem;
+  }
+
+  .research-framework-image {
+    width: 980px;
+    max-width: none;
+  }
+
+  .research-theme-grid > div,
+  .application-grid > div,
+  .direction-grid > div,
+  .selected-research-grid > div {
+    margin-bottom: 0.9rem;
+  }
+
+  .theme-question {
+    min-height: 0;
+  }
+
+  .research-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .research-actions .btn {
+    width: 100%;
+  }
+}

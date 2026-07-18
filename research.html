@@ -132,24 +132,9 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#research-themes" id="toc-research-themes" class="nav-link active" data-scroll-target="#research-themes">Research Themes</a>
-  <ul class="collapse">
-  <li><a href="#autonomous-process-experiment-design" id="toc-autonomous-process-experiment-design" class="nav-link" data-scroll-target="#autonomous-process-experiment-design">Autonomous Process &amp; Experiment Design</a></li>
-  <li><a href="#decision-engineering" id="toc-decision-engineering" class="nav-link" data-scroll-target="#decision-engineering">Decision Engineering</a></li>
-  <li><a href="#operation-monitoring-control" id="toc-operation-monitoring-control" class="nav-link" data-scroll-target="#operation-monitoring-control">Operation, Monitoring &amp; Control</a></li>
-  </ul></li>
-  <li><a href="#application-domains" id="toc-application-domains" class="nav-link" data-scroll-target="#application-domains">Application Domains</a></li>
-  <li><a href="#current-direction" id="toc-current-direction" class="nav-link" data-scroll-target="#current-direction">Current Direction</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -158,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -170,50 +155,221 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>LASER studies how expert-driven engineering decisions can be reformulated into principled and computationally tractable workflows. Rather than treating design, modeling, operation, and assessment as isolated tasks, we investigate how they can be progressively structured, connected, and partially automated under physical constraints, uncertainty, and limited data. Our research is organized around several decision-making problems that repeatedly arise in engineering practice, including how to design informative experiments, construct usable models, and search over structural and operational choices that have traditionally depended on heuristics.</p>
+<div class="research-vision">
+<div class="research-eyebrow">
+AUTONOMOUS SYSTEMS ENGINEERING
+</div>
+<p>LASER develops computational workflows that help engineers determine <strong>what to investigate, which alternative to select, and how to operate complex systems</strong> under uncertainty and limited data.</p>
+<p>Our research connects autonomous design, decision engineering, and operation into closed-loop engineering workflows grounded in physical knowledge, data, and verifiable computation.</p>
+<div class="research-principles">
+<p><span>Physical consistency</span> <span>Data efficiency</span> <span>Uncertainty awareness</span> <span>Verifiability</span></p>
+</div>
+</div>
+<section id="integrated-research-framework" class="level2">
+<h2 class="anchored" data-anchor-id="integrated-research-framework">Integrated Research Framework</h2>
+<div class="framework-figure">
+<div class="framework-scroll">
+<p><a href="laser_autonomous_workflow_editable_preview.png"><img src="laser_autonomous_workflow_editable_preview.png" class="research-framework-image img-fluid" alt="Integrated workflow for autonomous systems engineering connecting autonomous design, decision engineering, and operation, monitoring and control."></a></p>
+</div>
+<p>LASER studies closed-loop workflows in which experiments and models inform engineering decisions, decisions are implemented in real systems, and new observations improve subsequent design and operation. <a href="laser_autonomous_workflow_editable_preview.png" class="framework-link" target="_blank">Open the full-size figure</a></p>
+</div>
+</section>
 <section id="research-themes" class="level2">
 <h2 class="anchored" data-anchor-id="research-themes">Research Themes</h2>
-<section id="autonomous-process-experiment-design" class="level3">
-<h3 class="anchored" data-anchor-id="autonomous-process-experiment-design">Autonomous Process &amp; Experiment Design</h3>
-<p>We develop data-efficient design strategies for engineering systems where experiments or high-fidelity simulations are expensive. Our work combines sequential design of experiments, response-surface modeling, uncertainty-aware surrogate construction, and value-of-information reasoning to decide what should be measured next and why.</p>
-<p>Representative problems include:</p>
+<div class="grid research-theme-grid">
+<div class="g-col-12 g-col-md-4">
+<div class="research-theme-card theme-blue">
+<div class="theme-number">
+01
+</div>
+<section id="autonomous-design" class="level3">
+<h3 class="anchored" data-anchor-id="autonomous-design">Autonomous Design</h3>
+<div class="theme-question">
+What should be investigated, modeled, or designed next?
+</div>
+<p>Autonomous design addresses how experiments, models, and design spaces can be progressively refined with limited data and computational resources. We develop methods that select informative next actions while respecting physical constraints and uncertainty.</p>
+<p><strong>Core methods</strong></p>
 <ul>
-<li>sequential experimental design under limited budgets</li>
-<li>intensified design of experiments for nonlinear process behavior</li>
-<li>surrogate-assisted optimization with physical and statistical constraints</li>
-<li>active learning workflows for process and material systems</li>
+<li>Sequential and Bayesian experiment design</li>
+<li>Active learning and value of information</li>
+<li>Surrogate and hybrid modeling</li>
+<li>Design-space exploration</li>
 </ul>
+<div class="theme-examples">
+<strong>Representative work</strong><br><a href="https://doi.org/10.1007/s11814-025-00543-9" target="_blank" rel="noopener">Sequential experimental design</a> · <a href="https://doi.org/10.1007/s11814-024-00362-4" target="_blank" rel="noopener">Piecewise response-surface modeling</a>
+</div>
 </section>
+</div>
+</div>
+<div class="g-col-12 g-col-md-4">
+<div class="research-theme-card theme-green">
+<div class="theme-number">
+02
+</div>
 <section id="decision-engineering" class="level3">
 <h3 class="anchored" data-anchor-id="decision-engineering">Decision Engineering</h3>
-<p>Many engineering decisions are made under uncertainty, incomplete models, and competing objectives. LASER studies computational decision workflows that connect model prediction, constraint handling, uncertainty quantification, and sustainability assessment. The goal is not only to find an optimum, but to make the reasoning behind a design or operating choice auditable.</p>
-<p>Representative problems include:</p>
+<div class="theme-question">
+Which design, technology, or operating alternative should be selected?
+</div>
+<p>Decision engineering studies how alternatives should be evaluated when objectives conflict, predictions are uncertain, and models are incomplete. The goal is not only to identify an optimum, but also to make the basis and reliability of the decision transparent.</p>
+<p><strong>Core methods</strong></p>
 <ul>
-<li>model-based design and optimization of chemical and energy systems</li>
-<li>techno-economic and environmental assessment</li>
-<li>uncertainty-penalized optimization</li>
-<li>screening and ranking of process alternatives</li>
+<li>Optimization under uncertainty</li>
+<li>Multi-objective decision-making</li>
+<li>Techno-economic assessment</li>
+<li>Environmental and sustainability assessment</li>
 </ul>
+<div class="theme-examples">
+<strong>Representative work</strong><br><a href="https://doi.org/10.1007/s11814-026-00746-8" target="_blank" rel="noopener">Uncertainty-penalized optimization</a> · <a href="https://doi.org/10.1016/j.cej.2025.169850" target="_blank" rel="noopener">Sustainable blue hydrogen</a>
+</div>
 </section>
+</div>
+</div>
+<div class="g-col-12 g-col-md-4">
+<div class="research-theme-card theme-purple">
+<div class="theme-number">
+03
+</div>
 <section id="operation-monitoring-control" class="level3">
 <h3 class="anchored" data-anchor-id="operation-monitoring-control">Operation, Monitoring &amp; Control</h3>
-<p>We investigate operation strategies for systems whose behavior changes over time or is difficult to model perfectly. This includes control-oriented modeling, data-driven controller design, monitoring logic, scheduling, and operational decision support for complex engineered systems.</p>
-<p>Representative problems include:</p>
+<div class="theme-question">
+How should the system be operated and adapted over time?
+</div>
+<p>We develop implementable methods for systems affected by disturbances, model mismatch, changing operating conditions, and limited process knowledge. Our work connects control-oriented modeling, direct data-driven control, monitoring, and operational decision support.</p>
+<p><strong>Core methods</strong></p>
 <ul>
-<li>process identification and control-oriented modeling</li>
-<li>data-driven controller design</li>
-<li>monitoring and diagnostic logic for energy and chemical processes</li>
-<li>operational strategy for electrified and low-carbon systems</li>
+<li>System identification and control-oriented modeling</li>
+<li>Direct data-driven controller design</li>
+<li>Monitoring and diagnosis</li>
+<li>Scheduling and operational strategy</li>
 </ul>
+<div class="theme-examples">
+<strong>Representative work</strong><br><a href="https://doi.org/10.1016/j.compchemeng.2026.109780" target="_blank" rel="noopener">Direct data-driven controller design</a> · <a href="https://doi.org/10.3390/pr12050986" target="_blank" rel="noopener">Robust process identification</a>
+</div>
 </section>
+</div>
+</div>
+</div>
 </section>
 <section id="application-domains" class="level2">
 <h2 class="anchored" data-anchor-id="application-domains">Application Domains</h2>
-<p>Our methods are developed through problems in chemical, electrochemical, energy, and bioprocess systems. Current and recent applications include carbon capture and utilization, membrane gas separation, electrified thermal systems, hydrogen systems, power-generation processes, and sustainability assessment of emerging technologies.</p>
+<p>Our methods are developed and tested through engineering problems in which data are costly, physical constraints are important, and decisions have long-term technical or environmental consequences.</p>
+<div class="grid application-grid">
+<div class="g-col-12 g-col-md-6">
+<section id="carbon-capture-separation-utilization" class="level3 application-card application-blue">
+<h3 class="anchored" data-anchor-id="carbon-capture-separation-utilization">Carbon Capture, Separation &amp; Utilization</h3>
+<p>Membrane gas separation, CO₂ capture and utilization, purity–recovery–energy trade-offs, and process performance and cost assessment.</p>
 </section>
-<section id="current-direction" class="level2">
-<h2 class="anchored" data-anchor-id="current-direction">Current Direction</h2>
-<p>LASER is moving toward integrated autonomous engineering workflows: systems that can design informative experiments, update models, evaluate uncertainty, and recommend next decisions while respecting physical constraints and engineering objectives. This direction connects our work on DOE/iDoE, surrogate modeling, optimization, operation, and assessment into a single research agenda.</p>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="electrified-low-carbon-process-systems" class="level3 application-card application-green">
+<h3 class="anchored" data-anchor-id="electrified-low-carbon-process-systems">Electrified &amp; Low-Carbon Process Systems</h3>
+<p>Electrified reboilers and thermal systems, process-utility electrification, operational strategy, and decarbonization assessment.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="hydrogen-energy-systems" class="level3 application-card application-purple">
+<h3 class="anchored" data-anchor-id="hydrogen-energy-systems">Hydrogen &amp; Energy Systems</h3>
+<p>Hydrogen storage and transport, power-generation process operation, renewable-integrated systems, dynamic optimization, and scheduling.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="bio--electrochemical-emerging-systems" class="level3 application-card application-orange">
+<h3 class="anchored" data-anchor-id="bio--electrochemical-emerging-systems">Bio-, Electrochemical &amp; Emerging Systems</h3>
+<p>Bioprocess and electrochemical-system modeling, autonomous experimentation, technology evaluation, and sustainability assessment.</p>
+</section>
+</div>
+</div>
+</section>
+<section id="current-research-directions" class="level2">
+<h2 class="anchored" data-anchor-id="current-research-directions">Current Research Directions</h2>
+<div class="grid direction-grid">
+<div class="g-col-12 g-col-md-6">
+<div class="direction-card">
+<div class="direction-label">
+01
+</div>
+<section id="closed-loop-experimentmodeldecision-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="closed-loop-experimentmodeldecision-workflows">Closed-Loop Experiment–Model–Decision Workflows</h3>
+<p>Integrating experiment design, model updating, uncertainty assessment, and next-action selection into a unified iterative workflow.</p>
+</section>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="direction-card">
+<div class="direction-label">
+02
+</div>
+<section id="reliable-data-driven-operation" class="level3">
+<h3 class="anchored" data-anchor-id="reliable-data-driven-operation">Reliable Data-Driven Operation</h3>
+<p>Developing implementable control and monitoring methods that remain reliable under model mismatch, limited data, and changing operating conditions.</p>
+</section>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="direction-card">
+<div class="direction-label">
+03
+</div>
+<section id="autonomous-low-carbon-process-systems" class="level3">
+<h3 class="anchored" data-anchor-id="autonomous-low-carbon-process-systems">Autonomous Low-Carbon Process Systems</h3>
+<p>Connecting process design, sustainability assessment, and adaptive operation for membrane, electrified, hydrogen, and energy systems.</p>
+</section>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="direction-card">
+<div class="direction-label">
+04
+</div>
+<section id="model-and-method-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-and-method-selection">Model and Method Selection</h3>
+<p>Developing systematic frameworks for selecting models, experimental strategies, surrogates, and optimization methods according to available information and engineering objectives.</p>
+</section>
+</div>
+</div>
+</div>
+</section>
+<section id="selected-research" class="level2">
+<h2 class="anchored" data-anchor-id="selected-research">Selected Research</h2>
+<div class="grid selected-research-grid">
+<div class="g-col-12 g-col-md-4">
+<section id="autonomous-design-1" class="level3 selected-research-card">
+<h3 class="anchored" data-anchor-id="autonomous-design-1">Autonomous Design</h3>
+<ul>
+<li>Variance-weighted sequential experimental design</li>
+<li>Intensified design of experiments</li>
+<li>Piecewise and uncertainty-aware surrogate modeling</li>
+</ul>
+<p><a href="./publications.html" class="research-text-link">View publications →</a></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="decision-engineering-1" class="level3 selected-research-card">
+<h3 class="anchored" data-anchor-id="decision-engineering-1">Decision Engineering</h3>
+<ul>
+<li>Process and technology alternative assessment</li>
+<li>Techno-economic and environmental evaluation</li>
+<li>Uncertainty-aware optimization and screening</li>
+</ul>
+<p><a href="./publications.html" class="research-text-link">View publications →</a></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="operation-monitoring-control-1" class="level3 selected-research-card">
+<h3 class="anchored" data-anchor-id="operation-monitoring-control-1">Operation, Monitoring &amp; Control</h3>
+<ul>
+<li>Direct data-driven controller design</li>
+<li>Process identification under disturbances</li>
+<li>Operational strategy for energy and chemical systems</li>
+</ul>
+<p><a href="./publications.html" class="research-text-link">View publications →</a></p>
+</section>
+</div>
+</div>
+<div class="research-actions">
+<p><a href="./publications.html" class="btn btn-primary">View All Publications</a> <a href="./projects.html" class="btn btn-outline-primary">View All Projects</a></p>
+</div>
 
 
 </section>
