@@ -213,3 +213,11 @@ ryu2013modeling:
   visibility: public
   pi_roles:
     - first
+
+Yi2026_soptd:
+  status: "submitted"
+  visibility: "public"
+  pi_roles:
+    - "corresponding"
+  submitted: "2026-07-19"
+  status_updated: "2026-07-19"
