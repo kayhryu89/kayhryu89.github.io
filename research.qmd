@@ -1,49 +1,232 @@
 ---
 title: "Research"
 page-layout: full
+toc: false
 ---
 
-LASER studies how expert-driven engineering decisions can be reformulated into principled and computationally tractable workflows. Rather than treating design, modeling, operation, and assessment as isolated tasks, we investigate how they can be progressively structured, connected, and partially automated under physical constraints, uncertainty, and limited data. Our research is organized around several decision-making problems that repeatedly arise in engineering practice, including how to design informative experiments, construct usable models, and search over structural and operational choices that have traditionally depended on heuristics.
+::: {.research-vision}
+<div class="research-eyebrow">AUTONOMOUS SYSTEMS ENGINEERING</div>
+
+LASER develops computational workflows that help engineers determine **what to investigate, which alternative to select, and how to operate complex systems** under uncertainty and limited data.
+
+Our research connects autonomous design, decision engineering, and operation into closed-loop engineering workflows grounded in physical knowledge, data, and verifiable computation.
+
+::: {.research-principles}
+<span>Physical consistency</span>
+<span>Data efficiency</span>
+<span>Uncertainty awareness</span>
+<span>Verifiability</span>
+:::
+:::
+
+## Integrated Research Framework
+
+::: {.framework-figure}
+::: {.framework-scroll}
+[![](laser_autonomous_workflow_editable_preview.png){.research-framework-image fig-alt="Integrated workflow for autonomous systems engineering connecting autonomous design, decision engineering, and operation, monitoring and control."}](laser_autonomous_workflow_editable_preview.png)
+:::
+
+LASER studies closed-loop workflows in which experiments and models inform engineering decisions, decisions are implemented in real systems, and new observations improve subsequent design and operation. [Open the full-size figure](laser_autonomous_workflow_editable_preview.png){.framework-link target="_blank"}
+:::
 
 ## Research Themes
 
-### Autonomous Process & Experiment Design
+::: {.grid .research-theme-grid}
 
-We develop data-efficient design strategies for engineering systems where experiments or high-fidelity simulations are expensive. Our work combines sequential design of experiments, response-surface modeling, uncertainty-aware surrogate construction, and value-of-information reasoning to decide what should be measured next and why.
+::: {.g-col-12 .g-col-md-4}
+::: {.research-theme-card .theme-blue}
+<div class="theme-number">01</div>
 
-Representative problems include:
+### Autonomous Design
 
-- sequential experimental design under limited budgets
-- intensified design of experiments for nonlinear process behavior
-- surrogate-assisted optimization with physical and statistical constraints
-- active learning workflows for process and material systems
+<div class="theme-question">What should be investigated, modeled, or designed next?</div>
+
+Autonomous design addresses how experiments, models, and design spaces can be progressively refined with limited data and computational resources. We develop methods that select informative next actions while respecting physical constraints and uncertainty.
+
+**Core methods**
+
+- Sequential and Bayesian experiment design
+- Active learning and value of information
+- Surrogate and hybrid modeling
+- Design-space exploration
+
+<div class="theme-examples"><strong>Representative work</strong><br><a href="https://doi.org/10.1007/s11814-025-00543-9" target="_blank" rel="noopener">Sequential experimental design</a> · <a href="https://doi.org/10.1007/s11814-024-00362-4" target="_blank" rel="noopener">Piecewise response-surface modeling</a></div>
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.research-theme-card .theme-green}
+<div class="theme-number">02</div>
 
 ### Decision Engineering
 
-Many engineering decisions are made under uncertainty, incomplete models, and competing objectives. LASER studies computational decision workflows that connect model prediction, constraint handling, uncertainty quantification, and sustainability assessment. The goal is not only to find an optimum, but to make the reasoning behind a design or operating choice auditable.
+<div class="theme-question">Which design, technology, or operating alternative should be selected?</div>
 
-Representative problems include:
+Decision engineering studies how alternatives should be evaluated when objectives conflict, predictions are uncertain, and models are incomplete. The goal is not only to identify an optimum, but also to make the basis and reliability of the decision transparent.
 
-- model-based design and optimization of chemical and energy systems
-- techno-economic and environmental assessment
-- uncertainty-penalized optimization
-- screening and ranking of process alternatives
+**Core methods**
+
+- Optimization under uncertainty
+- Multi-objective decision-making
+- Techno-economic assessment
+- Environmental and sustainability assessment
+
+<div class="theme-examples"><strong>Representative work</strong><br><a href="https://doi.org/10.1007/s11814-026-00746-8" target="_blank" rel="noopener">Uncertainty-penalized optimization</a> · <a href="https://doi.org/10.1016/j.cej.2025.169850" target="_blank" rel="noopener">Sustainable blue hydrogen</a></div>
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.research-theme-card .theme-purple}
+<div class="theme-number">03</div>
 
 ### Operation, Monitoring & Control
 
-We investigate operation strategies for systems whose behavior changes over time or is difficult to model perfectly. This includes control-oriented modeling, data-driven controller design, monitoring logic, scheduling, and operational decision support for complex engineered systems.
+<div class="theme-question">How should the system be operated and adapted over time?</div>
 
-Representative problems include:
+We develop implementable methods for systems affected by disturbances, model mismatch, changing operating conditions, and limited process knowledge. Our work connects control-oriented modeling, direct data-driven control, monitoring, and operational decision support.
 
-- process identification and control-oriented modeling
-- data-driven controller design
-- monitoring and diagnostic logic for energy and chemical processes
-- operational strategy for electrified and low-carbon systems
+**Core methods**
+
+- System identification and control-oriented modeling
+- Direct data-driven controller design
+- Monitoring and diagnosis
+- Scheduling and operational strategy
+
+<div class="theme-examples"><strong>Representative work</strong><br><a href="https://doi.org/10.1016/j.compchemeng.2026.109780" target="_blank" rel="noopener">Direct data-driven controller design</a> · <a href="https://doi.org/10.3390/pr12050986" target="_blank" rel="noopener">Robust process identification</a></div>
+:::
+:::
+
+:::
 
 ## Application Domains
 
-Our methods are developed through problems in chemical, electrochemical, energy, and bioprocess systems. Current and recent applications include carbon capture and utilization, membrane gas separation, electrified thermal systems, hydrogen systems, power-generation processes, and sustainability assessment of emerging technologies.
+Our methods are developed and tested through engineering problems in which data are costly, physical constraints are important, and decisions have long-term technical or environmental consequences.
 
-## Current Direction
+::: {.grid .application-grid}
 
-LASER is moving toward integrated autonomous engineering workflows: systems that can design informative experiments, update models, evaluate uncertainty, and recommend next decisions while respecting physical constraints and engineering objectives. This direction connects our work on DOE/iDoE, surrogate modeling, optimization, operation, and assessment into a single research agenda.
+::: {.g-col-12 .g-col-md-6}
+::: {.application-card .application-blue}
+### Carbon Capture, Separation & Utilization
+
+Membrane gas separation, CO₂ capture and utilization, purity–recovery–energy trade-offs, and process performance and cost assessment.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.application-card .application-green}
+### Electrified & Low-Carbon Process Systems
+
+Electrified reboilers and thermal systems, process-utility electrification, operational strategy, and decarbonization assessment.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.application-card .application-purple}
+### Hydrogen & Energy Systems
+
+Hydrogen storage and transport, power-generation process operation, renewable-integrated systems, dynamic optimization, and scheduling.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.application-card .application-orange}
+### Bio-, Electrochemical & Emerging Systems
+
+Bioprocess and electrochemical-system modeling, autonomous experimentation, technology evaluation, and sustainability assessment.
+:::
+:::
+
+:::
+
+## Current Research Directions
+
+::: {.grid .direction-grid}
+
+::: {.g-col-12 .g-col-md-6}
+::: {.direction-card}
+<div class="direction-label">01</div>
+
+### Closed-Loop Experiment–Model–Decision Workflows
+
+Integrating experiment design, model updating, uncertainty assessment, and next-action selection into a unified iterative workflow.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.direction-card}
+<div class="direction-label">02</div>
+
+### Reliable Data-Driven Operation
+
+Developing implementable control and monitoring methods that remain reliable under model mismatch, limited data, and changing operating conditions.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.direction-card}
+<div class="direction-label">03</div>
+
+### Autonomous Low-Carbon Process Systems
+
+Connecting process design, sustainability assessment, and adaptive operation for membrane, electrified, hydrogen, and energy systems.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.direction-card}
+<div class="direction-label">04</div>
+
+### Model and Method Selection
+
+Developing systematic frameworks for selecting models, experimental strategies, surrogates, and optimization methods according to available information and engineering objectives.
+:::
+:::
+
+:::
+
+## Selected Research
+
+::: {.grid .selected-research-grid}
+
+::: {.g-col-12 .g-col-md-4}
+::: {.selected-research-card}
+### Autonomous Design
+
+- Variance-weighted sequential experimental design
+- Intensified design of experiments
+- Piecewise and uncertainty-aware surrogate modeling
+
+[View publications →](publications.qmd){.research-text-link}
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.selected-research-card}
+### Decision Engineering
+
+- Process and technology alternative assessment
+- Techno-economic and environmental evaluation
+- Uncertainty-aware optimization and screening
+
+[View publications →](publications.qmd){.research-text-link}
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.selected-research-card}
+### Operation, Monitoring & Control
+
+- Direct data-driven controller design
+- Process identification under disturbances
+- Operational strategy for energy and chemical systems
+
+[View publications →](publications.qmd){.research-text-link}
+:::
+:::
+
+:::
+
+::: {.research-actions}
+[View All Publications](publications.qmd){.btn .btn-primary}
+[View All Projects](projects.qmd){.btn .btn-outline-primary}
+:::
