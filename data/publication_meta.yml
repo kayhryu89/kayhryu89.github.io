@@ -5,11 +5,14 @@
     - corresponding
 
 2026_05:
-  status: "under_review"
+  status: "under_revision"
   visibility: "public"
   pi_roles:
     - "corresponding"
+  submitted: "2026-06-30"
   status_updated: "2026-07-19"
+  next_action: "Revision"
+  next_review: "2026-08-05"
 
 2026_04:
   status: under_revision
@@ -216,7 +219,7 @@ ryu2013modeling:
     - first
 
 Yi2026_soptd:
-  status: "submitted"
+  status: "under_review"
   visibility: "public"
   pi_roles:
     - "corresponding"

@@ -1,6 +1,5 @@
 project:
   type: website
-  pre-render: python scripts/build_content.py
 
 website:
   title: "LASER"

@@ -15,6 +15,7 @@ Publication content is now managed from:
 - `data/publications.bib` for bibliographic fields
 - `data/publication_meta.yml` for site metadata such as status and PI roles
 - `scripts/build_content.py` for generated homepage/publication fragments
+- `board-dashboard.html` for the generated, access-gated research Board view
 
 Local commands should prefer the workspace portable Python at
 `E:\07_LASER\03_App\00_Python\python.exe`.
@@ -23,6 +24,10 @@ Local commands should prefer the workspace portable Python at
 E:\07_LASER\03_App\00_Python\python.exe scripts\build_content.py
 E:\07_LASER\03_App\00_Python\python.exe validate_site.py
 ```
+
+Run `scripts\build_content.py` before a direct `quarto render`; deployment scripts already perform this step automatically.
+
+The homepage `Board` tab embeds `board-dashboard.html`. That file is generated from the local research dashboard by `E:\07_LASER\03_App\04_Dashborad\run.bat`, the project manager, or `deploy.bat`. The login is a client-side gate for the static page; it does not provide server-side protection for public hosting.
 
 Validation can also be run directly:
 

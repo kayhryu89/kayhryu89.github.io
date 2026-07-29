@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LASER Research Dashboard</title>
+  <style>
+    :root {
+      --canvas: #edf2ef;
+      --paper: #fbfcfa;
+      --ink: #172522;
+      --muted: #63716c;
+      --line: #ccd7d1;
+      --accent: #0b6d5d;
+      --accent-soft: #d7eee7;
+      --blue: #1c5f89;
+      --blue-soft: #dcebf5;
+      --amber: #a86800;
+      --amber-soft: #f8e9c8;
+      --coral: #a9432e;
+      --coral-soft: #f5ded8;
+      --slate: #4e5a5d;
+      --radius: 7px;
+      font-family: "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); font-size: 14px; line-height: 1.45; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .topbar { background: var(--ink); color: #fff; padding: 20px clamp(18px, 4vw, 64px); display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; gap: 12px; align-items: center; min-width: 0; }
+    .brand-mark { width: 32px; height: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+    .brand-mark span { background: #75c6b5; }
+    .brand-mark span:nth-child(2), .brand-mark span:nth-child(4), .brand-mark span:nth-child(6) { background: #e7b655; }
+    .brand h1 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: 0; }
+    .brand p, .generated { margin: 2px 0 0; color: #c6d4cf; font-size: 12px; }
+    .generated { text-align: right; white-space: nowrap; }
+    main { max-width: 1480px; margin: 0 auto; padding: 24px clamp(18px, 4vw, 64px) 48px; }
+    .summary-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+    .summary-group-title { margin: 0 0 8px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .metric { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; min-height: 92px; }
+    .metric .value { font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+    .metric .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .metric.accent .value { color: var(--accent); }
+    .metric.blue .value { color: var(--blue); }
+    .metric.amber .value { color: var(--amber); }
+    .metric.coral .value { color: var(--coral); }
+    .view-tabs { display: flex; gap: 22px; margin-top: 28px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+    .tab-button { background: transparent; border: 0; border-bottom: 3px solid transparent; padding: 10px 2px; cursor: pointer; color: var(--muted); font-weight: 600; white-space: nowrap; }
+    .tab-button[aria-selected="true"] { border-bottom-color: var(--accent); color: var(--ink); }
+    .view { display: none; padding-top: 20px; }
+    .view.active { display: block; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
+    .section-head h2 { margin: 0; font-size: 16px; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 12px; }
+    .surface { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+    .surface + .surface, .split-grid + .surface, .surface + .split-grid { margin-top: 16px; }
+    .split-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 16px; }
+    .surface-header { padding: 14px 16px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .surface-header h2, .surface-header h3 { margin: 0; font-size: 15px; }
+    .surface-header .subtle { color: var(--muted); font-size: 12px; }
+    .pipeline { padding: 18px 16px; display: grid; grid-template-columns: repeat(6, minmax(78px, 1fr)); gap: 10px; }
+    .pipeline-step { min-width: 0; border-left: 3px solid var(--line); padding-left: 10px; }
+    .pipeline-step .count { font-size: 24px; font-weight: 700; line-height: 1; }
+    .pipeline-step .name { color: var(--muted); font-size: 12px; margin-top: 6px; }
+    .focus-list, .attention-list { padding: 0; margin: 0; list-style: none; }
+    .focus-item, .attention-item { display: grid; grid-template-columns: 10px 1fr auto; gap: 10px; align-items: center; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+    .focus-item:last-child, .attention-item:last-child { border-bottom: 0; }
+    .signal { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .signal.warning { background: var(--amber); }
+    .item-title { font-weight: 650; color: var(--ink); text-decoration: none; }
+    .item-title:hover { text-decoration: underline; }
+    .item-meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .status { display: inline-flex; align-items: center; border: 1px solid currentColor; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 650; white-space: nowrap; }
+    .status-under_review, .status-under_revision, .status-submitted { color: var(--blue); background: var(--blue-soft); }
+    .status-active, .status-promoted { color: var(--accent); background: var(--accent-soft); }
+    .status-exploring, .status-seed, .status-candidate, .status-inbox { color: var(--amber); background: var(--amber-soft); }
+    .status-parked, .status-unknown { color: var(--slate); background: #e8eceb; }
+    .status-published { color: var(--coral); background: var(--coral-soft); }
+    .stage { display: inline-flex; align-items: center; border: 1px solid currentColor; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 650; white-space: nowrap; }
+    .stage-project { color: var(--blue); background: var(--blue-soft); }
+    .stage-incubation { color: var(--amber); background: var(--amber-soft); }
+    .badge-stack { display: flex; justify-content: flex-end; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+    .filter-groups { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .filter-group { display: flex; align-items: center; gap: 7px; }
+    .filter-label { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .segments { display: flex; gap: 0; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+    .segment { border: 0; border-right: 1px solid var(--line); background: transparent; padding: 7px 10px; cursor: pointer; font-size: 12px; }
+    .segment:last-child { border-right: 0; }
+    .segment.active { background: var(--ink); color: #fff; }
+    .search { position: relative; min-width: min(100%, 300px); }
+    .search input { width: 100%; border: 1px solid var(--line); border-radius: 5px; background: #fff; padding: 8px 10px 8px 30px; color: var(--ink); }
+    .search:before { content: "⌕"; position: absolute; left: 10px; top: 5px; color: var(--muted); font-size: 17px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 820px; border-collapse: collapse; }
+    th, td { padding: 12px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; background: #f5f8f6; }
+    td { font-size: 13px; }
+    tr:last-child td { border-bottom: 0; }
+    .table-title { font-weight: 650; color: var(--ink); text-decoration: none; }
+    .table-title:hover { text-decoration: underline; }
+    .small { color: var(--muted); font-size: 12px; }
+    .empty { color: var(--muted); padding: 28px 16px; text-align: center; }
+    .attention-item { grid-template-columns: 10px 1fr; }
+    .attention-kind { color: var(--amber); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .attention-message { color: var(--muted); font-size: 13px; }
+    .footer { color: var(--muted); font-size: 12px; padding-top: 18px; }
+    @media (max-width: 920px) { .summary-groups { grid-template-columns: 1fr; } .split-grid { grid-template-columns: 1fr; } .pipeline { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 620px) { .topbar { align-items: flex-start; flex-direction: column; } .generated { text-align: left; white-space: normal; } .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .metric-grid .metric:last-child { grid-column: span 2; } .pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)); } .filter-groups { gap: 8px; } main { padding-top: 18px; } }
+  </style>
+</head>
+<body><div id="board-content">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div><h1>LASER Research Dashboard</h1><p>Portfolio and research-memory view</p></div>
+    </div>
+    <p class="generated" id="generated-at"></p>
+  </header>
+  <main>
+    <section class="summary-groups" aria-label="Research summary" id="metrics"></section>
+    <nav class="view-tabs" role="tablist" aria-label="Dashboard views">
+      <button class="tab-button" role="tab" aria-selected="true" data-view="overview">Overview</button>
+      <button class="tab-button" role="tab" aria-selected="false" data-view="projects">Workstreams</button>
+      <button class="tab-button" role="tab" aria-selected="false" data-view="ideas">Ideas</button>
+      <button class="tab-button" role="tab" aria-selected="false" data-view="coworkers">Coworkers</button>
+      <button class="tab-button" role="tab" aria-selected="false" data-view="attention">Attention</button>
+    </nav>
+    <section class="view active" id="overview" role="tabpanel"></section>
+    <section class="view" id="projects" role="tabpanel"></section>
+    <section class="view" id="ideas" role="tabpanel"></section>
+    <section class="view" id="coworkers" role="tabpanel"></section>
+    <section class="view" id="attention" role="tabpanel"></section>
+    <div class="footer" id="footer"></div>
+  </main>
+  <script id="dashboard-data" type="application/json">{"generated_at": "2026-07-29 13:37", "research_root": "E:\\02_Researches", "ideas": [{"id": "I-20260313-activation-solver-codesign", "title": "Activation-Solver Co-Design", "status": "seed", "created": "2026-03-13", "last_activity": "2026-07-14", "contributors": [], "coworkers": [], "keywords": ["activation_function", "solver_codesign", "analytic_solver"], "category": "methodology", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260313_ActivationFunction_solver_codesign.md", "path_uri": "file:///E:/02_Researches/01_Ideas/260313_ActivationFunction_solver_codesign.md", "kind": "idea"}, {"id": "I-20260413-common-subexpression-sr", "title": "Common-Subexpression-Aware Symbolic Regression", "status": "seed", "created": "2026-04-13", "last_activity": "2026-07-14", "contributors": [], "coworkers": [], "keywords": ["symbolic_regression", "common_subexpression", "dag"], "category": "methodology", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260413_common_subexpression_aware_sr(3).md", "path_uri": "file:///E:/02_Researches/01_Ideas/260413_common_subexpression_aware_sr%283%29.md", "kind": "idea"}, {"id": "I-20260413-postfix-constrained-decoding", "title": "Postfix-Constrained Decoding for Symbolic Regression", "status": "seed", "created": "2026-04-13", "last_activity": "2026-07-14", "contributors": [], "coworkers": [], "keywords": ["symbolic_regression", "postfix", "constrained_decoding"], "category": "methodology", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260413_postfix_constrained_decoding(1).md", "path_uri": "file:///E:/02_Researches/01_Ideas/260413_postfix_constrained_decoding%281%29.md", "kind": "idea"}, {"id": "I-20260413-recursive-grammar-sr", "title": "Recursive Grammar-Constrained Latent Symbolic Regression", "status": "seed", "created": "2026-04-13", "last_activity": "2026-07-14", "contributors": [], "coworkers": [], "keywords": ["symbolic_regression", "grammar", "latent_expression"], "category": "methodology", "confidence": "low", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260413_recursive_grammar_constrained_latent_sr(4).md", "path_uri": "file:///E:/02_Researches/01_Ideas/260413_recursive_grammar_constrained_latent_sr%284%29.md", "kind": "idea"}, {"id": "I-20260413-two-stage-concept-sr", "title": "Two-Stage Intermediate-Concept Symbolic Regression", "status": "seed", "created": "2026-04-13", "last_activity": "2026-07-14", "contributors": [], "coworkers": [], "keywords": ["symbolic_regression", "intermediate_expression", "hierarchy"], "category": "methodology", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260413_two_stage_intermediate_concept_sr(2).md", "path_uri": "file:///E:/02_Researches/01_Ideas/260413_two_stage_intermediate_concept_sr%282%29.md", "kind": "idea"}, {"id": "I-20260428-missingness-aware-membrane", "title": "Missingness-Aware Latent Membrane-State Modeling for CO2/N2 Mixed-Matrix Membranes", "status": "seed", "created": "2026-04-28", "last_activity": "2026-07-14", "contributors": [], "coworkers": [], "keywords": ["gas separation membrane", "mixed-matrix membrane", "CO2/N2 separation", "stochastic modeling", "missing data", "latent membrane state"], "category": "modeling", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260428_missingness_aware_latent_membrane_state_model.md", "path_uri": "file:///E:/02_Researches/01_Ideas/260428_missingness_aware_latent_membrane_state_model.md", "kind": "idea"}, {"id": "I-20260716-constraint-aware-fb-synthesis", "title": "Constraint-Aware Offline Synthesis of Function-Block Controllers", "status": "candidate", "created": "2026-07-16", "last_activity": "2026-07-16", "contributors": [], "coworkers": [], "keywords": ["controller synthesis", "function-block control", "actuator constraints", "rate limit", "saturation", "graph search"], "category": "control", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260716_constraint_aware_function_block_controller_synthesis.md", "path_uri": "file:///E:/02_Researches/01_Ideas/260716_constraint_aware_function_block_controller_synthesis.md", "kind": "idea"}, {"id": "I-20260716-plant-family-fb-synthesis", "title": "Plant-Family Generalization of Autonomous Function-Block Controller Synthesis", "status": "candidate", "created": "2026-07-16", "last_activity": "2026-07-16", "contributors": [], "coworkers": [], "keywords": ["controller synthesis", "function-block control", "plant family", "process control", "graph search", "generalization"], "category": "control", "confidence": "medium", "next_review": "", "path": "E:\\02_Researches\\01_Ideas\\260716_plant_family_generalization_function_block_synthesis.md", "path_uri": "file:///E:/02_Researches/01_Ideas/260716_plant_family_generalization_function_block_synthesis.md", "kind": "idea"}], "projects": [{"id": "DQBO", "title": "A DOE-Consistent Bayesian Optimization Framework for Noisy Digit-Constrained Experiments", "status": "exploring", "created": "", "last_activity": "2026-07-17", "contributors": [], "coworkers": [], "next_action": "", "next_review": "", "journal": "", "submitted": "", "output": "", "stage": "incubation", "path": "E:\\02_Researches\\02_Incubation\\DQBO", "path_uri": "file:///E:/02_Researches/02_Incubation/DQBO/README.md", "kind": "project"}, {"id": "HybridModelGP", "title": "Diagnostic hybrid Gaussian-process modeling for joint-sparse parameter diagnosis in a non-isothermal CSTR", "status": "exploring", "created": "", "last_activity": "2026-07-27", "contributors": [], "coworkers": [], "next_action": "", "next_review": "", "journal": "", "submitted": "", "output": "", "stage": "incubation", "path": "E:\\02_Researches\\02_Incubation\\HybridModelGP", "path_uri": "file:///E:/02_Researches/02_Incubation/HybridModelGP/README.md", "kind": "project"}, {"id": "membrane_operation_review", "title": "Membrane Operation Review", "status": "exploring", "created": "", "last_activity": "2026-07-15", "contributors": [], "coworkers": [], "next_action": "", "next_review": "", "journal": "", "submitted": "", "output": "review-article draft", "stage": "incubation", "path": "E:\\02_Researches\\02_Incubation\\membrane_operation_review", "path_uri": "file:///E:/02_Researches/02_Incubation/membrane_operation_review/README.md", "kind": "project"}, {"id": "P-202510-Membrane-opt", "title": "Membrane system optimization using augmented Lagrangian", "status": "active", "created": "2025-10-07", "last_activity": "2026-07-23", "contributors": [], "coworkers": ["Bouen Kim (KJNU)"], "next_action": "Manuscript writing", "next_review": "", "journal": "", "submitted": "", "output": "Manuscript", "stage": "project", "path": "E:\\02_Researches\\03_Projects\\2510_Membrane_opt", "path_uri": "file:///E:/02_Researches/03_Projects/2510_Membrane_opt/README.md", "kind": "project"}, {"id": "2604_BatchIDwDisturbance", "title": "Batch-process identification under repetitive and deterministic disturbances using differenced batch data", "status": "under_revision", "created": "", "last_activity": "2026-07-26", "contributors": [], "coworkers": ["Yujin Cheon (GNU)", "Suwhan Sung (KNU)"], "next_action": "Complete the Computers & Chemical Engineering revision and prepare the resubmission package.", "next_review": "2026-08-06", "journal": "Computers & Chemical Engineering", "submitted": "", "output": "Manuscript", "stage": "project", "path": "E:\\02_Researches\\03_Projects\\2604_BatchIDwDisturbance", "path_uri": "file:///E:/02_Researches/03_Projects/2604_BatchIDwDisturbance/README.md", "kind": "project"}, {"id": "P-202604-PiecewiseRSM", "title": "Piecewise Response Surface Methodology with Data-Driven Multi-Variable Axis-Aligned Partitioning and Simultaneous Smoothness Constraints", "status": "active", "created": "2026-04-09", "last_activity": "2026-07-28", "contributors": [], "coworkers": ["Jiyun KIm (KNU)"], "next_action": "Refine the manuscript and verify the simulation study before submission.", "next_review": "", "journal": "Chemometrics and Intelligent Laboratory Systems", "submitted": "", "output": "", "stage": "project", "path": "E:\\02_Researches\\03_Projects\\2604_PiecewiseRSM", "path_uri": "file:///E:/02_Researches/03_Projects/2604_PiecewiseRSM/README.md", "kind": "project"}, {"id": "P-202607-DCD-MIMO", "title": "Direct controller design for MIMO process", "status": "active", "created": "2026-07-16", "last_activity": "2026-07-23", "contributors": [], "coworkers": ["Jiyun Kim (KNU)"], "next_action": "Review the methodology and review and extend the simulation study.", "next_review": "", "journal": "", "submitted": "", "output": "Manuscript", "stage": "project", "path": "E:\\02_Researches\\03_Projects\\2607_DCD_MIMO", "path_uri": "file:///E:/02_Researches/03_Projects/2607_DCD_MIMO/README.md", "kind": "project"}, {"id": "2607_prs_heatp", "title": "Energy recovery from pressure regulation station", "status": "active", "created": "", "last_activity": "2026-07-29", "contributors": [], "coworkers": [], "next_action": "Complete the Energy submittion", "next_review": "", "journal": "`Energy`", "submitted": "2026-07-06", "output": "Manuscript", "stage": "project", "path": "E:\\02_Researches\\03_Projects\\2607_prs_heatp", "path_uri": "file:///E:/02_Researches/03_Projects/2607_prs_heatp/README.md", "kind": "project"}, {"id": "P-202607-SOPTD-Descriptor-Tuning", "title": "Faster and More Consistent Response-Guided Process-Descriptor Trial Retuning for Rule-Based PID Control", "status": "under_review", "created": "2026-07-13", "last_activity": "2026-07-23", "contributors": [], "coworkers": ["Ryu Ha Yi (KNU)", "Suwhan Sung (KNU)", "Yujin Cheon (GNU)"], "next_action": "Confirm author-controlled metadata, then submit the simulation-only R0_V05 package to ISA Transactions.", "next_review": "", "journal": "ISA transaction", "submitted": "2026-07-18", "output": "R0_V05 double-anonymized ISA Transactions submission package", "stage": "project", "path": "E:\\02_Researches\\03_Projects\\2607_SOPTD_Descriptor_Tuning", "path_uri": "file:///E:/02_Researches/03_Projects/2607_SOPTD_Descriptor_Tuning/README.md", "kind": "project"}], "coworkers": [{"name": "Bouen Kim (KJNU)", "workstreams": [{"title": "Membrane system optimization using augmented Lagrangian", "path_uri": "file:///E:/02_Researches/03_Projects/2510_Membrane_opt/README.md", "kind": "Project"}]}, {"name": "Jiyun KIm (KNU)", "workstreams": [{"title": "Piecewise Response Surface Methodology with Data-Driven Multi-Variable Axis-Aligned Partitioning and Simultaneous Smoothness Constraints", "path_uri": "file:///E:/02_Researches/03_Projects/2604_PiecewiseRSM/README.md", "kind": "Project"}, {"title": "Direct controller design for MIMO process", "path_uri": "file:///E:/02_Researches/03_Projects/2607_DCD_MIMO/README.md", "kind": "Project"}]}, {"name": "Ryu Ha Yi (KNU)", "workstreams": [{"title": "Faster and More Consistent Response-Guided Process-Descriptor Trial Retuning for Rule-Based PID Control", "path_uri": "file:///E:/02_Researches/03_Projects/2607_SOPTD_Descriptor_Tuning/README.md", "kind": "Project"}]}, {"name": "Suwhan Sung (KNU)", "workstreams": [{"title": "Batch-process identification under repetitive and deterministic disturbances using differenced batch data", "path_uri": "file:///E:/02_Researches/03_Projects/2604_BatchIDwDisturbance/README.md", "kind": "Project"}, {"title": "Faster and More Consistent Response-Guided Process-Descriptor Trial Retuning for Rule-Based PID Control", "path_uri": "file:///E:/02_Researches/03_Projects/2607_SOPTD_Descriptor_Tuning/README.md", "kind": "Project"}]}, {"name": "Yujin Cheon (GNU)", "workstreams": [{"title": "Batch-process identification under repetitive and deterministic disturbances using differenced batch data", "path_uri": "file:///E:/02_Researches/03_Projects/2604_BatchIDwDisturbance/README.md", "kind": "Project"}, {"title": "Faster and More Consistent Response-Guided Process-Descriptor Trial Retuning for Rule-Based PID Control", "path_uri": "file:///E:/02_Researches/03_Projects/2607_SOPTD_Descriptor_Tuning/README.md", "kind": "Project"}]}], "attention": [], "status_labels": {"inbox": "Inbox", "seed": "Seed", "candidate": "Candidate", "active": "Active", "exploring": "Exploring", "submitted": "Submitted", "under_review": "Under review", "under_revision": "Under revision", "published": "Published", "parked": "Parked", "promoted": "Promoted", "unknown": "Not recorded"}, "stage_labels": {"incubation": "Incubation", "project": "Project"}}</script>
+  <script>
+    const data = JSON.parse(document.getElementById('dashboard-data').textContent);
+    const statusLabels = data.status_labels;
+    const stageLabels = data.stage_labels;
+    let stageFilter = 'all';
+    let statusFilter = 'all';
+    let searchTerm = '';
+
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+    const labelFor = (status) => statusLabels[status] || 'Not recorded';
+    const badge = (status) => `<span class="status status-${escapeHtml(status)}">${escapeHtml(labelFor(status))}</span>`;
+    const stageFor = (stage) => stageLabels[stage] || 'Not recorded';
+    const stageBadge = (stage) => `<span class="stage stage-${escapeHtml(stage)}">${escapeHtml(stageFor(stage))}</span>`;
+    const dateOrMissing = (value) => value ? escapeHtml(value) : '<span class="small">Not recorded</span>';
+    const fileLink = (item, titleClass = 'table-title') => `<a class="${titleClass}" href="${escapeHtml(item.path_uri)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a>`;
+
+    function renderMetrics() {
+      const underReview = data.projects.filter((item) => item.status === 'under_review').length;
+      const activeWork = data.projects.filter((item) => ['active', 'under_revision'].includes(item.status)).length;
+      const portfolio = [
+        ['Ideas', data.ideas.length, 'accent'],
+        ['Incubation', data.projects.filter((item) => item.stage === 'incubation').length, 'amber'],
+        ['Projects', data.projects.filter((item) => item.stage === 'project').length, 'blue'],
+      ];
+      const operations = [
+        ['Active work', activeWork, 'accent'],
+        ['Under review', underReview, 'blue'],
+        ['Follow-up', data.attention.length, 'coral'],
+      ];
+      const group = (title, metrics) => `<div><h2 class="summary-group-title">${title}</h2><div class="metric-grid">${metrics.map(([label, value, color]) => `<div class="metric ${color}"><div class="value">${value}</div><div class="label">${label}</div></div>`).join('')}</div></div>`;
+      document.getElementById('metrics').innerHTML = group('Research portfolio', portfolio) + group('Operating status', operations);
+    }
+
+    function pipelineStep(status) {
+      const count = data.ideas.filter((item) => item.status === status).length;
+      return `<div class="pipeline-step"><div class="count">${count}</div><div class="name">${escapeHtml(labelFor(status))}</div></div>`;
+    }
+
+    function renderOverview() {
+      const focus = [...data.projects].sort((a, b) => (a.status === 'under_review' ? -1 : 0) - (b.status === 'under_review' ? -1 : 0));
+      const focusMarkup = focus.length ? focus.map((item) => `
+        <li class="focus-item"><span class="signal ${item.status === 'under_review' ? 'warning' : ''}"></span>
+          <div>${fileLink(item, 'item-title')}<div class="item-meta">${escapeHtml(stageFor(item.stage))} · ${escapeHtml(item.journal || item.output || 'No output recorded')}${item.submitted ? ` · submitted ${escapeHtml(item.submitted)}` : ''}</div></div>
+          <div class="badge-stack">${stageBadge(item.stage)}${badge(item.status)}</div>
+        </li>`).join('') : '<li class="empty">No project records found.</li>';
+      const attentionMarkup = data.attention.slice(0, 5).map((item) => `
+        <li class="attention-item"><span class="signal warning"></span><div><div class="attention-kind">${escapeHtml(item.kind)}</div><a class="item-title" href="${escapeHtml(item.path_uri)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a><div class="attention-message">${escapeHtml(item.message)}</div></div></li>`).join('') || '<li class="empty">No metadata follow-up is currently flagged.</li>';
+      document.getElementById('overview').innerHTML = `
+        <div class="surface"><div class="surface-header"><h2>Idea Pipeline</h2><span class="subtle">Current idea states</span></div><div class="pipeline">${['inbox','seed','candidate','active','parked','promoted'].map(pipelineStep).join('')}</div></div>
+        <div class="split-grid">
+          <div class="surface"><div class="surface-header"><h2>Current Workstreams</h2><span class="subtle">Stage and current status</span></div><ul class="focus-list">${focusMarkup}</ul></div>
+          <div class="surface"><div class="surface-header"><h2>Attention Needed</h2><span class="subtle">Actionable follow-up only</span></div><ul class="attention-list">${attentionMarkup}</ul></div>
+        </div>`;
+    }
+
+    function filteredProjects() {
+      return data.projects.filter((item) => {
+        const matchesStage = stageFilter === 'all' || item.stage === stageFilter;
+        const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+        const haystack = [item.title, item.stage, item.status, item.journal, item.output, (item.coworkers || []).join(' ')].join(' ').toLowerCase();
+        return matchesStage && matchesStatus && haystack.includes(searchTerm.toLowerCase());
+      });
+    }
+
+    function projectRows(items) {
+      return items.length ? items.map((item) => `<tr>
+        <td>${fileLink(item)}<div class="small">${escapeHtml(item.id)}</div></td>
+        <td>${stageBadge(item.stage)}</td>
+        <td>${badge(item.status)}</td>
+        <td>${escapeHtml(item.journal || item.output || 'Not recorded')}</td>
+        <td>${dateOrMissing(item.last_activity)}</td>
+        <td>${item.next_action ? escapeHtml(item.next_action) : '<span class="small">Not recorded</span>'}</td>
+      </tr>`).join('') : '<tr><td colspan="6" class="empty">No workstreams match these filters.</td></tr>';
+    }
+
+    function renderProjects() {
+      const stageOptions = [['all', 'All stages'], ['project', 'Projects'], ['incubation', 'Incubation']];
+      const statusOptions = [['all', 'All states'], ['active', 'Active'], ['under_review', 'Under review'], ['under_revision', 'Under revision'], ['exploring', 'Exploring']];
+      document.getElementById('projects').innerHTML = `
+        <div class="surface"><div class="surface-header"><h2>Workstreams</h2><span class="subtle">Folder stage and README status</span></div>
+          <div class="controls"><div class="filter-groups"><div class="filter-group"><span class="filter-label">Stage</span><div class="segments" aria-label="Filter by stage">${stageOptions.map(([key, label]) => `<button class="segment ${stageFilter === key ? 'active' : ''}" data-stage-filter="${key}" type="button">${label}</button>`).join('')}</div></div><div class="filter-group"><span class="filter-label">Status</span><div class="segments" aria-label="Filter by current status">${statusOptions.map(([key, label]) => `<button class="segment ${statusFilter === key ? 'active' : ''}" data-status-filter="${key}" type="button">${label}</button>`).join('')}</div></div></div><label class="search"><input type="search" id="project-search" value="${escapeHtml(searchTerm)}" placeholder="Search workstreams" aria-label="Search workstreams"></label></div>
+          <div class="table-wrap"><table><thead><tr><th>Workstream</th><th>Stage</th><th>Current status</th><th>Journal / output</th><th>Last activity</th><th>Next action</th></tr></thead><tbody id="project-rows">${projectRows(filteredProjects())}</tbody></table></div>
+        </div>`;
+      document.querySelectorAll('[data-stage-filter]').forEach((button) => button.addEventListener('click', () => { stageFilter = button.dataset.stageFilter; renderProjects(); }));
+      document.querySelectorAll('[data-status-filter]').forEach((button) => button.addEventListener('click', () => { statusFilter = button.dataset.statusFilter; renderProjects(); }));
+      document.getElementById('project-search').addEventListener('input', (event) => { searchTerm = event.target.value; document.getElementById('project-rows').innerHTML = projectRows(filteredProjects()); });
+    }
+
+    function renderIdeas() {
+      const rows = data.ideas.map((item) => `<tr>
+        <td>${fileLink(item)}<div class="small">${escapeHtml(item.id)}</div></td>
+        <td>${badge(item.status)}</td>
+        <td>${escapeHtml(Array.isArray(item.keywords) ? item.keywords.slice(0, 3).join(', ') : item.keywords || 'Not recorded')}</td>
+        <td>${dateOrMissing(item.last_activity)}</td>
+        <td>${escapeHtml(item.confidence || 'Not recorded')}</td>
+      </tr>`).join('') || '<tr><td colspan="5" class="empty">No idea notes with front matter were found.</td></tr>';
+      document.getElementById('ideas').innerHTML = `<div class="surface"><div class="surface-header"><h2>Ideas</h2><span class="subtle">Markdown front matter records</span></div><div class="table-wrap"><table><thead><tr><th>Idea</th><th>Status</th><th>Keywords</th><th>Last activity</th><th>Confidence</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    }
+
+    function renderCoworkers() {
+      const rows = data.coworkers.map((person) => {
+        const workstreams = person.workstreams.map((item) => `<div><a class="table-title" href="${escapeHtml(item.path_uri)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a><span class="small"> · ${escapeHtml(item.kind)}</span></div>`).join('');
+        return `<tr><td><strong>${escapeHtml(person.name)}</strong></td><td>${person.workstreams.length}</td><td>${workstreams}</td></tr>`;
+      }).join('') || '<tr><td colspan="3" class="empty">No coworker records found. Add <code>coworkers: ["Name"]</code> to a project or idea README, or use the project manager.</td></tr>';
+      document.getElementById('coworkers').innerHTML = `<div class="surface"><div class="surface-header"><h2>Coworkers</h2><span class="subtle">${data.coworkers.length} recorded people linked to research</span></div><div class="table-wrap"><table><thead><tr><th>Coworker</th><th>Linked work</th><th>Projects and ideas</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    }
+
+    function renderAttention() {
+      const entries = data.attention.map((item) => `<li class="attention-item"><span class="signal warning"></span><div><div class="attention-kind">${escapeHtml(item.kind)}</div><a class="item-title" href="${escapeHtml(item.path_uri)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a><div class="attention-message">${escapeHtml(item.message)}</div></div></li>`).join('') || '<li class="empty">No metadata follow-up is currently flagged.</li>';
+      document.getElementById('attention').innerHTML = `<div class="surface"><div class="surface-header"><h2>Attention Needed</h2><span class="subtle">No source content was inferred or changed</span></div><ul class="attention-list">${entries}</ul></div>`;
+    }
+
+    function activateView(viewName) {
+      document.querySelectorAll('.tab-button').forEach((button) => button.setAttribute('aria-selected', button.dataset.view === viewName ? 'true' : 'false'));
+      document.querySelectorAll('.view').forEach((view) => view.classList.toggle('active', view.id === viewName));
+    }
+
+    renderMetrics();
+    renderOverview();
+    renderProjects();
+    renderIdeas();
+    renderCoworkers();
+    renderAttention();
+    document.getElementById('generated-at').textContent = `Generated ${data.generated_at}`;
+    document.getElementById('footer').textContent = `Source: ${data.research_root} · Rebuild with run.bat after changing research records.`;
+    document.querySelectorAll('.tab-button').forEach((button) => button.addEventListener('click', () => activateView(button.dataset.view)));
+  </script>
+</div><style>
+  #board-content { display: none; }
+  #board-auth { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #edf2ef; color: #172522; font-family: "Segoe UI", "Noto Sans KR", Arial, sans-serif; }
+  .board-auth-panel { width: min(100%, 380px); padding: 28px; border: 1px solid #d7e0dc; border-radius: 7px; background: #fbfcfa; box-shadow: 0 12px 35px rgba(24, 48, 41, 0.08); }
+  .board-auth-panel h1 { margin: 0 0 6px; font-size: 24px; }
+  .board-auth-panel p { margin: 0 0 20px; color: #63716c; font-size: 13px; }
+  .board-auth-panel label { display: block; margin: 0 0 14px; color: #172522; font-size: 12px; font-weight: 650; }
+  .board-auth-panel input { display: block; width: 100%; margin-top: 5px; padding: 9px; border: 1px solid #cbd6d1; border-radius: 5px; background: #fff; color: #172522; font: inherit; }
+  .board-auth-panel button { width: 100%; padding: 9px; border: 1px solid #167565; border-radius: 5px; background: #167565; color: #fff; font: inherit; font-weight: 650; cursor: pointer; }
+  .board-auth-error { min-height: 20px; margin: 12px 0 0 !important; color: #a9432e !important; }
+</style>
+<div id="board-auth" role="dialog" aria-labelledby="board-auth-title">
+  <div class="board-auth-panel">
+    <p>LASER Research Board</p>
+    <h1 id="board-auth-title">Sign in</h1>
+    <form id="board-auth-form">
+      <label>User ID<input id="board-auth-user" autocomplete="username" required></label>
+      <label>Password<input id="board-auth-password" type="password" autocomplete="current-password" required></label>
+      <button type="submit">Continue</button>
+      <p id="board-auth-error" class="board-auth-error" role="alert"></p>
+    </form>
+  </div>
+</div>
+<script>
+(() => {
+  const accounts = {"khryu":"408a5ee676694af19215cb22b2cd871e39c693f907933583ece00eda8d73ee16","yjeon":"12b408838e33f12bf8886792e6d44de0d9623e2bbf833b70f9f2e13fdf802706","jejeong":"6c25c8f454fea8dd5cd0b201b4f739993aebfc454de7b410ee9457c553699a85"};
+  const sessionKey = "laser-board-authenticated";
+  const auth = document.getElementById("board-auth");
+  const content = document.getElementById("board-content");
+  const form = document.getElementById("board-auth-form");
+  const error = document.getElementById("board-auth-error");
+
+  function sha256(input) {
+    const constants = [
+      0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+      0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+      0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+      0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+      0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+      0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+      0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+      0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+    ];
+    const hash = [
+      0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+      0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+    ];
+    const bytes = [];
+    for (let index = 0; index < input.length; index += 1) {
+      const code = input.charCodeAt(index);
+      if (code > 255) return "";
+      bytes.push(code);
+    }
+    const bitLength = bytes.length * 8;
+    bytes.push(0x80);
+    while ((bytes.length + 8) % 64 !== 0) bytes.push(0);
+    for (let shift = 56; shift >= 0; shift -= 8) bytes.push((bitLength / (2 ** shift)) & 0xff);
+
+    const rotateRight = (value, amount) => (value >>> amount) | (value << (32 - amount));
+    for (let offset = 0; offset < bytes.length; offset += 64) {
+      const words = new Uint32Array(64);
+      for (let index = 0; index < 16; index += 1) {
+        const start = offset + index * 4;
+        words[index] = ((bytes[start] << 24) | (bytes[start + 1] << 16) | (bytes[start + 2] << 8) | bytes[start + 3]) >>> 0;
+      }
+      for (let index = 16; index < 64; index += 1) {
+        const word15 = words[index - 15];
+        const word2 = words[index - 2];
+        const small0 = rotateRight(word15, 7) ^ rotateRight(word15, 18) ^ (word15 >>> 3);
+        const small1 = rotateRight(word2, 17) ^ rotateRight(word2, 19) ^ (word2 >>> 10);
+        words[index] = (words[index - 16] + small0 + words[index - 7] + small1) >>> 0;
+      }
+
+      let a = hash[0];
+      let b = hash[1];
+      let c = hash[2];
+      let d = hash[3];
+      let e = hash[4];
+      let f = hash[5];
+      let g = hash[6];
+      let h = hash[7];
+      for (let index = 0; index < 64; index += 1) {
+        const big1 = rotateRight(e, 6) ^ rotateRight(e, 11) ^ rotateRight(e, 25);
+        const choose = (e & f) ^ ((~e) & g);
+        const temp1 = (h + big1 + choose + constants[index] + words[index]) >>> 0;
+        const big0 = rotateRight(a, 2) ^ rotateRight(a, 13) ^ rotateRight(a, 22);
+        const majority = (a & b) ^ (a & c) ^ (b & c);
+        const temp2 = (big0 + majority) >>> 0;
+        h = g;
+        g = f;
+        f = e;
+        e = (d + temp1) >>> 0;
+        d = c;
+        c = b;
+        b = a;
+        a = (temp1 + temp2) >>> 0;
+      }
+      hash[0] = (hash[0] + a) >>> 0;
+      hash[1] = (hash[1] + b) >>> 0;
+      hash[2] = (hash[2] + c) >>> 0;
+      hash[3] = (hash[3] + d) >>> 0;
+      hash[4] = (hash[4] + e) >>> 0;
+      hash[5] = (hash[5] + f) >>> 0;
+      hash[6] = (hash[6] + g) >>> 0;
+      hash[7] = (hash[7] + h) >>> 0;
+    }
+    return hash.map((value) => value.toString(16).padStart(8, "0")).join("");
+  }
+
+  function unlock() {
+    sessionStorage.setItem(sessionKey, "1");
+    auth.remove();
+    content.style.display = "";
+  }
+
+  if (sessionStorage.getItem(sessionKey) === "1") {
+    unlock();
+    return;
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const username = document.getElementById("board-auth-user").value.trim();
+    const password = document.getElementById("board-auth-password").value;
+    if (accounts[username] && sha256(password) === accounts[username]) {
+      unlock();
+      return;
+    }
+    error.textContent = "The user ID or password is not correct.";
+  });
+})();
+</script></body>
+</html>
