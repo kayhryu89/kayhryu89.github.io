@@ -11,14 +11,16 @@
     - "corresponding"
   submitted: "2026-06-30"
   status_updated: "2026-07-19"
-  next_action: "Revision"
+  next_action: "Waiting decision (reveiw R1)"
   next_review: "2026-08-05"
 
 2026_04:
-  status: under_revision
-  visibility: public
+  status: "under_revision"
+  visibility: "public"
   pi_roles:
-    - corresponding
+    - "corresponding"
+  submitted: "2026-05-22"
+  status_updated: "2026-07-26"
 
 2026_03:
   status: published
