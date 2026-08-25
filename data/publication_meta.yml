@@ -15,12 +15,12 @@
   next_review: "2026-08-05"
 
 2026_04:
-  status: "under_revision"
+  status: "published"
   visibility: "public"
   pi_roles:
     - "corresponding"
   submitted: "2026-05-22"
-  status_updated: "2026-07-26"
+  status_updated: "2026-08-25"
 
 2026_03:
   status: published
@@ -227,3 +227,10 @@ Yi2026_soptd:
     - "corresponding"
   submitted: "2026-07-19"
   status_updated: "2026-07-19"
+
+Yun2026_ATRH2:
+  status: "submitted"
+  visibility: "public"
+  pi_roles:
+  submitted: "2026-08-04"
+  status_updated: "2026-08-04"
