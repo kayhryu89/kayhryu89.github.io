@@ -12,8 +12,7 @@ GitHub Actions is the single publishing path for `gh-pages`.
 
 Publication content is now managed from:
 
-- `data/publications.bib` for bibliographic fields
-- `data/publication_meta.yml` for site metadata such as status and PI roles
+- `data/publications.json` for bibliographic fields, structured authors, named corresponding authors, publication status, and site metadata
 - `scripts/build_content.py` for generated homepage/publication fragments
 - `board-dashboard.html` for the generated, access-gated research Board view
 

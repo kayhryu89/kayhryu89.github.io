@@ -181,18 +181,13 @@ def validate_placeholders(errors: list[str]) -> None:
 
 
 def validate_publications(errors: list[str], warnings: list[str]) -> None:
-    bib_path = ROOT / "data" / "publications.bib"
-    meta_path = ROOT / "data" / "publication_meta.yml"
-    if not bib_path.exists():
-        errors.append("data/publications.bib is missing")
-        return
-    if not meta_path.exists():
-        errors.append("data/publication_meta.yml is missing")
+    json_path = ROOT / "data" / "publications.json"
+    if not json_path.exists():
+        errors.append("data/publications.json is missing")
         return
 
     try:
-        records = pubdata.parse_bibtex(bib_path)
-        meta = pubdata.load_publication_meta(meta_path)
+        records, meta = pubdata.load_publications(json_path)
     except Exception as exc:
         errors.append(f"publication data failed to load: {exc}")
         return
@@ -203,52 +198,60 @@ def validate_publications(errors: list[str], warnings: list[str]) -> None:
 
     for key in record_keys:
         if key in seen_keys:
-            errors.append(f"data/publications.bib contains duplicate key: {key}")
+            errors.append(f"data/publications.json contains duplicate id: {key}")
         seen_keys.add(key)
 
     for record in records:
         fields = record.fields
         if not fields.get("title", "").strip():
-            errors.append(f"data/publications.bib entry {record.key} is missing title")
+            errors.append(f"data/publications.json entry {record.key} is missing title")
         if not fields.get("author", "").strip():
-            errors.append(f"data/publications.bib entry {record.key} is missing author")
+            errors.append(f"data/publications.json entry {record.key} is missing authors")
         year = fields.get("year", "").strip()
         if not re.fullmatch(r"\d{4}", year):
-            errors.append(f"data/publications.bib entry {record.key} has invalid year: {year or '<empty>'}")
+            errors.append(f"data/publications.json entry {record.key} has invalid year: {year or '<empty>'}")
 
         if record.key not in meta:
-            errors.append(f"data/publication_meta.yml is missing key for publication: {record.key}")
+            errors.append(f"data/publications.json is missing site metadata for: {record.key}")
             continue
 
         record_meta = meta[record.key]
         status = pubdata.canonical_status(record_meta.get("status"))
         visibility = str(record_meta.get("visibility", ""))
         if status not in ALLOWED_PUBLICATION_STATUSES:
-            errors.append(f"data/publication_meta.yml key {record.key} has invalid status: {status}")
+            errors.append(f"data/publications.json entry {record.key} has invalid status: {status}")
         if visibility not in ALLOWED_VISIBILITY:
-            errors.append(f"data/publication_meta.yml key {record.key} has invalid visibility: {visibility}")
+            errors.append(f"data/publications.json entry {record.key} has invalid visibility: {visibility}")
 
         pi_roles = record_meta.get("pi_roles", [])
         if not isinstance(pi_roles, list):
-            errors.append(f"data/publication_meta.yml key {record.key} has non-list pi_roles")
+            errors.append(f"data/publications.json entry {record.key} has non-list pi_roles")
         else:
             for role in pi_roles:
                 if str(role) not in ALLOWED_PI_ROLES:
-                    errors.append(f"data/publication_meta.yml key {record.key} has invalid pi_role: {role}")
+                    errors.append(f"data/publications.json entry {record.key} has invalid pi_role: {role}")
+
+        corresponding_authors = record_meta.get("corresponding_authors", [])
+        if not isinstance(corresponding_authors, list):
+            errors.append(
+                f"data/publications.json entry {record.key} has non-list corresponding_authors"
+            )
+
+        for date_field in ("submitted", "status_updated", "next_review"):
+            value = str(record_meta.get(date_field, "")).strip()
+            if value and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+                errors.append(
+                    f"data/publications.json entry {record.key} has invalid {date_field}: {value}"
+                )
 
         doi = fields.get("doi", "").strip()
         if doi:
             normalized = pubdata.normalize_doi(doi)
             if doi != normalized:
-                warnings.append(f"data/publications.bib entry {record.key} DOI should be stored without URL prefix")
-            if status in {"accepted", "in_press"}:
-                errors.append(
-                    f"data/publication_meta.yml key {record.key} is {status} but has a DOI; "
-                    "use status: published"
-                )
+                warnings.append(f"data/publications.json entry {record.key} DOI should omit the URL prefix")
             if normalized in seen_dois:
                 errors.append(
-                    "data/publications.bib has duplicate DOI "
+                    "data/publications.json has duplicate DOI "
                     f"{normalized} for {seen_dois[normalized]} and {record.key}"
                 )
             else:
@@ -256,11 +259,7 @@ def validate_publications(errors: list[str], warnings: list[str]) -> None:
 
         title = fields.get("title", "")
         if "\\textcolor" in title:
-            errors.append(f"data/publications.bib entry {record.key} title still contains LaTeX review markup")
-
-    for meta_key in meta:
-        if meta_key not in seen_keys:
-            errors.append(f"data/publication_meta.yml contains unknown key: {meta_key}")
+            errors.append(f"data/publications.json entry {record.key} title contains LaTeX review markup")
 
 
 def main() -> int:

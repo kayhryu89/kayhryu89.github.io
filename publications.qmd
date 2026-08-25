@@ -4,6 +4,6 @@ page-layout: full
 toc: true
 ---
 
-<sup>*</sup>: PI first author, <sup>&dagger;</sup>: PI corresponding author, <span class="lab-member">Blue</span>: Lab member
+<sup>&dagger;</sup>: Corresponding author, <span class="lab-member">Blue</span>: Lab member, <strong>Bold</strong>: PI
 
 {{< include _generated/publications.md >}}

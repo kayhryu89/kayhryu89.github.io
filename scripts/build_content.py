@@ -17,8 +17,7 @@ GENERATED_DIR = ROOT / "_generated"
 
 
 def main() -> int:
-    records = pubdata.parse_bibtex(DATA_DIR / "publications.bib")
-    meta = pubdata.load_publication_meta(DATA_DIR / "publication_meta.yml")
+    records, meta = pubdata.load_publications(DATA_DIR / "publications.json")
     lab_members = pubdata.load_lab_members(ROOT / "Info" / "student.csv")
 
     GENERATED_DIR.mkdir(exist_ok=True)

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import html
+import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -59,206 +60,138 @@ def status_group(status: str) -> str | None:
     return None
 
 
-def load_publication_meta(path: Path) -> dict[str, dict[str, object]]:
-    data: dict[str, dict[str, object]] = {}
-    current_key: str | None = None
-    current_list_key: str | None = None
+def load_publications(path: Path) -> tuple[list[PublicationRecord], dict[str, dict[str, object]]]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or data.get("schema_version") != 1:
+        raise ValueError(f"{path.name} must contain schema_version 1")
+    items = data.get("publications")
+    if not isinstance(items, list):
+        raise ValueError(f"{path.name} publications must be a list")
 
-    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-        line = raw_line.rstrip()
-        without_comment = line.split("#", 1)[0].rstrip()
-        if not without_comment:
-            continue
-
-        indent = len(raw_line) - len(raw_line.lstrip(" "))
-        content = without_comment[indent:]
-        if indent == 0:
-            if not content.endswith(":"):
-                raise ValueError(f"{path.name}:{line_number} expected top-level key ending with ':'")
-            current_key = content[:-1].strip()
-            data[current_key] = {}
-            current_list_key = None
-            continue
-
-        if current_key is None:
-            raise ValueError(f"{path.name}:{line_number} found nested field before a publication key")
-
-        if indent == 2:
-            if content.endswith(":"):
-                current_list_key = content[:-1].strip()
-                data[current_key][current_list_key] = []
-            else:
-                if ":" not in content:
-                    raise ValueError(f"{path.name}:{line_number} expected 'field: value'")
-                key, value = content.split(":", 1)
-                data[current_key][key.strip()] = parse_yaml_scalar(value.strip())
-                current_list_key = None
-            continue
-
-        if indent == 4 and content.startswith("- "):
-            if current_list_key is None:
-                raise ValueError(f"{path.name}:{line_number} list item without a parent field")
-            items = data[current_key].setdefault(current_list_key, [])
-            if not isinstance(items, list):
-                raise ValueError(f"{path.name}:{line_number} parent field is not a list")
-            items.append(parse_yaml_scalar(content[2:].strip()))
-            continue
-
-        raise ValueError(f"{path.name}:{line_number} unsupported indentation")
-
-    return data
-
-
-def parse_yaml_scalar(value: str) -> object:
-    if value in {"true", "True"}:
-        return True
-    if value in {"false", "False"}:
-        return False
-    if value in {"null", "None", "~", ""}:
-        return None
-    if re.fullmatch(r"-?\d+", value):
-        return int(value)
-    if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
-        return value[1:-1]
-    return value
-
-
-def parse_bibtex(path: Path) -> list[PublicationRecord]:
-    text = path.read_text(encoding="utf-8")
+    allowed_fields = {
+        "id",
+        "type",
+        "title",
+        "authors",
+        "journal",
+        "year",
+        "volume",
+        "issue",
+        "page_range",
+        "article_number",
+        "publisher",
+        "doi",
+        "url",
+        "status",
+        "visibility",
+        "pi_roles",
+        "corresponding_authors",
+        "dates",
+        "next_action",
+    }
+    allowed_dates = {"submitted", "status_updated", "next_review"}
     records: list[PublicationRecord] = []
-    idx = 0
-    order = 0
+    meta: dict[str, dict[str, object]] = {}
 
-    while True:
-        at = text.find("@", idx)
-        if at == -1:
-            break
+    for order, item in enumerate(items, start=1):
+        if not isinstance(item, dict):
+            raise ValueError(f"{path.name} publication {order} must be an object")
+        unknown_fields = set(item) - allowed_fields
+        if unknown_fields:
+            raise ValueError(
+                f"{path.name} publication {order} has unknown fields: {sorted(unknown_fields)}"
+            )
 
-        brace = text.find("{", at)
-        if brace == -1:
-            raise ValueError(f"{path.name}: malformed entry starting at character {at}")
+        key = str(item.get("id", "")).strip()
+        if not key:
+            raise ValueError(f"{path.name} publication {order} is missing id")
+        raw_authors = item.get("authors")
+        if not isinstance(raw_authors, list):
+            raise ValueError(f"{path.name} publication {key} authors must be a list")
 
-        entry_type = text[at + 1 : brace].strip().lower()
-        key_end = text.find(",", brace)
-        if key_end == -1:
-            raise ValueError(f"{path.name}: missing key separator for entry near character {at}")
+        author_values: list[str] = []
+        author_full_names: list[str] = []
+        for author_index, author in enumerate(raw_authors, start=1):
+            if not isinstance(author, dict) or set(author) - {"given", "family"}:
+                raise ValueError(
+                    f"{path.name} publication {key} author {author_index} must contain given/family"
+                )
+            given = str(author.get("given", "")).strip()
+            family = str(author.get("family", "")).strip()
+            if not given and not family:
+                raise ValueError(f"{path.name} publication {key} author {author_index} is empty")
+            author_values.append(f"{family}, {given}".strip(", ") if family else given)
+            author_full_names.append(f"{given} {family}".strip())
 
-        key = text[brace + 1 : key_end].strip()
-        body_start = key_end + 1
-        body_end = find_matching_brace(text, brace)
-        body = text[body_start:body_end].strip()
+        page_range = str(item.get("page_range", "")).strip()
+        article_number = str(item.get("article_number", "")).strip()
+        if page_range and article_number:
+            raise ValueError(
+                f"{path.name} publication {key} cannot define both page_range and article_number"
+            )
 
-        order += 1
+        fields = {
+            "title": str(item.get("title", "")),
+            "author": " and ".join(author_values),
+            "journal": str(item.get("journal", "")),
+            "year": str(item.get("year", "")),
+        }
+        optional_fields = {
+            "volume": item.get("volume"),
+            "number": item.get("issue"),
+            "pages": page_range or article_number,
+            "publisher": item.get("publisher"),
+            "doi": item.get("doi"),
+            "url": item.get("url"),
+        }
+        fields.update(
+            {name: str(value) for name, value in optional_fields.items() if value not in {None, ""}}
+        )
         records.append(
             PublicationRecord(
                 key=key,
-                entry_type=entry_type,
-                fields=parse_bibtex_fields(body),
+                entry_type=str(item.get("type", "journal_article")),
+                fields=fields,
                 order=order,
             )
         )
-        idx = body_end + 1
 
-    return records
+        record_meta: dict[str, object] = {
+            "status": item.get("status", "published"),
+            "visibility": item.get("visibility", "public"),
+            "pi_roles": item.get("pi_roles", []),
+        }
+        corresponding_authors = item.get("corresponding_authors", [])
+        if not isinstance(corresponding_authors, list) or any(
+            not isinstance(name, str) or not name.strip() for name in corresponding_authors
+        ):
+            raise ValueError(
+                f"{path.name} publication {key} corresponding_authors must be a list of names"
+            )
+        for corresponding_author in corresponding_authors:
+            if not any(
+                names_match(corresponding_author, author_name)
+                for author_name in author_full_names
+            ):
+                raise ValueError(
+                    f"{path.name} publication {key} corresponding author is not in authors: "
+                    f"{corresponding_author}"
+                )
+        record_meta["corresponding_authors"] = corresponding_authors
+        dates = item.get("dates", {})
+        if not isinstance(dates, dict):
+            raise ValueError(f"{path.name} publication {key} dates must be an object")
+        unknown_dates = set(dates) - allowed_dates
+        if unknown_dates:
+            raise ValueError(
+                f"{path.name} publication {key} has unknown dates: {sorted(unknown_dates)}"
+            )
+        record_meta.update({name: value for name, value in dates.items() if value})
+        if item.get("next_action"):
+            record_meta["next_action"] = item["next_action"]
+        meta[key] = record_meta
 
-
-def find_matching_brace(text: str, open_index: int) -> int:
-    depth = 0
-    for index in range(open_index, len(text)):
-        char = text[index]
-        if char == "{":
-            depth += 1
-        elif char == "}":
-            depth -= 1
-            if depth == 0:
-                return index
-    raise ValueError("unbalanced braces in BibTeX input")
-
-
-def parse_bibtex_fields(body: str) -> dict[str, str]:
-    fields: dict[str, str] = {}
-    idx = 0
-    length = len(body)
-
-    while idx < length:
-        while idx < length and body[idx] in " \t\r\n,":
-            idx += 1
-        if idx >= length:
-            break
-
-        name_start = idx
-        while idx < length and (body[idx].isalnum() or body[idx] in "_-"):
-            idx += 1
-        field_name = body[name_start:idx].strip().lower()
-        if not field_name:
-            idx += 1
-            continue
-
-        while idx < length and body[idx] in " \t\r\n":
-            idx += 1
-        if idx >= length or body[idx] != "=":
-            raise ValueError(f"malformed BibTeX field near '{field_name}'")
-        idx += 1
-        while idx < length and body[idx] in " \t\r\n":
-            idx += 1
-        if idx >= length:
-            raise ValueError(f"missing value for '{field_name}'")
-
-        char = body[idx]
-        if char == "{":
-            value, idx = consume_braced_value(body, idx)
-        elif char == '"':
-            value, idx = consume_quoted_value(body, idx)
-        else:
-            start = idx
-            while idx < length and body[idx] not in ",\r\n":
-                idx += 1
-            value = body[start:idx].strip()
-
-        fields[field_name] = value.strip()
-
-    return fields
-
-
-def consume_braced_value(text: str, start: int) -> tuple[str, int]:
-    depth = 0
-    idx = start
-    chars: list[str] = []
-    while idx < len(text):
-        char = text[idx]
-        if char == "{":
-            depth += 1
-            if depth > 1:
-                chars.append(char)
-        elif char == "}":
-            depth -= 1
-            if depth == 0:
-                return "".join(chars), idx + 1
-            chars.append(char)
-        else:
-            chars.append(char)
-        idx += 1
-    raise ValueError("unbalanced braces in field value")
-
-
-def consume_quoted_value(text: str, start: int) -> tuple[str, int]:
-    idx = start + 1
-    chars: list[str] = []
-    escaped = False
-    while idx < len(text):
-        char = text[idx]
-        if escaped:
-            chars.append(char)
-            escaped = False
-        elif char == "\\":
-            chars.append(char)
-            escaped = True
-        elif char == '"':
-            return "".join(chars), idx + 1
-        else:
-            chars.append(char)
-        idx += 1
-    raise ValueError("unterminated quoted field value")
+    return records, meta
 
 
 def normalize_doi(raw: str | None) -> str:
@@ -309,7 +242,11 @@ def load_lab_members(csv_path: Path) -> list[str]:
 
 
 def split_full_name(name: str) -> tuple[str, str]:
-    parts = name.strip().split()
+    stripped = name.strip()
+    if "," in stripped:
+        family, given = [part.strip() for part in stripped.split(",", 1)]
+        return given, family
+    parts = stripped.split()
     if not parts:
         return "", ""
     if len(parts) == 1:
@@ -363,29 +300,44 @@ def is_lab_member(name: str, lab_members: set[str]) -> bool:
     return any(names_match(name, member) for member in lab_members) and not is_pi(name)
 
 
-def pi_suffix(pi_roles: list[str]) -> str:
-    markers: list[str] = []
+def is_corresponding_author(
+    name: str,
+    corresponding_authors: list[str],
+    pi_roles: list[str],
+) -> bool:
+    if any(names_match(name, author) for author in corresponding_authors):
+        return True
     role_set = {role.strip().lower() for role in pi_roles}
-    if "first" in role_set or "co_first" in role_set:
-        markers.append("*")
-    if "corresponding" in role_set:
-        markers.append("&dagger;")
-    if not markers:
-        return ""
-    return f"<sup>{''.join(markers)}</sup>"
+    return is_pi(name) and "corresponding" in role_set
 
 
-def format_author_html(name: str, lab_members: set[str], pi_roles: list[str]) -> str:
+def format_author_html(
+    name: str,
+    lab_members: set[str],
+    corresponding_authors: list[str],
+    pi_roles: list[str],
+) -> str:
     escaped = html.escape(name)
+    suffix = "<sup>&dagger;</sup>" if is_corresponding_author(
+        name, corresponding_authors, pi_roles
+    ) else ""
     if is_pi(name):
-        return f"<strong>{escaped}</strong>{pi_suffix(pi_roles)}"
+        return f"<strong>{escaped}</strong>{suffix}"
     if is_lab_member(name, lab_members):
-        return f'<span class="lab-member">{escaped}</span>'
-    return escaped
+        return f'<span class="lab-member">{escaped}</span>{suffix}'
+    return f"{escaped}{suffix}"
 
 
-def format_author_list(authors: list[dict[str, str]], lab_members: set[str], pi_roles: list[str]) -> str:
-    return ", ".join(format_author_html(author["full"], lab_members, pi_roles) for author in authors)
+def format_author_list(
+    authors: list[dict[str, str]],
+    lab_members: set[str],
+    corresponding_authors: list[str],
+    pi_roles: list[str],
+) -> str:
+    return ", ".join(
+        format_author_html(author["full"], lab_members, corresponding_authors, pi_roles)
+        for author in authors
+    )
 
 
 def render_status_text(status: str) -> str:
@@ -396,9 +348,14 @@ def render_publication_text(record: PublicationRecord, meta: dict[str, object], 
     fields = record.fields
     authors = parse_authors(fields.get("author", ""))
     pi_roles = [str(role) for role in meta.get("pi_roles", [])] if isinstance(meta.get("pi_roles"), list) else []
+    corresponding_authors = (
+        [str(name) for name in meta.get("corresponding_authors", [])]
+        if isinstance(meta.get("corresponding_authors"), list)
+        else []
+    )
     status = str(meta.get("status", "published"))
     parts = [
-        format_author_list(authors, lab_members, pi_roles),
+        format_author_list(authors, lab_members, corresponding_authors, pi_roles),
         html.escape(decode_latex(fields.get("title", ""))),
     ]
 
@@ -519,7 +476,22 @@ def render_recent_publications(records: list[PublicationRecord], meta: dict[str,
         authors = parse_authors(record.fields.get("author", ""))
         if authors:
             first_author = authors[0]["full"]
-            author_html = format_author_html(first_author, lab_member_set, [])
+            pi_roles = (
+                [str(role) for role in record_meta.get("pi_roles", [])]
+                if isinstance(record_meta.get("pi_roles"), list)
+                else []
+            )
+            corresponding_authors = (
+                [str(name) for name in record_meta.get("corresponding_authors", [])]
+                if isinstance(record_meta.get("corresponding_authors"), list)
+                else []
+            )
+            author_html = format_author_html(
+                first_author,
+                lab_member_set,
+                corresponding_authors,
+                pi_roles,
+            )
         else:
             author_html = ""
         title = html.escape(decode_latex(record.fields.get("title", "")))

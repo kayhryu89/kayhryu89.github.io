@@ -1,0 +1,1549 @@
+{
+  "schema_version": 1,
+  "publications": [
+    {
+      "id": "2026_06",
+      "type": "journal_article",
+      "title": "Autonomous synthesis of industrially implementable function-block controllers via graph search",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Engineering Applications of Artificial Intelligence",
+      "year": 2026,
+      "status": "under_review",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ]
+    },
+    {
+      "id": "2026_05",
+      "type": "journal_article",
+      "title": "Thermal feasibility of electrified preheating and staged turboexpander power recovery in city-gas pressure regulation stations",
+      "authors": [
+        {
+          "given": "So-Jin",
+          "family": "Park"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Energy",
+      "year": 2026,
+      "status": "accepted",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu"
+      ],
+      "dates": {
+        "submitted": "2026-06-30",
+        "status_updated": "2026-08-25"
+      }
+    },
+    {
+      "id": "2026_04",
+      "type": "journal_article",
+      "title": "Batch-process identification under repetitive and deterministic disturbances using differenced batch data",
+      "authors": [
+        {
+          "given": "Yujin",
+          "family": "Cheon"
+        },
+        {
+          "given": "Kyungrok",
+          "family": "Jeong"
+        },
+        {
+          "given": "Jiyun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Computers and Chemical Engineering",
+      "year": 2026,
+      "volume": "215",
+      "article_number": "109861",
+      "doi": "10.1016/j.compchemeng.2026.109861",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Su Whan Sung"
+      ],
+      "dates": {
+        "submitted": "2026-05-22",
+        "status_updated": "2026-08-25"
+      }
+    },
+    {
+      "id": "2026_03",
+      "type": "journal_article",
+      "title": "Concentration-regulated operation of an electrified TSA-based direct air capture unit for greenhouse CO2 enrichment",
+      "authors": [
+        {
+          "given": "Taeseung",
+          "family": "Choi"
+        },
+        {
+          "given": "Yerin",
+          "family": "Jeon"
+        },
+        {
+          "given": "Wang-Guen",
+          "family": "Shim"
+        },
+        {
+          "given": "Heseong",
+          "family": "An"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Applied Chemistry for Engineering",
+      "year": 2026,
+      "volume": "37",
+      "issue": "3",
+      "page_range": "286–295",
+      "doi": "10.14478/ace.2026.1018",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "2026_02",
+      "type": "journal_article",
+      "title": "Direct Data-Driven Controller Design Using Fictitious Reference and Regression",
+      "authors": [
+        {
+          "given": "Jiyun",
+          "family": "Kim"
+        },
+        {
+          "given": "Jae Pil",
+          "family": "Heo"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Computers and Chemical Engineering",
+      "year": 2026,
+      "volume": "214",
+      "article_number": "109780",
+      "doi": "10.1016/j.compchemeng.2026.109780",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "kim2026uncertainty",
+      "type": "journal_article",
+      "title": "Uncertainty-penalized quadratic surrogate optimization using cross-validation-based ridge regression",
+      "authors": [
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Korean Journal of Chemical Engineering",
+      "year": 2026,
+      "publisher": "Springer",
+      "doi": "10.1007/s11814-026-00746-8",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Boeun Kim",
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "kim2025variance",
+      "type": "journal_article",
+      "title": "A Variance-Weighted Curvature Criterion for Sequential Experimental Design",
+      "authors": [
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Korean Journal of Chemical Engineering",
+      "year": 2025,
+      "volume": "42",
+      "issue": "14",
+      "page_range": "3609–3618",
+      "publisher": "Springer",
+      "doi": "10.1007/s11814-025-00543-9",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Boeun Kim",
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "mun2025enhancing",
+      "type": "journal_article",
+      "title": "Enhancing biomass-fueled oxy-combustion bioenergy with carbon capture and storage through electrolysis-derived oxygen",
+      "authors": [
+        {
+          "given": "Tae-Young",
+          "family": "Mun"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Energy",
+      "year": 2025,
+      "volume": "339",
+      "article_number": "139022",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.energy.2025.139022",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "yun2025towards",
+      "type": "journal_article",
+      "title": "Towards sustainable blue hydrogen: Integrating membrane-based carbon capture and oxygen-enriched combustion",
+      "authors": [
+        {
+          "given": "Jiun",
+          "family": "Yun"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Boram",
+          "family": "Gu"
+        }
+      ],
+      "journal": "Chemical Engineering Journal",
+      "year": 2025,
+      "volume": "525",
+      "article_number": "169850",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.cej.2025.169850",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Boram Gu"
+      ]
+    },
+    {
+      "id": "cheon2025techno",
+      "type": "journal_article",
+      "title": "Techno-economic analysis of liquefied hydrogen and liquefied natural gas power systems for coastal vessels: Economic feasibility and critical parameters",
+      "authors": [
+        {
+          "given": "Yujin",
+          "family": "Cheon"
+        },
+        {
+          "given": "Hyunyong",
+          "family": "Lee"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Jinkwang",
+          "family": "Lee"
+        }
+      ],
+      "journal": "International Journal of Hydrogen Energy",
+      "year": 2025,
+      "volume": "142",
+      "page_range": "330–340",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.ijhydene.2025.05.331",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Hyunyong Lee",
+        "Jinkwang Lee"
+      ]
+    },
+    {
+      "id": "kim2025dependency",
+      "type": "journal_article",
+      "title": "Dependency of Catalytic Reactivity on the Characteristics of Expanded Graphites as Representatives of Carbonaceous Materials",
+      "authors": [
+        {
+          "given": "Do Gun",
+          "family": "Kim"
+        },
+        {
+          "given": "Seong Won",
+          "family": "Im"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Seoung Ho",
+          "family": "Jo"
+        },
+        {
+          "given": "Min Gyeong",
+          "family": "Choe"
+        },
+        {
+          "given": "Seok Oh",
+          "family": "Ko"
+        }
+      ],
+      "journal": "Molecules",
+      "year": 2025,
+      "volume": "30",
+      "issue": "11",
+      "article_number": "2275",
+      "publisher": "MDPI",
+      "doi": "10.3390/molecules30112275",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Do Gun Kim",
+        "Seok Oh Ko"
+      ]
+    },
+    {
+      "id": "kim2025piecewise",
+      "type": "journal_article",
+      "title": "Piecewise Response Surface Methodology for Enhanced Modeling and Optimization of Complex Systems",
+      "authors": [
+        {
+          "given": "Jiyun",
+          "family": "Kim"
+        },
+        {
+          "given": "Do-Gun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Korean Journal of Chemical Engineering",
+      "year": 2025,
+      "volume": "42",
+      "issue": "3",
+      "page_range": "537–545",
+      "publisher": "Springer",
+      "doi": "10.1007/s11814-024-00362-4",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "yook2024robust",
+      "type": "journal_article",
+      "title": "A Robust Process Identification Method under Deterministic Disturbance",
+      "authors": [
+        {
+          "given": "Youngjin",
+          "family": "Yook"
+        },
+        {
+          "given": "Syng Chul",
+          "family": "Chu"
+        },
+        {
+          "given": "Chang Gyu",
+          "family": "Im"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Processes",
+      "year": 2024,
+      "volume": "12",
+      "issue": "5",
+      "article_number": "986",
+      "publisher": "MDPI",
+      "doi": "10.3390/pr12050986",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Su Whan Sung",
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "ryu2024sustainability",
+      "type": "journal_article",
+      "title": "Sustainability assessment for the cement flue gas methanation process using dual functional material (DFM)",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Doyeon",
+          "family": "Lee"
+        },
+        {
+          "given": "Byungwook",
+          "family": "Hwang"
+        }
+      ],
+      "journal": "Journal of Environmental Chemical Engineering",
+      "year": 2024,
+      "volume": "12",
+      "issue": "2",
+      "article_number": "112451",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.jece.2024.112451",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Byungwook Hwang"
+      ]
+    },
+    {
+      "id": "kim2023enhancing",
+      "type": "journal_article",
+      "title": "Enhancing response surface methodology through coefficient clipping based on prior knowledge",
+      "authors": [
+        {
+          "given": "Jiyun",
+          "family": "Kim"
+        },
+        {
+          "given": "Do-Gun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Processes",
+      "year": 2023,
+      "volume": "11",
+      "issue": "12",
+      "article_number": "3392",
+      "publisher": "MDPI",
+      "doi": "10.3390/pr11123392",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "kim2023sustainability",
+      "type": "journal_article",
+      "title": "Sustainability assessment of the oxy-combustion coal-fired power plant using low-grade fuel",
+      "authors": [
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Jae-Goo",
+          "family": "Lee"
+        },
+        {
+          "given": "Joungho",
+          "family": "Park"
+        },
+        {
+          "given": "Hyojin",
+          "family": "Lee"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Journal of Environmental Chemical Engineering",
+      "year": 2023,
+      "volume": "11",
+      "issue": "5",
+      "article_number": "110774",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.jece.2023.110774",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Jae-Goo Lee",
+        "Hyojin Lee",
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "park2023green",
+      "type": "journal_article",
+      "title": "Green hydrogen to tackle the power curtailment: Meteorological data-based capacity factor and techno-economic analysis",
+      "authors": [
+        {
+          "given": "Joungho",
+          "family": "Park"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Chang-Hee",
+          "family": "Kim"
+        },
+        {
+          "given": "Won Chul",
+          "family": "Cho"
+        },
+        {
+          "given": "MinJoong",
+          "family": "Kim"
+        },
+        {
+          "given": "Jae Hun",
+          "family": "Lee"
+        },
+        {
+          "given": "Hyun-Seok",
+          "family": "Cho"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Applied Energy",
+      "year": 2023,
+      "volume": "340",
+      "article_number": "121016",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.apenergy.2023.121016",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Won Chul Cho",
+        "Jae Hun Lee",
+        "Hyun-Seok Cho",
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "heo2023new",
+      "type": "journal_article",
+      "title": "New non-interactive form of the proportional-integral-derivative-acceleration (PIDA) controller and its explicit tuning rule",
+      "authors": [
+        {
+          "given": "Jae Pil",
+          "family": "Heo"
+        },
+        {
+          "given": "Sanghun",
+          "family": "Lim"
+        },
+        {
+          "given": "Chang Gyu",
+          "family": "Im"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Korean Journal of Chemical Engineering",
+      "year": 2023,
+      "volume": "40",
+      "issue": "6",
+      "page_range": "1277–1283",
+      "publisher": "Springer",
+      "doi": "10.1007/s11814-022-1356-0",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "lim2023pulse",
+      "type": "journal_article",
+      "title": "Pulse response method for the Wiener-type nonlinear process identification",
+      "authors": [
+        {
+          "given": "Sanghun",
+          "family": "Lim"
+        },
+        {
+          "given": "Jea Pil",
+          "family": "Heo"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Jietae",
+          "family": "Lee"
+        },
+        {
+          "given": "Friedrich Y",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2023,
+      "volume": "172",
+      "article_number": "108178",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.compchemeng.2023.108178",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "lim2023new",
+      "type": "journal_article",
+      "title": "A new PID controller design using differential operator for the integrating process",
+      "authors": [
+        {
+          "given": "Sanghun",
+          "family": "Lim"
+        },
+        {
+          "given": "Youngjin",
+          "family": "Yook"
+        },
+        {
+          "given": "Jea Pil",
+          "family": "Heo"
+        },
+        {
+          "given": "Chang Gyu",
+          "family": "Im"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2023,
+      "volume": "170",
+      "article_number": "108105",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.compchemeng.2022.108105",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "moon2023economic",
+      "type": "journal_article",
+      "title": "Economic and environmental sustainability assessment of livestock manure gasification for fuel gas production",
+      "authors": [
+        {
+          "given": "Ji Hong",
+          "family": "Moon"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Applied Chemistry for Engineering",
+      "year": 2023,
+      "volume": "34",
+      "issue": "3",
+      "page_range": "291–298",
+      "publisher": "The Korean Society of Industrial and Engineering Chemistry",
+      "doi": "10.14478/ace.2023.1033",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
+      "id": "lim2022perturbation",
+      "type": "journal_article",
+      "title": "Perturbation-based pH control systems for buffer and equivalence points",
+      "authors": [
+        {
+          "given": "Sanghun",
+          "family": "Lim"
+        },
+        {
+          "given": "Jea Pil",
+          "family": "Heo"
+        },
+        {
+          "given": "Gwangnoh",
+          "family": "Ahn"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Jietae",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2022,
+      "volume": "168",
+      "article_number": "108065",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.compchemeng.2022.108065",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Su Whan Sung",
+        "Jietae Lee"
+      ]
+    },
+    {
+      "id": "ryu2022sustainability",
+      "type": "journal_article",
+      "title": "Sustainability analysis framework based on global market dynamics: A carbon capture and utilization industry case",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Seongmin",
+          "family": "Heo"
+        }
+      ],
+      "journal": "Renewable and Sustainable Energy Reviews",
+      "year": 2022,
+      "volume": "166",
+      "article_number": "112639",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.rser.2022.112639",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Seongmin Heo"
+      ]
+    },
+    {
+      "id": "lee2022optimal",
+      "type": "journal_article",
+      "title": "Optimal design and evaluation of electrochemical CO2 reduction system with renewable energy generation using two-stage stochastic programming",
+      "authors": [
+        {
+          "given": "Jaeseo",
+          "family": "Lee"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Journal of CO2 Utilization",
+      "year": 2022,
+      "volume": "61",
+      "article_number": "102026",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.jcou.2022.102026",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Jaeseo Lee",
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "heo2022shallow",
+      "type": "journal_article",
+      "title": "Shallow fully connected neural network training by forcing linearization into valid region and balancing training rates",
+      "authors": [
+        {
+          "given": "Jea Pil",
+          "family": "Heo"
+        },
+        {
+          "given": "Chang Gyu",
+          "family": "Im"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Changkyoo",
+          "family": "Yoo"
+        },
+        {
+          "given": "Dae Ryook",
+          "family": "Yang"
+        }
+      ],
+      "journal": "Processes",
+      "year": 2022,
+      "volume": "10",
+      "issue": "6",
+      "article_number": "1157",
+      "publisher": "MDPI",
+      "doi": "10.3390/pr10061157",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Kyung Hwan Ryu",
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "kim2022feature",
+      "type": "journal_article",
+      "title": "Feature variance regularization method for autoencoder-based one-class classification",
+      "authors": [
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Ji Hee",
+          "family": "Kim"
+        },
+        {
+          "given": "Seongmin",
+          "family": "Heo"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2022,
+      "volume": "161",
+      "article_number": "107776",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.compchemeng.2022.107776",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Seongmin Heo"
+      ]
+    },
+    {
+      "id": "kim2022mean",
+      "type": "journal_article",
+      "title": "Mean squared error criterion for model-based design of experiments with subset selection",
+      "authors": [
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Seongmin",
+          "family": "Heo"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2022,
+      "volume": "159",
+      "article_number": "107667",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.compchemeng.2022.107667",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Seongmin Heo"
+      ]
+    },
+    {
+      "id": "lee2021catholyte",
+      "type": "journal_article",
+      "title": "Catholyte-free electroreduction of CO 2 for sustainable production of CO: concept, process development, techno-economic analysis, and CO 2 reduction assessment",
+      "authors": [
+        {
+          "given": "Jaeseo",
+          "family": "Lee"
+        },
+        {
+          "given": "Wonhee",
+          "family": "Lee"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Joungho",
+          "family": "Park"
+        },
+        {
+          "given": "Hyojin",
+          "family": "Lee"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        },
+        {
+          "given": "Ki Tae",
+          "family": "Park"
+        }
+      ],
+      "journal": "Green Chemistry",
+      "year": 2021,
+      "volume": "23",
+      "issue": "6",
+      "page_range": "2397–2410",
+      "publisher": "Royal Society of Chemistry",
+      "doi": "10.1039/D0GC02969F",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Jaeseo Lee",
+        "Jay H Lee",
+        "Ki Tae Park"
+      ]
+    },
+    {
+      "id": "lee2020techno",
+      "type": "journal_article",
+      "title": "Techno-economic and environmental evaluation of nano calcium carbonate production utilizing the steel slag",
+      "authors": [
+        {
+          "given": "Jaeseo",
+          "family": "Lee"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Heung Yong",
+          "family": "Ha"
+        },
+        {
+          "given": "Kwang-Deog",
+          "family": "Jung"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Journal of CO2 Utilization",
+      "year": 2020,
+      "volume": "37",
+      "page_range": "113–121",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.jcou.2019.12.005",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Jaeseo Lee",
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "ryu2019mathematical",
+      "type": "journal_article",
+      "title": "Mathematical modeling of microalgal internal metabolic behaviors under heterotrophic conditions and its application",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Seongmin",
+          "family": "Heo"
+        },
+        {
+          "given": "Yong-Keun",
+          "family": "Chang"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Industrial & Engineering Chemistry Research",
+      "year": 2019,
+      "volume": "59",
+      "issue": "4",
+      "page_range": "1631–1645",
+      "publisher": "ACS Publications",
+      "doi": "10.1021/acs.iecr.9b05948",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "ryu2019improved",
+      "type": "journal_article",
+      "title": "Improved microalgae production by using a heat supplied open raceway pond",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Ju Yeong",
+          "family": "Lee"
+        },
+        {
+          "given": "Seongmin",
+          "family": "Heo"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Industrial & Engineering Chemistry Research",
+      "year": 2019,
+      "volume": "58",
+      "issue": "21",
+      "page_range": "9099–9108",
+      "publisher": "ACS Publications",
+      "doi": "10.1021/acs.iecr.9b00986",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Ju Yeong Lee",
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "ryu2019model",
+      "type": "journal_article",
+      "title": "A model-based optimization of microalgal cultivation strategies for lipid production under photoautotrophic condition",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2019,
+      "volume": "121",
+      "page_range": "57–66",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.compchemeng.2018.10.004",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "ryu2018mathematical",
+      "type": "journal_article",
+      "title": "A mathematical model of intracellular behavior of microalgae for predicting growth and intracellular components syntheses under nutrient-replete and-deplete conditions",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Min-Gyu",
+          "family": "Sung"
+        },
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Seongmin",
+          "family": "Heo"
+        },
+        {
+          "given": "Yong Keun",
+          "family": "Chang"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Biotechnology and bioengineering",
+      "year": 2018,
+      "volume": "115",
+      "issue": "10",
+      "page_range": "2441–2455",
+      "publisher": "Wiley Online Library",
+      "doi": "10.1002/bit.26744",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Jay H Lee"
+      ]
+    },
+    {
+      "id": "kwon2018development",
+      "type": "journal_article",
+      "title": "Development of batch proportional-integral-derivative controller",
+      "authors": [
+        {
+          "given": "Won Hyun",
+          "family": "Kwon"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Jung-A",
+          "family": "Hwang"
+        },
+        {
+          "given": "Kyeong Hoon",
+          "family": "Kim"
+        },
+        {
+          "given": "Jay H",
+          "family": "Lee"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Korean Journal of Chemical Engineering",
+      "year": 2018,
+      "volume": "35",
+      "issue": "6",
+      "page_range": "1240–1246",
+      "publisher": "Springer",
+      "doi": "10.1007/s11814-018-0024-x",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "yun2017modeling",
+      "type": "journal_article",
+      "title": "Modeling and simulation of solvent extraction processes for purifying rare earth metals using saponified PC88A",
+      "authors": [
+        {
+          "given": "Chan Yeong",
+          "family": "Yun"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Changkyu",
+          "family": "Lee"
+        },
+        {
+          "given": "Go-Gi",
+          "family": "Lee"
+        },
+        {
+          "given": "Sungkoo",
+          "family": "Jo"
+        },
+        {
+          "given": "Kyeong Hoon",
+          "family": "Kim"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Journal of Chemical Engineering of Japan",
+      "year": 2017,
+      "volume": "50",
+      "issue": "9",
+      "page_range": "716–726",
+      "publisher": "The Society of Chemical Engineers, Japan",
+      "doi": "10.1252/jcej.15we058",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "ryu2014discrete",
+      "type": "journal_article",
+      "title": "Discrete-time frequency response identification method for processes with final cyclic-steady-state",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Si Nae",
+          "family": "Lee"
+        },
+        {
+          "given": "Chang-Mo",
+          "family": "Nam"
+        },
+        {
+          "given": "Jietae",
+          "family": "Lee"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Journal of Process Control",
+      "year": 2014,
+      "volume": "24",
+      "issue": "6",
+      "page_range": "1002–1014",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.jprocont.2014.04.022",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "jin2014pid",
+      "type": "journal_article",
+      "title": "PID auto-tuning using new model reduction method and explicit PID tuning rule for a fractional order plus time delay model",
+      "authors": [
+        {
+          "given": "Cheon Yu",
+          "family": "Jin"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Jietae",
+          "family": "Lee"
+        },
+        {
+          "given": "In-Beum",
+          "family": "Lee"
+        }
+      ],
+      "journal": "Journal of Process Control",
+      "year": 2014,
+      "volume": "24",
+      "issue": "1",
+      "page_range": "113–128",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.jprocont.2013.11.010",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Su Whan Sung",
+        "In-Beum Lee"
+      ]
+    },
+    {
+      "id": "ryu2013modeling",
+      "type": "journal_article",
+      "title": "Modeling and simulation of solvent extraction processes for purifying rare earth metals with PC88A",
+      "authors": [
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Changkyu",
+          "family": "Lee"
+        },
+        {
+          "given": "Go-Gi",
+          "family": "Lee"
+        },
+        {
+          "given": "Sungkoo",
+          "family": "Jo"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        }
+      ],
+      "journal": "Korean Journal of Chemical Engineering",
+      "year": 2013,
+      "volume": "30",
+      "issue": "10",
+      "page_range": "1946–1953",
+      "publisher": "Springer",
+      "doi": "10.1007/s11814-013-0135-3",
+      "status": "published",
+      "visibility": "public",
+      "pi_roles": [
+        "first"
+      ],
+      "corresponding_authors": [
+        "Su Whan Sung"
+      ]
+    },
+    {
+      "id": "Yi2026_soptd",
+      "type": "journal_article",
+      "title": "Response-Guided Process-Descriptor Retuning of Rule-Based PID Controllers",
+      "authors": [
+        {
+          "given": "Ryu Ha",
+          "family": "Yi"
+        },
+        {
+          "given": "Yujin",
+          "family": "Cheon"
+        },
+        {
+          "given": "Chang Gyu",
+          "family": "Im"
+        },
+        {
+          "given": "Jiyun",
+          "family": "Kim"
+        },
+        {
+          "given": "Su Whan",
+          "family": "Sung"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "ISA Transaction",
+      "year": 2026,
+      "status": "under_review",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "dates": {
+        "submitted": "2026-07-19",
+        "status_updated": "2026-07-19"
+      }
+    },
+    {
+      "id": "Yun2026_ATRH2",
+      "type": "journal_article",
+      "title": "Optimal CO2 capture location in autothermal reforming blue hydrogen production: integrating a dynamic 12-bed PSA model with sub-ambient membrane capture",
+      "authors": [
+        {
+          "given": "Jiun",
+          "family": "Yun"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        },
+        {
+          "given": "Boram",
+          "family": "Gu"
+        }
+      ],
+      "journal": "Energy Conversion and Management",
+      "year": 2026,
+      "status": "under_revision",
+      "visibility": "public",
+      "pi_roles": [],
+      "corresponding_authors": [
+        "Boram Gu"
+      ],
+      "dates": {
+        "submitted": "2026-08-04",
+        "status_updated": "2026-08-25"
+      }
+    }
+  ]
+}
