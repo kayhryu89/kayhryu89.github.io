@@ -1,5 +1,5 @@
 -- member-loader.lua
--- Reads student.csv and generates member sections (graduate students + alumni)
+-- Reads student.csv and generates member sections (students, researchers, and alumni)
 
 local function text_to_inlines(text)
   local inlines = pandoc.List()
@@ -45,15 +45,18 @@ function Pandoc(doc)
           joined = fields[7] or "",
           graduation = fields[8] or "",
           thesis = fields[9] or "",
-          position = fields[10] or ""
+          position = fields[10] or "",
+          photo = fields[11] or ""
         })
       end
     end
   end
 
   -- Find photo for a student by index
-  local function find_photo(idx)
-    local prefixes = {"./Info/Images/pic" .. idx, "./Info/Images/Pic" .. idx}
+  local function find_photo(s)
+    if s.photo:lower() == "none" then return nil end
+
+    local prefixes = {"./Info/Images/pic" .. s.index, "./Info/Images/Pic" .. s.index}
     local extensions = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
     for _, prefix in ipairs(prefixes) do
       for _, ext in ipairs(extensions) do
@@ -71,6 +74,7 @@ function Pandoc(doc)
   local postdocs = {}
   local phd_students = {}
   local ms_students = {}
+  local researchers = {}
   local alumni = {}
 
   for _, s in ipairs(students) do
@@ -83,12 +87,14 @@ function Pandoc(doc)
       table.insert(ms_students, s)
     elseif status == "post-doc" or status == "postdoc" then
       table.insert(postdocs, s)
+    elseif status == "researcher" or status == "researchers" then
+      table.insert(researchers, s)
     end
   end
 
   -- Generate a student card HTML
   local function make_card(s)
-    local photo = find_photo(s.index)
+    local photo = find_photo(s)
     local html = '<div class="member-card">\n'
     if photo then
       html = html .. '<div class="member-photo">\n'
@@ -165,6 +171,13 @@ function Pandoc(doc)
         for _, s in ipairs(ms_students) do
           blocks:insert(pandoc.RawBlock("html", make_card(s)))
         end
+      end
+    end
+
+    if #researchers > 0 then
+      blocks:insert(pandoc.Header(2, text_to_inlines("Researchers"), pandoc.Attr("researchers")))
+      for _, s in ipairs(researchers) do
+        blocks:insert(pandoc.RawBlock("html", make_card(s)))
       end
     end
 

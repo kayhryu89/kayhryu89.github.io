@@ -1,4 +1,5 @@
-Index,Status,Name,Research Topic,Email,Phone,Joined,Graduation,Thesis,Current Position
-001,Graduate,Jiyum Kim (김지윤),Design of experiment,,,2021,2023,A New Modified Approach to Response Surface Methodology for Experimental Design,Kyungpook National University (Ph.D. Student)
-002,Graduate,Jae Eun Jeong (정재은),Membrane system modeling and design,,,2024,2026,Convergence-Aware Data-Driven Shortcut Modeling for Model-Based Design of Membrane Gas Separation Systems,Sunchon National University (Researcher)
-003,MS,Yerin Jeon (전예린),Electrification,,,2025,,,
+Index,Status,Name,Research Topic,Email,Phone,Joined,Graduation,Thesis,Current Position,Photo
+001,Graduate,Jiyum Kim (김지윤),Design of experiment,,,2021,2023,A New Modified Approach to Response Surface Methodology for Experimental Design,Kyungpook National University (Ph.D. Student),auto
+002,Researcher,Jae Eun Jeong (정재은),,,,2026,2026,Convergence-Aware Data-Driven Shortcut Modeling for Model-Based Design of Membrane Gas Separation Systems,Sunchon National University (Researcher),auto
+003,MS,Yerin Jeon (전예린),Electrification,,,2025,,,,auto
+004,MS,Jintea Kim,Experimental design and soft sensor,,,,,,,none
