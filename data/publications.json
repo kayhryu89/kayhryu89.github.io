@@ -22,7 +22,7 @@
     {
       "id": "2026_05",
       "type": "journal_article",
-      "title": "Thermal feasibility of electrified preheating and staged turboexpander power recovery in city-gas pressure regulation stations",
+      "title": "Station-boundary thermal and power assessment of electrified preheating and staged turboexpander recovery in natural gas pressure regulation stations",
       "authors": [
         {
           "given": "So-Jin",
@@ -35,7 +35,12 @@
       ],
       "journal": "Energy",
       "year": 2026,
-      "status": "accepted",
+      "volume": "363",
+      "article_number": "142268",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.energy.2026.142268",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0360544226023753",
+      "status": "published",
       "visibility": "public",
       "pi_roles": [
         "corresponding"
@@ -45,7 +50,7 @@
       ],
       "dates": {
         "submitted": "2026-06-30",
-        "status_updated": "2026-08-25"
+        "status_updated": "2026-09-15"
       }
     },
     {
