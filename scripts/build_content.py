@@ -1,38 +1,32 @@
-"""Generate publication fragments for Quarto pages."""
+"""Generate all Quarto page fragments from the JSON databases."""
 from __future__ import annotations
-
-import sys
 from pathlib import Path
-
-SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
-
+import member_data
+import project_data
 import publication_data as pubdata
 
-
-ROOT = SCRIPT_DIR.parents[0]
-DATA_DIR = ROOT / "data"
-GENERATED_DIR = ROOT / "_generated"
-
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+OUT = ROOT / "_generated"
 
 def main() -> int:
-    records, meta = pubdata.load_publications(DATA_DIR / "publications.json")
-    lab_members = pubdata.load_lab_members(ROOT / "Info" / "student.csv")
-
-    GENERATED_DIR.mkdir(exist_ok=True)
-
-    publications_fragment = pubdata.render_publication_sections(records, meta, lab_members)
-    recent_fragment = pubdata.render_recent_publications(records, meta, lab_members, count=2)
-
-    (GENERATED_DIR / "publications.md").write_text(publications_fragment, encoding="utf-8")
-    (GENERATED_DIR / "recent_publications.md").write_text(recent_fragment, encoding="utf-8")
-
-    print("Generated publication fragments:")
-    print(" - _generated/publications.md")
-    print(" - _generated/recent_publications.md")
+    records, meta = pubdata.load_publications(DATA / "publications.json")
+    members = member_data.load_members(DATA / "members.json")
+    projects = project_data.load_projects(DATA / "projects.json")
+    lab_names = member_data.lab_member_names(members)
+    ongoing, completed = project_data.render_project_sections(projects)
+    fragments = {
+        "publications.md": pubdata.render_publication_sections(records, meta, lab_names),
+        "recent_publications.md": pubdata.render_recent_publications(records, meta, lab_names, count=2),
+        "members.md": member_data.render_member_sections(members),
+        "ongoing_projects.md": ongoing,
+        "completed_projects.md": completed,
+    }
+    OUT.mkdir(exist_ok=True)
+    for filename, content in fragments.items():
+        (OUT / filename).write_text(content, encoding="utf-8")
+        print(f"Generated _generated/{filename}")
     return 0
 
-
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
