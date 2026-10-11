@@ -437,6 +437,7 @@ def render_plain_entries(items: list[tuple[PublicationRecord, dict[str, object]]
 
 
 def render_recent_publications(records: list[PublicationRecord], meta: dict[str, dict[str, object]], lab_members: list[str], count: int = 2) -> str:
+    """Show six title words; preserve the complete title in link metadata."""
     lab_member_set = set(lab_members)
     selected: list[tuple[PublicationRecord, dict[str, object]]] = []
     for record in records:
@@ -458,39 +459,23 @@ def render_recent_publications(records: list[PublicationRecord], meta: dict[str,
     selected.sort(key=lambda item: (-safe_year(item[0]), item[0].order, item[0].key))
     lines: list[str] = []
     for record, record_meta in selected[:count]:
-        authors = parse_authors(record.fields.get("author", ""))
-        if authors:
-            first_author = authors[0]["full"]
-            pi_roles = (
-                [str(role) for role in record_meta.get("pi_roles", [])]
-                if isinstance(record_meta.get("pi_roles"), list)
-                else []
-            )
-            corresponding_authors = (
-                [str(name) for name in record_meta.get("corresponding_authors", [])]
-                if isinstance(record_meta.get("corresponding_authors"), list)
-                else []
-            )
-            author_html = format_author_html(
-                first_author,
-                lab_member_set,
-                corresponding_authors,
-                pi_roles,
-            )
-        else:
-            author_html = ""
-        title = html.escape(decode_latex(record.fields.get("title", "")))
-        journal = html.escape(decode_latex(record.fields.get("journal", "")))
-        year = html.escape(decode_latex(record.fields.get("year", "")))
-        doi = doi_url(record.fields.get("doi"))
-        line = (
-            '<p class="recent-publication">'
-            f"{author_html} - {title}, <em>{journal}</em>, {year}"
+        fields = record.fields
+        full_title = decode_latex(fields.get("title", "")).strip()
+        words = full_title.split()
+        short_title = " ".join(words[:6]) + ("…" if len(words) > 6 else "")
+        journal = html.escape(decode_latex(fields.get("journal", "")))
+        year = html.escape(decode_latex(fields.get("year", "")))
+        doi = doi_url(fields.get("doi"))
+        target = doi if doi else "publications.html"
+        # Keep the full title accessible while avoiding a long line in the Home page.
+        lines.append(
+            '<article class="recent-publication">'
+            f'<a class="recent-publication-title" href="{html.escape(target, quote=True)}" '
+            f'title="{html.escape(full_title, quote=True)}" '
+            f'aria-label="{html.escape(full_title, quote=True)}">{html.escape(short_title)}</a>'
+            f'<div class="recent-publication-meta"><em>{journal}</em> · {year}</div>'
+            '</article>'
         )
-        if doi:
-            line += f' <a href="{html.escape(doi)}" target="_blank" rel="noopener">[LINK]</a>'
-        line += "</p>"
-        lines.append(line)
 
     if not lines:
         lines.append("<p>No public publications available yet.</p>")

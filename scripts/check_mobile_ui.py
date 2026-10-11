@@ -30,7 +30,20 @@ def verify() -> None:
                 assert all(x["height"] >= 40 for x in positions), f"Tap targets too small: {width}px {theme}"
                 assert all(x["width"] >= 64 for x in positions), f"CTA button too narrow: {width}px {theme}"
                 assert positions[-1]["x"] + positions[-1]["width"] <= width + 1, "Horizontal overflow"
-                assert page.locator(".laser-card").count() == 3, "Homepage card count changed"
+                assert page.locator(".laser-card").count() == 3, "Research area card count changed"
+                assert page.locator(".laser-area-card h3").all_text_contents() == [
+                    "Autonomous Design", "Decision Engineering", "Operation, Monitoring & Control"
+                ], "Research areas have changed"
+                assert page.locator("header#title-block-header").is_visible() is False, "Redundant Quarto page title is visible"
+                assert page.locator("#quick-links").count() == 0, "Redundant Quick Links remains"
+                publications = page.locator(".recent-publication-title")
+                assert publications.count() == 2, "Expected two recent publications"
+                for publication in publications.all():
+                    display_title = publication.inner_text().strip()
+                    full_title = publication.get_attribute("title")
+                    assert len(display_title.removesuffix("…").split()) <= 6, f"Title not limited to 6 words: {display_title}"
+                    assert publication.get_attribute("aria-label") == full_title, "Full title missing from accessibility label"
+                    assert full_title and len(full_title) >= len(display_title), "Original publication title not retained"
                 if width == 375:
                     page.screenshot(path=str(SCREENSHOTS / f"home-{theme}-375.png"), full_page=False)
                 print(f"PASS {theme=} {width=} CTA row, card count, tap targets")

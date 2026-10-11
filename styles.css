@@ -529,3 +529,169 @@
     width: 100%;
   }
 }
+
+/* ===== Home page: concise research-first layout ===== */
+.laser-kicker {
+  color: #d1e8f7;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+.laser-hero > p {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.laser-hero > p:last-of-type {
+  color: #eef7fc;
+  line-height: 1.6;
+}
+
+.laser-home-section {
+  max-width: 1200px;
+  margin: 2.6rem auto;
+}
+
+.laser-home-section > h2 {
+  margin-bottom: 1.2rem;
+}
+
+.laser-research-grid {
+  row-gap: 1rem;
+}
+
+.laser-area-card {
+  border-top: 4px solid #377fb1;
+  padding: 1.2rem;
+}
+
+.laser-research-grid > div:nth-child(2) .laser-area-card {
+  border-top-color: #308a79;
+}
+
+.laser-research-grid > div:nth-child(3) .laser-area-card {
+  border-top-color: #8d70b5;
+}
+
+.laser-area-number {
+  color: #477490;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.laser-area-card h3 {
+  margin: 0.65rem 0;
+  font-size: 1.12rem;
+}
+
+.laser-area-card p {
+  margin-bottom: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.laser-home-text-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.laser-home-section > p:last-child {
+  margin-top: 1rem;
+}
+
+.laser-publications-section .recent-publication {
+  margin: 0;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid #a9c5d9;
+}
+
+.recent-publication-title {
+  display: inline-block;
+  font-weight: 650;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.recent-publication-meta {
+  margin-top: 0.3rem;
+  color: var(--bs-secondary-color, #607789);
+  font-size: 0.88rem;
+}
+
+.laser-join-banner {
+  max-width: 1200px;
+  margin: 2.8rem auto 1rem;
+  padding: 1.4rem 1.6rem;
+  background: #e8f2f8;
+  border: 1px solid #a6c3d9;
+  border-left: 4px solid #2374a8;
+  border-radius: 10px;
+}
+
+.laser-join-banner h2 {
+  margin-top: 0;
+}
+
+.laser-join-banner p {
+  margin-bottom: 0.65rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .laser-area-card {
+    background: #253b51;
+    color: #f1f6fc;
+    border-color: #587b99;
+    border-top-color: #79b9eb;
+  }
+
+  .laser-research-grid > div:nth-child(2) .laser-area-card {
+    border-top-color: #78c9b4;
+  }
+
+  .laser-research-grid > div:nth-child(3) .laser-area-card {
+    border-top-color: #baa1dc;
+  }
+
+  .laser-area-card h3 {
+    color: #f5faff;
+  }
+
+  .laser-area-number {
+    color: #b6dafa;
+  }
+
+  .laser-publications-section .recent-publication {
+    border-bottom-color: #52718b;
+  }
+
+  .laser-join-banner {
+    background: #263f51;
+    border-color: #6286a3;
+    border-left-color: #8bc8ea;
+  }
+}
+
+@media (max-width: 767px) {
+  .laser-kicker {
+    font-size: 0.67rem;
+    letter-spacing: 0.045em;
+  }
+
+  .laser-home-section {
+    margin: 1.9rem auto;
+  }
+
+  .laser-area-card {
+    padding: 1.05rem;
+  }
+
+  .laser-join-banner {
+    margin-top: 2rem;
+    padding: 1.15rem;
+  }
+}
