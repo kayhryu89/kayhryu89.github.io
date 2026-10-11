@@ -18,7 +18,10 @@ def verify() -> None:
                 page.goto(SITE.as_uri(), wait_until="load")
                 buttons = page.locator(".laser-hero-actions a.btn")
                 assert buttons.count() == 3, f"Expected three CTA buttons: {theme}, {width}px"
-                assert [buttons.nth(i).inner_text().strip() for i in range(3)] == ["About", "Contact", "Join Us"]
+                assert [buttons.nth(i).inner_text().strip() for i in range(3)] == ["About", "Research", "Join Us"]
+                assert [buttons.nth(i).get_attribute("href") for i in range(3)] == [
+                    "about.html", "research.html", "about.html#joining-laser"
+                ], f"Unexpected hero destinations: {theme}, {width}px"
                 positions = [buttons.nth(i).bounding_box() for i in range(3)]
                 assert all(x is not None for x in positions)
                 ys = [x["y"] for x in positions]
