@@ -12,7 +12,7 @@ toc: false
 Autonomous Process and Experiment Design · Operation · Decision Engineering
 
 ::: {.laser-hero-actions}
-[About](about.qmd){.btn .btn-outline-primary} [Contact](about.qmd#contact){.btn .btn-outline-secondary} [Join Us](about.qmd#joining-laser){.btn .btn-primary}
+[About](about.qmd){.btn .btn-outline-primary} [Research](research.qmd){.btn .btn-outline-secondary} [Join Us](about.qmd#joining-laser){.btn .btn-primary}
 :::
 ::::
 
