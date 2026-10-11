@@ -695,3 +695,8 @@
     padding: 1.15rem;
   }
 }
+
+/* Hide Quarto's redundant document-title header on Home only. */
+body:has(.laser-hero) #title-block-header {
+  display: none;
+}
