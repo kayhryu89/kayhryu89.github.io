@@ -5,70 +5,69 @@ toc: false
 ---
 
 :::: {.laser-hero}
+<div class="laser-kicker">SUNCHON NATIONAL UNIVERSITY · CHEMICAL ENGINEERING</div>
+
 # LASER
 
 **Laboratory for Autonomous Systems Engineering Research**
 
-Autonomous Process and Experiment Design · Operation · Decision Engineering
+LASER develops data-efficient and uncertainty-aware methods that connect autonomous design, engineering decision-making, and reliable system operation.
 
 ::: {.laser-hero-actions}
 [About](about.qmd){.btn .btn-outline-primary} [Research](research.qmd){.btn .btn-outline-secondary} [Join Us](about.qmd#joining-laser){.btn .btn-primary}
 :::
 ::::
 
----
+:::: {.laser-home-section}
+## Research Areas
 
-## Welcome to LASER
+::: {.grid .laser-research-grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.laser-card .laser-area-card}
+<div class="laser-area-number">01</div>
 
-We are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental workflows that help complex engineered systems become more autonomous, reliable, and data-efficient.
+### Autonomous Design
 
----
-
-::: {.grid}
-
-::: {.g-col-md-4}
-::: {.laser-card}
-### Research Focus
-
-- **Autonomous Process & Experiment Design**: Value-of-information–driven sequential design and active learning for data-efficient engineering (DOE/iDoE)
-- **Decision Engineering**: Constraint- and uncertainty-aware optimization for design and operation, including sustainability assessment
-- **Operation**: Operational strategy and implementation for complex engineered systems (including control, monitoring, and scheduling)
-
-[Learn more →](research.qmd)
+Sequential experiment design, active learning, and data-efficient surrogate modeling.
 :::
 :::
 
-::: {.g-col-md-4}
-::: {.laser-card}
-### Recent Publications
+::: {.g-col-12 .g-col-md-4}
+::: {.laser-card .laser-area-card}
+<div class="laser-area-number">02</div>
+
+### Decision Engineering
+
+Uncertainty-aware optimization, technology assessment, and multi-objective decision-making.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.laser-card .laser-area-card}
+<div class="laser-area-number">03</div>
+
+### Operation, Monitoring & Control
+
+Process modeling, data-driven control, monitoring, and operational strategies.
+:::
+:::
+:::
+
+[Explore all research areas →](research.qmd){.laser-home-text-link}
+::::
+
+:::: {.laser-home-section .laser-publications-section}
+## Recent Publications
 
 {{< include _generated/recent_publications.md >}}
 
-[See all publications →](publications.qmd)
-:::
-:::
+[View all publications →](publications.qmd){.laser-home-text-link}
+::::
 
-::: {.g-col-md-4}
-::: {.laser-card}
-### Quick Links
+:::: {.laser-join-banner}
+## Join LASER
 
-- [Research Areas](research.qmd)
-- [Publications](publications.qmd)
-- [Members](members.qmd)
-- [About & Contact](about.qmd)
+We welcome graduate students and researchers interested in autonomous systems engineering.
 
-**Contact**: khryu@scnu.ac.kr
-:::
-:::
-
-:::
-
----
-
-:::{.callout-note}
-## We're Recruiting!
-
-We welcome highly motivated graduate students interested in autonomous systems engineering, process modeling and optimization, and data-efficient learning for complex engineering systems.
-
-**[Learn how to join →](about.qmd#joining-laser)**
-:::
+[Application information →](about.qmd#joining-laser){.laser-home-text-link}
+:::: 
