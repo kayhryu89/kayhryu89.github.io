@@ -1,7 +1,7 @@
 """Validate public LASER website sources before rendering or deployment."""
 from __future__ import annotations
 
-import csv
+import json
 import re
 import sys
 from pathlib import Path
@@ -150,26 +150,46 @@ def validate_paths(errors: list[str]) -> None:
 
 
 def validate_privacy(errors: list[str], warnings: list[str]) -> None:
-    csv_path = ROOT / "Info" / "student.csv"
-    if not csv_path.exists():
-        errors.append("Info/student.csv is missing")
+    try:
+        rows = json.loads((ROOT / "data/members.json").read_text(encoding="utf-8"))["members"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"Invalid members JSON: {exc}")
         return
+    for index, row in enumerate(rows, start=1):
+        name = str(row.get("name", f"record {index}"))
+        if str(row.get("phone", "")).strip():
+            errors.append(f"data/members.json record {index} ({name}) exposes a phone number")
+        if str(row.get("email", "")).strip():
+            warnings.append(f"data/members.json record {index} ({name}) exposes an email address")
+        for field, value in row.items():
+            if field != "phone" and PHONE_RE.search(str(value or "")):
+                errors.append(f"data/members.json record {index} ({name}) contains phone-like text in {field}")
 
-    with csv_path.open(encoding="utf-8", newline="") as handle:
-        reader = csv.DictReader(handle)
-        for row_number, row in enumerate(reader, start=2):
-            name = row.get("Name", f"row {row_number}")
-            phone = (row.get("Phone") or "").strip()
-            email = (row.get("Email") or "").strip()
-            if phone:
-                errors.append(f"Info/student.csv row {row_number} ({name}) exposes a phone number")
-            if email:
-                warnings.append(f"Info/student.csv row {row_number} ({name}) exposes an email address")
-            for field, value in row.items():
-                if field == "Phone":
-                    continue
-                if PHONE_RE.search(value or ""):
-                    errors.append(f"Info/student.csv row {row_number} ({name}) contains phone-like text in {field}")
+
+def validate_json_databases(errors: list[str]) -> None:
+    for filename, collection, required in (
+        ("members.json", "members", {"id", "name", "status"}),
+        ("projects.json", "projects", {"id", "title", "funding", "start_date", "end_date", "period", "status"}),
+    ):
+        try:
+            data = json.loads((ROOT / "data" / filename).read_text(encoding="utf-8"))
+            if data.get("schema_version") != 1 or not isinstance(data.get(collection), list):
+                raise ValueError("Expected schema_version 1 and list")
+            seen = set()
+            for i, record in enumerate(data[collection], start=1):
+                if not isinstance(record, dict) or not required.issubset(record):
+                    raise ValueError(f"Invalid record {i}")
+                if not isinstance(record["id"], str) or not record["id"] or record["id"] in seen:
+                    raise ValueError(f"Missing or duplicate ID at record {i}")
+                seen.add(record["id"])
+                if collection == "projects":
+                    if record["status"] not in ("ongoing", "completed"):
+                        raise ValueError(f"Invalid project status at record {i}")
+                    for key in ("start_date", "end_date"):
+                        if not re.fullmatch(r"\d{4}-(0[1-9]|1[0-2])", str(record[key])):
+                            raise ValueError(f"Invalid {key} in record {i}")
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            errors.append(f"data/{filename} validation failed: {exc}")
 
 
 def validate_placeholders(errors: list[str]) -> None:
@@ -268,6 +288,7 @@ def main() -> int:
 
     validate_paths(errors)
     validate_privacy(errors, warnings)
+    validate_json_databases(errors)
     validate_placeholders(errors)
     validate_publications(errors, warnings)
 

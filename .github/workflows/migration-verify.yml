@@ -1,0 +1,41 @@
+name: JSON-Python migration build and parity
+
+on:
+  push:
+    branches: [refactor/json-python-content]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout baseline
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: baseline
+      - name: Checkout migration
+        uses: actions/checkout@v4
+        with:
+          ref: refactor/json-python-content
+          path: migrated
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+      - name: Render baseline
+        working-directory: baseline
+        run: |
+          python scripts/build_content.py
+          quarto render
+      - name: Validate migrated sources and render
+        working-directory: migrated
+        run: |
+          python -m compileall -q scripts validate_site.py
+          python scripts/build_content.py
+          python validate_site.py
+          quarto render
+      - name: Verify visible content parity
+        run: python migrated/scripts/check_migration_parity.py baseline/_site migrated/_site

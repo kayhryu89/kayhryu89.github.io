@@ -2,18 +2,14 @@
 title: "Projects"
 page-layout: full
 toc: true
-filters:
-  - project-loader.lua
 ---
 
 ## Ongoing Projects
 
-::: {#ongoing-projects}
-:::
+{{< include _generated/ongoing_projects.md >}}
 
 ---
 
 ## Completed Projects
 
-::: {#completed-projects}
-:::
+{{< include _generated/completed_projects.md >}}

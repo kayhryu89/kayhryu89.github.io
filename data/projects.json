@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "projects": [
+    {
+      "id": "proj2025_development_dynamic",
+      "title": "Development of a Dynamic Model for Solid-State Hydrogen Storage Systems",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2025-12",
+      "end_date": "2026-05",
+      "period": "Dec. 2025 -- May 2026",
+      "status": "completed"
+    },
+    {
+      "id": "proj2023_electric_reboiler",
+      "title": "Electrically-operated reboiler for carbon neutral small and medium-sized chemical industries",
+      "funding": "Korea Institute of Energy Technology Evaluation and Planning",
+      "start_date": "2023-01",
+      "end_date": "2027-12",
+      "period": "Jan. 2023 -- Dec. 2027",
+      "status": "ongoing"
+    },
+    {
+      "id": "proj2023_idoe",
+      "title": "Development of intensified design of experiment (iDoE) using process performance index",
+      "funding": "National Research Foundation of Korea",
+      "start_date": "2023-06",
+      "end_date": "2026-02",
+      "period": "Jun. 2023 -- Feb. 2026",
+      "status": "completed"
+    },
+    {
+      "id": "proj2024_byproduct_gas",
+      "title": "Development of performance evaluation model for mixed by-product gas power plant control",
+      "funding": "Research Institute of Industrial Science & Technology",
+      "start_date": "2024-03",
+      "end_date": "2024-12",
+      "period": "Mar. 2024 -- Dec. 2024",
+      "status": "completed"
+    },
+    {
+      "id": "proj2024_dac_ccu",
+      "title": "Economic evaluation of CO2 direct air capture and conversion processes",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2024-06",
+      "end_date": "2024-11",
+      "period": "Jun. 2024 -- Nov. 2024",
+      "status": "completed"
+    },
+    {
+      "id": "proj2024_plastic_pyrolysis",
+      "title": "Economic evaluation of combined waste plastic pyrolysis-combustion process",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2024-06",
+      "end_date": "2024-11",
+      "period": "Jun. 2024 -- Nov. 2024",
+      "status": "completed"
+    },
+    {
+      "id": "proj2023_nox_control",
+      "title": "Feasibility analysis for NOx control logic in power generation boiler",
+      "funding": "Research Institute of Industrial Science & Technology",
+      "start_date": "2023-05",
+      "end_date": "2024-01",
+      "period": "May 2023 -- Jan. 2024",
+      "status": "completed"
+    },
+    {
+      "id": "proj2023_air_fuel_ratio",
+      "title": "Air-fuel ratio control method development for power generation systems",
+      "funding": "Research Institute of Industrial Science & Technology",
+      "start_date": "2023-01",
+      "end_date": "2023-12",
+      "period": "Jan. 2023 -- Dec. 2023",
+      "status": "completed"
+    },
+    {
+      "id": "proj2023_dac_sim",
+      "title": "Simulation development and economic evaluation of CO2 direct air capture",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2023-08",
+      "end_date": "2023-11",
+      "period": "Aug. 2023 -- Nov. 2023",
+      "status": "completed"
+    },
+    {
+      "id": "proj2023_coal_ammonia",
+      "title": "Process and economic analysis of coal-ammonia co-firing power generation",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2023-03",
+      "end_date": "2023-08",
+      "period": "Mar. 2023 -- Aug. 2023",
+      "status": "completed"
+    },
+    {
+      "id": "proj2022_electrolysis",
+      "title": "Water electrolysis stack for mobile hydrogen drone charging stations",
+      "funding": "Gwangju-Jeonnam Regional Innovation Platform",
+      "start_date": "2022-07",
+      "end_date": "2023-02",
+      "period": "Jul. 2022 -- Feb. 2023",
+      "status": "completed"
+    },
+    {
+      "id": "proj2022_biorefinery",
+      "title": "Biorefinery model for bio-diesel and platform chemicals production",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2022-09",
+      "end_date": "2022-11",
+      "period": "Sep. 2022 -- Nov. 2022",
+      "status": "completed"
+    },
+    {
+      "id": "proj2022_vocs",
+      "title": "Techno-economic analysis of VOCs separation using membrane technology",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2022-05",
+      "end_date": "2022-10",
+      "period": "May 2022 -- Oct. 2022",
+      "status": "completed"
+    },
+    {
+      "id": "proj2022_coal_ammonia_sim",
+      "title": "Coal-ammonia co-firing power plant simulation and evaluation",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2022-04",
+      "end_date": "2022-09",
+      "period": "Apr. 2022 -- Sep. 2022",
+      "status": "completed"
+    },
+    {
+      "id": "proj2021_oxy_cfbc",
+      "title": "10 MW oxy-CFBC simulation with fuel diversification",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2021-01",
+      "end_date": "2021-12",
+      "period": "Jan. 2021 -- Dec. 2021",
+      "status": "completed"
+    },
+    {
+      "id": "proj2021_co2_capture",
+      "title": "Optimal CO2 capture process integrated with PCPP",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2021-06",
+      "end_date": "2021-08",
+      "period": "Jun. 2021 -- Aug. 2021",
+      "status": "completed"
+    },
+    {
+      "id": "proj2021_ccu_tea",
+      "title": "Energy-reduced CCU technology integrated with cement industry",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2021-05",
+      "end_date": "2021-07",
+      "period": "May 2021 -- Jul. 2021",
+      "status": "completed"
+    },
+    {
+      "id": "proj2020_usc",
+      "title": "Ultra-supercritical steam cycle optimization using ASPEN PLUS",
+      "funding": "Korea Institute of Energy Research",
+      "start_date": "2020-09",
+      "end_date": "2020-12",
+      "period": "Sep. 2020 -- Dec. 2020",
+      "status": "completed"
+    }
+  ]
+}

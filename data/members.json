@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "members": [
+    {
+      "id": "001",
+      "status": "Graduate",
+      "name": "Jiyum Kim (김지윤)",
+      "research_topic": "Design of experiment",
+      "email": "",
+      "phone": "",
+      "joined": "2021",
+      "graduation": "2023",
+      "thesis": "A New Modified Approach to Response Surface Methodology for Experimental Design",
+      "current_position": "Kyungpook National University (Ph.D. Student)",
+      "photo": "auto"
+    },
+    {
+      "id": "002",
+      "status": "Researcher",
+      "name": "Jae Eun Jeong (정재은)",
+      "research_topic": "",
+      "email": "",
+      "phone": "",
+      "joined": "2026",
+      "graduation": "2026",
+      "thesis": "Convergence-Aware Data-Driven Shortcut Modeling for Model-Based Design of Membrane Gas Separation Systems",
+      "current_position": "Sunchon National University (Researcher)",
+      "photo": "auto"
+    },
+    {
+      "id": "003",
+      "status": "MS",
+      "name": "Yerin Jeon (전예린)",
+      "research_topic": "Electrification",
+      "email": "",
+      "phone": "",
+      "joined": "2025",
+      "graduation": "",
+      "thesis": "",
+      "current_position": "",
+      "photo": "auto"
+    },
+    {
+      "id": "004",
+      "status": "MS",
+      "name": "Jintea Kim",
+      "research_topic": "Experimental design and soft sensor",
+      "email": "",
+      "phone": "",
+      "joined": "",
+      "graduation": "",
+      "thesis": "",
+      "current_position": "",
+      "photo": "none"
+    }
+  ]
+}

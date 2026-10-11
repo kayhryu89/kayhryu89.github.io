@@ -1,7 +1,6 @@
 """Utilities for LASER publication data loading and rendering."""
 from __future__ import annotations
 
-import csv
 import html
 import json
 import re
@@ -225,20 +224,6 @@ def decode_latex(value: str) -> str:
     result = re.sub(r"\\textcolor\{[^{}]+\}\{([^{}]+)\}", r"\1", result)
     result = result.replace("{", "").replace("}", "")
     return re.sub(r"\s+", " ", result).strip()
-
-
-def load_lab_members(csv_path: Path) -> list[str]:
-    names = ["Kyung Hwan Ryu"]
-    with csv_path.open(encoding="utf-8", newline="") as handle:
-        reader = csv.DictReader(handle)
-        for row in reader:
-            raw_name = (row.get("Name") or "").strip()
-            if not raw_name:
-                continue
-            english = raw_name.split("(", 1)[0].strip()
-            if english and english not in names:
-                names.append(english)
-    return names
 
 
 def split_full_name(name: str) -> tuple[str, str]:

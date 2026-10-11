@@ -2,8 +2,6 @@
 title: "People"
 page-layout: full
 toc: true
-filters:
-  - member-loader.lua
 ---
 
 ## Principal Investigator {#pi}
@@ -45,8 +43,7 @@ Process Systems Engineering, Carbon Capture & Utilization, Process Optimization 
 
 ---
 
-::: {#member-sections}
-:::
+{{< include _generated/members.md >}}
 
 ---
 
