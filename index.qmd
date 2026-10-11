@@ -4,15 +4,17 @@ page-layout: full
 toc: false
 ---
 
-::: {.laser-hero}
+:::: {.laser-hero}
 # LASER
 
 **Laboratory for Autonomous Systems Engineering Research**
 
 Autonomous Process and Experiment Design · Operation · Decision Engineering
 
-[About](about.qmd){.btn .btn-primary} [Contact](about.qmd#contact){.btn .btn-outline-primary} [Join Us](about.qmd#joining-laser){.btn .btn-outline-secondary}
+::: {.laser-hero-actions}
+[About](about.qmd){.btn .btn-outline-primary} [Contact](about.qmd#contact){.btn .btn-outline-secondary} [Join Us](about.qmd#joining-laser){.btn .btn-primary}
 :::
+::::
 
 ---
 

@@ -40,9 +40,11 @@
 .laser-hero {
   text-align: center;
   padding: 2em 1em;
-  background: linear-gradient(135deg, #2c3e50, #3498db);
-  color: white;
-  border-radius: 8px;
+  background: linear-gradient(125deg, #173858 0%, #205c83 55%, #176e81 100%);
+  color: #f7fbff;
+  border: 1px solid #5a9cc3;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(6, 32, 55, 0.22);
   margin-bottom: 1.5em;
 }
 
@@ -54,13 +56,98 @@
   margin: 0.3em;
 }
 
+/* Clear hierarchy for mobile and desktop hero CTAs. */
+.laser-hero-actions {
+  max-width: 520px;
+  margin: 1.4rem auto 0;
+}
+
+.laser-hero-actions p {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.laser-hero-actions .btn {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 0.63rem 0.6rem;
+  border-width: 1px;
+  border-radius: 7px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.laser-hero-actions .btn-primary {
+  color: #102637;
+  background: #f8cd72;
+  border-color: #f8cd72;
+}
+
+.laser-hero-actions .btn-primary:hover,
+.laser-hero-actions .btn-primary:focus {
+  color: #102637;
+  background: #ffe0a0;
+  border-color: #ffe0a0;
+}
+
+.laser-hero-actions .btn-outline-primary,
+.laser-hero-actions .btn-outline-secondary {
+  color: #f7fbff;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: #b8d9ed;
+}
+
+.laser-hero-actions .btn-outline-primary:hover,
+.laser-hero-actions .btn-outline-secondary:hover,
+.laser-hero-actions .btn-outline-primary:focus,
+.laser-hero-actions .btn-outline-secondary:focus {
+  color: #102637;
+  background: #e3f1fa;
+  border-color: #e3f1fa;
+}
+
+/* A light panel keeps the dark-colored LASER logo readable in dark navigation. */
+.navbar .navbar-logo {
+  padding: 2px 6px;
+  background: #f5f9fd;
+  border-radius: 5px;
+}
+
+
 /* Card styling */
 .laser-card {
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
+  background: #f1f7fc;
+  border: 1px solid #afc9e0;
+  border-radius: 10px;
   padding: 1.2em;
   height: 100%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(18, 57, 91, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .laser-card {
+    color: #f1f6fc;
+    background: #253b51;
+    border-color: #587b99;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  }
+
+  .laser-card h3 {
+    color: #f5faff;
+  }
+
+  .laser-card a {
+    color: #b5ddff;
+  }
 }
 
 /* Member card styling */
@@ -125,11 +212,25 @@
     font-size: 0.92em;
   }
 
-  /* Stack buttons vertically so they don't overflow */
-  .laser-hero .btn {
-    display: block;
-    width: fit-content;
-    margin: 0.25em auto;
+  /* Keep all three CTAs in one horizontal row, including narrow phones. */
+  .laser-hero-actions {
+    margin-top: 1rem;
+  }
+
+  .laser-hero-actions p {
+    gap: 0.4rem;
+  }
+
+  .laser-hero-actions .btn {
+    display: inline-flex;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    min-height: 42px;
+    padding: 0.55rem 0.25rem;
+    margin: 0;
+    font-size: clamp(0.72rem, 2.8vw, 0.91rem);
+    white-space: nowrap;
   }
 
   /* Stack cards vertically (full width) on mobile */
