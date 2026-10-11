@@ -116,14 +116,28 @@
     "href": "index.html",
     "title": "LASER at SCNU",
     "section": "",
-    "text": "Laboratory for Autonomous Systems Engineering Research\nAutonomous Process and Experiment Design · Operation · Decision Engineering\n\nAbout Research Join Us"
+    "text": "SUNCHON NATIONAL UNIVERSITY · CHEMICAL ENGINEERING\n\n\n\nLaboratory for Autonomous Systems Engineering Research\nLASER develops data-efficient and uncertainty-aware methods that connect autonomous design, engineering decision-making, and reliable system operation.\n\nAbout Research Join Us"
   },
   {
-    "objectID": "index.html#welcome-to-laser",
-    "href": "index.html#welcome-to-laser",
+    "objectID": "index.html#research-areas",
+    "href": "index.html#research-areas",
     "title": "LASER at SCNU",
-    "section": "Welcome to LASER",
-    "text": "Welcome to LASER\nWe are a research group in the Department of Chemical Engineering at Sunchon National University. LASER develops computational and experimental workflows that help complex engineered systems become more autonomous, reliable, and data-efficient.\n\n\n\n\nResearch Focus\n\nAutonomous Process & Experiment Design: Value-of-information–driven sequential design and active learning for data-efficient engineering (DOE/iDoE)\nDecision Engineering: Constraint- and uncertainty-aware optimization for design and operation, including sustainability assessment\nOperation: Operational strategy and implementation for complex engineered systems (including control, monitoring, and scheduling)\n\nLearn more →\n\n\n\n\nRecent Publications\n\nSo-Jin Park - Station-boundary thermal and power assessment of electrified preheating and staged turboexpander recovery in natural gas pressure regulation stations, Energy, 2026 [LINK]\n\n\nYujin Cheon - Batch-process identification under repetitive and deterministic disturbances using differenced batch data, Computers and Chemical Engineering, 2026 [LINK]\n\nSee all publications →\n\n\n\n\nQuick Links\n\nResearch Areas\nPublications\nMembers\nAbout & Contact\n\nContact: khryu@scnu.ac.kr\n\n\n\n\n\n\n\n\n\n\nNoteWe’re Recruiting!\n\n\n\nWe welcome highly motivated graduate students interested in autonomous systems engineering, process modeling and optimization, and data-efficient learning for complex engineering systems.\nLearn how to join →"
+    "section": "Research Areas",
+    "text": "Research Areas\n\n\n\n\n01\n\n\nAutonomous Design\nSequential experiment design, active learning, and data-efficient surrogate modeling.\n\n\n\n\n\n\n02\n\n\nDecision Engineering\nUncertainty-aware optimization, technology assessment, and multi-objective decision-making.\n\n\n\n\n\n\n03\n\n\nOperation, Monitoring & Control\nProcess modeling, data-driven control, monitoring, and operational strategies.\n\n\n\n\nExplore all research areas →"
+  },
+  {
+    "objectID": "index.html#recent-publications",
+    "href": "index.html#recent-publications",
+    "title": "LASER at SCNU",
+    "section": "Recent Publications",
+    "text": "Recent Publications\n\nStation-boundary thermal and power assessment of…\n\nEnergy · 2026\n\n\n\nBatch-process identification under repetitive and deterministic…\n\nComputers and Chemical Engineering · 2026\n\n\nView all publications →"
+  },
+  {
+    "objectID": "index.html#join-laser",
+    "href": "index.html#join-laser",
+    "title": "LASER at SCNU",
+    "section": "Join LASER",
+    "text": "Join LASER\nWe welcome graduate students and researchers interested in autonomous systems engineering.\nApplication information →"
   },
   {
     "objectID": "publications.html",
