@@ -1501,7 +1501,7 @@
           "family": "Ryu"
         }
       ],
-      "journal": "ISA Transaction",
+      "journal": "Computers & Chemical Engineering",
       "year": 2026,
       "status": "under_review",
       "visibility": "public",
@@ -1510,7 +1510,7 @@
       ],
       "corresponding_authors": [
         "Kyung Hwan Ryu",
-	"Su Whan Sung"
+        "Su Whan Sung"
       ],
       "dates": {
         "submitted": "2026-07-19",
