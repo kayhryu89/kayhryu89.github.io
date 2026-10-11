@@ -34,7 +34,8 @@ def verify() -> None:
                 assert page.locator(".laser-area-card h3").all_text_contents() == [
                     "Autonomous Design", "Decision Engineering", "Operation, Monitoring & Control"
                 ], "Research areas have changed"
-                assert page.locator("header#title-block-header").is_visible() is False, "Redundant Quarto page title is visible"
+                assert all(not title.is_visible() for title in page.locator("header#title-block-header").all()), "Redundant Quarto page title is visible"
+                assert page.locator("main .laser-hero h1").count() == 1, "Expected one LASER hero heading"
                 assert page.locator("#quick-links").count() == 0, "Redundant Quick Links remains"
                 publications = page.locator(".recent-publication-title")
                 assert publications.count() == 2, "Expected two recent publications"
