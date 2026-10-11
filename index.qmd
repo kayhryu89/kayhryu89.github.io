@@ -1,6 +1,5 @@
 ---
 title: "LASER at SCNU"
-title-block-style: none
 page-layout: full
 toc: false
 ---
