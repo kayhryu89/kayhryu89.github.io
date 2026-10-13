@@ -2,12 +2,30 @@
   "schema_version": 1,
   "projects": [
     {
+      "id": "proj2026_ai_experimental_design_platform",
+      "title": "Development of an AI-Based Platform for Experimental Design and Optimization",
+      "funding": "Anchor program",
+      "start_date": "2026-03",
+      "end_date": "2027-02",
+      "period": "Mar. 2026 -- Feb. 2027",
+      "status": "ongoing"
+    },
+    {
       "id": "proj2025_development_dynamic",
       "title": "Development of a Dynamic Model for Solid-State Hydrogen Storage Systems",
       "funding": "Korea Institute of Energy Research",
       "start_date": "2025-12",
       "end_date": "2026-05",
       "period": "Dec. 2025 -- May 2026",
+      "status": "completed"
+    },
+    {
+      "id": "proj2025_3d_printable_adsorbent_filament",
+      "title": "Development of 3D-printable adsorbent filament manufacturing technology using design of experiment",
+      "funding": "Regional Innovation System & Education (RISE) program",
+      "start_date": "2025-09",
+      "end_date": "2026-01",
+      "period": "Sep. 2025 -- Jan. 2026",
       "status": "completed"
     },
     {
