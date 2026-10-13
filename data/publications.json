@@ -33,25 +33,11 @@
       "corresponding_authors": [
         "Boeun Kim",
         "Kyung Hwan Ryu"
-      ]
-    },
-    {
-      "id": "2026_06",
-      "type": "journal_article",
-      "title": "Autonomous synthesis of industrially implementable function-block controllers via graph search",
-      "authors": [
-        {
-          "given": "Kyung Hwan",
-          "family": "Ryu"
-        }
       ],
-      "journal": "Engineering Applications of Artificial Intelligence",
-      "year": 2026,
-      "status": "under_review",
-      "visibility": "public",
-      "pi_roles": [
-        "corresponding"
-      ]
+      "dates": {
+        "submitted": "2026-10-13",
+        "status_updated": "2026-10-13"
+      }
     },
     {
       "id": "2026_05",
