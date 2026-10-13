@@ -31,7 +31,7 @@
       "id": "003",
       "status": "MS",
       "name": "Yerin Jeon (전예린)",
-      "research_topic": "Electrification",
+      "research_topic": "autonomous PSE",
       "email": "",
       "phone": "",
       "joined": "2025",
@@ -43,15 +43,15 @@
     {
       "id": "004",
       "status": "MS",
-      "name": "Jintea Kim",
+      "name": "Jintea Kim (김진태)",
       "research_topic": "Experimental design and soft sensor",
       "email": "",
       "phone": "",
-      "joined": "",
+      "joined": "2025",
       "graduation": "",
       "thesis": "",
       "current_position": "",
-      "photo": "none"
+      "photo": "auto"
     }
   ]
 }
