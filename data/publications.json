@@ -2,6 +2,40 @@
   "schema_version": 1,
   "publications": [
     {
+      "id": "Kim2026PiecewiseHyperplane",
+      "type": "journal_article",
+      "title": "Piecewise Response Surface Modeling with a Data-Estimated Hyperplane",
+      "authors": [
+        {
+          "given": "Jiyun",
+          "family": "Kim"
+        },
+        {
+          "given": "Yerin",
+          "family": "Jeon"
+        },
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Chemometrics and Intelligent Laboratory Systems",
+      "year": 2026,
+      "status": "under_review",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Boeun Kim",
+        "Kyung Hwan Ryu"
+      ]
+    },
+    {
       "id": "2026_06",
       "type": "journal_article",
       "title": "Autonomous synthesis of industrially implementable function-block controllers via graph search",
