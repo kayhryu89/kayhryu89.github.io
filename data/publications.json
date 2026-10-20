@@ -2,6 +2,36 @@
   "schema_version": 1,
   "publications": [
     {
+      "id": "Kim2026TaylorTrustRegion",
+      "type": "journal_article",
+      "title": "Taylor-derived trust-region geometry for neural network training in engineering regression",
+      "authors": [
+        {
+          "given": "Boeun",
+          "family": "Kim"
+        },
+        {
+          "given": "Kyung Hwan",
+          "family": "Ryu"
+        }
+      ],
+      "journal": "Computers & Chemical Engineering",
+      "year": 2026,
+      "status": "under_review",
+      "visibility": "public",
+      "pi_roles": [
+        "corresponding"
+      ],
+      "corresponding_authors": [
+        "Boeun Kim",
+        "Kyung Hwan Ryu"
+      ],
+      "dates": {
+        "submitted": "2026-10-20",
+        "status_updated": "2026-10-20"
+      }
+    },
+    {
       "id": "Kim2026PiecewiseHyperplane",
       "type": "journal_article",
       "title": "Piecewise Response Surface Modeling with a Data-Estimated Hyperplane",
