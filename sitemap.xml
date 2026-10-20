@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://kayhryu89.github.io/about.html</loc>
-    <lastmod>2026-10-15T03:28:17.725Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kayhryu89.github.io/members.html</loc>
-    <lastmod>2026-10-15T03:28:17.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kayhryu89.github.io/history/update-log.html</loc>
-    <lastmod>2026-10-15T03:28:17.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kayhryu89.github.io/board/welcome.html</loc>
-    <lastmod>2026-10-15T03:28:17.725Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kayhryu89.github.io/projects.html</loc>
-    <lastmod>2026-10-15T03:28:17.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kayhryu89.github.io/index.html</loc>
-    <lastmod>2026-10-15T03:28:17.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kayhryu89.github.io/publications.html</loc>
-    <lastmod>2026-10-15T03:28:17.727Z</lastmod>
-  </url>
-  <url>
     <loc>https://kayhryu89.github.io/board.html</loc>
-    <lastmod>2026-10-15T03:28:17.725Z</lastmod>
+    <lastmod>2026-10-20T13:37:32.576Z</lastmod>
   </url>
   <url>
     <loc>https://kayhryu89.github.io/research.html</loc>
-    <lastmod>2026-10-15T03:28:17.728Z</lastmod>
+    <lastmod>2026-10-20T13:37:32.579Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/index.html</loc>
+    <lastmod>2026-10-20T13:37:32.578Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/publications.html</loc>
+    <lastmod>2026-10-20T13:37:32.579Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/projects.html</loc>
+    <lastmod>2026-10-20T13:37:32.579Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/about.html</loc>
+    <lastmod>2026-10-20T13:37:32.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/board/welcome.html</loc>
+    <lastmod>2026-10-20T13:37:32.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/members.html</loc>
+    <lastmod>2026-10-20T13:37:32.579Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kayhryu89.github.io/history/update-log.html</loc>
+    <lastmod>2026-10-20T13:37:32.578Z</lastmod>
   </url>
 </urlset>
