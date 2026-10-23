@@ -19,3 +19,10 @@ a.nav-item{color:inherit;text-decoration:none}a.nav-item:hover{background:#20516
 
 /* Long select option labels must not impose their intrinsic width on narrow mobile panels. */
 #eqMode,#forcingInterpolation{display:block;min-width:0;width:100%;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+/* Spreadsheet and compact advanced settings */
+#spreadsheetGrid{min-width:0;max-width:100%}
+#spreadsheetGrid .sheet-scroll{max-width:100%;overflow-x:auto}
+#exampleDetails select{min-width:0;max-width:100%}
+.helper-details summary{cursor:pointer}
+#diagnosticsDetails{margin-top:12px}

@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Kinetic Studio: adsorption uptake fitting, LDF calibration, uncertainty and identifiability">
 <title>Kinetic Studio | Adsorp Supporting Tool</title>
-<link rel="stylesheet" href="../isotherm/style.css"><link rel="stylesheet" href="./style.css"></head><body>
+<link rel="stylesheet" href="../isotherm/style.css"><link rel="stylesheet" href="../shared/spreadsheet-grid/grid.css"><link rel="stylesheet" href="./style.css"></head><body>
 <div class="app">
   <aside class="side"><div class="brand">Adsorp<span style="color:#7cc4cc">.</span><small>SUPPORTING TOOL</small></div>
   <nav class="side-nav" aria-label="Modules">
@@ -17,22 +17,25 @@
       <div class="badge">6 kinetic formulations</div></header>
     <div class="layout">
       <div class="stack">
-        <section class="panel"><div class="panel-header"><h2>01 · Kinetic data</h2><span>CSV / TSV</span></div>
+        <section class="panel"><div class="panel-header"><h2>01 · Kinetic data</h2></div>
           <div class="panel-body">
-            <div class="row"><select id="exampleSelect" aria-label="Example dataset"></select>
-              <button id="loadExample" type="button" class="btn small">Load example</button>
-              <label class="btn small" for="dataFile">Upload CSV</label><input class="hidden" type="file" id="dataFile" accept=".csv,.tsv,.txt">
-              <span class="grow"></span></div>
-            <div class="field"><label for="csv">Measured time series</label>
-              <textarea id="csv" rows="8" spellcheck="false" placeholder="time,loading,pressure,sigma,branch"></textarea></div>
+            <div class="row"><label class="btn small" for="dataFile">Import CSV / Excel</label><input class="hidden" type="file" id="dataFile" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+              <span class="micro">Paste cells from Excel directly into the table</span></div>
+            <div class="field"><div id="spreadsheetGrid" aria-label="Editable kinetic observations"></div></div>
             <div class="grid2">
-              <div class="field"><label for="branch">Branch</label><select id="branch"><option value="adsorption">Adsorption</option><option value="desorption">Desorption</option></select></div>
+              <div class="field"><label for="branch">Branch</label><select id="branch"><option value="adsorption">Adsorption</option><option value="desorption">Desorption</option></select>
+                <label class="checkbox-line padded-top branch-mode-label"><input id="mixedBranches" type="checkbox"> Mixed adsorption/desorption (row-level Branch)</label></div>
               <div class="field"><label for="tUnit">Time unit</label><input id="tUnit" value="min"></div>
               <div class="field"><label for="pUnit">Pressure/concentration unit</label><input id="pUnit" value="bar"></div>
               <div class="field"><label for="qUnit">Uptake unit</label><input id="qUnit" value="mmol/g"></div>
             </div>
-            <div id="dataInfo" class="micro"></div><p class="small-note" id="exampleInfo">Examples are synthetic for algorithm verification, not experimental data.</p>
-            <p class="small-note">Use time,loading[,pressure,sigma,branch]; units are labels, not automatically converted. Each file is one transient experiment with strictly increasing time. The first uptake fixes q0 unless fitted separately.</p>
+            <div id="dataInfo" class="micro" aria-live="polite"></div>
+            <details class="helper-details" id="exampleDetails"><summary>Load example data</summary><div class="row helper-row">
+              <select id="exampleSelect" aria-label="Example dataset"></select><button id="loadExample" class="btn small" type="button">Load</button></div></details>
+            <p class="small-note" id="exampleInfo">Built-in examples are synthetic, not experimental measurements.</p>
+            <details class="helper-details"><summary>Data rules</summary>
+              <p>One experiment per fit, at least six points and unique time values. Pressure and sigma are optional (sigma must be positive when weighted). Branch applies globally unless mixed mode is enabled; mixed trajectories are fitted by branch, never pooled. Units are labels, never automatically converted.</p>
+            </details>
           </div></section>
         <section class="panel"><div class="panel-header"><h2>02 · Equilibrium coupling</h2></div>
           <div class="panel-body"><div class="field"><label for="eqMode">Equilibrium information</label><select id="eqMode">
@@ -51,18 +54,21 @@
           </div></section>
         <section class="panel"><div class="panel-header"><h2>04 · Fitting and uncertainty</h2></div>
           <div class="panel-body">
-            <div class="grid2">
-              <div class="field"><label for="optimizer">Optimizer</label><select id="optimizer"><option value="trls" selected>Bounded Trust-Region Gauss–Newton (default)</option><option value="de_lbfgs">DE + Projected L-BFGS</option><option value="lbfgs">Multi-start L-BFGS (comparator)</option><option value="lm">Legacy LM (comparator)</option></select></div>
-              <div class="field"><label for="starts">Multi-start</label><select id="starts"><option value="4">4</option><option value="8" selected>8</option><option value="16">16</option></select></div>
+            <details class="helper-details solver-details"><summary>Advanced solver settings</summary><div class="grid2">
+              <div class="field"><label for="optimizer">Optimizer</label><select id="optimizer"><option value="trls" selected>Bounded trust-region Gauss–Newton (default)</option><option value="de_lbfgs">DE + Projected L-BFGS</option><option value="lbfgs">Multi-start Projected L-BFGS</option><option value="lm">Legacy LM (comparator)</option></select></div>
+              <div class="field"><label for="starts">Multi-start</label><select id="starts"><option value="4">4 · Fast</option><option value="8" selected>8 · Standard</option><option value="16">16 · Thorough</option></select></div>
               <div class="field"><label for="seed">Random seed</label><input type="number" id="seed" value="20261023"></div>
+            </div></details>
+            <label class="checkbox-line"><input type="checkbox" id="weighted"> Weighted fitting (requires positive sigma)</label>
+            <label class="checkbox-line padded-top"><input type="checkbox" id="fitQ0"> Fit initial loading q₀ (default: first observation)</label>
+            <div class="separator"></div>
+            <label class="checkbox-line"><input type="checkbox" id="showCI"> <strong>Show confidence interval around fitted curve</strong></label>
+            <label class="checkbox-line padded-top"><input type="checkbox" id="showParamCI"> <strong>Show parameter confidence intervals</strong></label>
+            <div class="grid2 padded-top hidden" id="ciControls">
               <div class="field"><label for="confidenceLevel">Confidence level</label><select id="confidenceLevel"><option value="0.9">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></div>
-              <div class="field"><label for="confidenceN">Bootstrap draws</label><select id="confidenceN"><option value="40">40 fast</option><option value="80" selected>80 standard</option><option value="160">160 detailed</option></select></div>
+              <div class="field"><label for="confidenceN">Bootstrap draws</label><select id="confidenceN"><option value="40">40 · Fast</option><option value="80" selected>80 · Standard</option><option value="160">160 · Detailed</option></select></div>
             </div>
-            <label class="checkbox-line"><input type="checkbox" id="weighted"> Weighted fitting (requires positive sigma in every row)</label>
-            <label class="checkbox-line padded-top"><input type="checkbox" id="fitQ0"> Fit initial loading q0 (otherwise fixed at first observation)</label>
-            <label class="checkbox-line padded-top"><input type="checkbox" id="showCI"> Show pointwise curve and marginal parameter bootstrap confidence intervals</label>
-            <div class="row padded-top"><button id="fitBtn" class="btn primary" type="button">Fit selected models</button>
-              <button id="autoBtn" class="btn" type="button">Find best kinetic model</button></div>
+            <div class="row padded-top"><button id="autoBtn" type="button" class="btn primary">Find best kinetic model</button><button id="fitBtn" type="button" class="btn">Fit selected models</button></div>
             <div class="status" id="status" aria-live="polite">Ready. Load data and fit a model.</div>
           </div></section>
       </div>
@@ -90,9 +96,11 @@
           <div id="residual" class="chart-wrap"></div><div class="panel-body">
             <div id="formula" class="formula"></div><div id="parameters" class="scroll padded-top"></div>
             <div id="confidenceNote" class="small-note"></div>
-            <div id="identifiability" class="model-note-list padded-top"></div>
-            <div id="warnings" class="model-note-list padded-top"></div>
-            <p class="small-note">Jacobian rank, condition and sensitivity correlation assess local practical identifiability only. Bootstrap does not account for model selection, autocorrelation or equilibrium-model uncertainty.</p>
+            <details class="helper-details" id="diagnosticsDetails"><summary>Parameter diagnostics</summary>
+              <div id="identifiability" class="model-note-list padded-top"></div>
+              <div id="warnings" class="model-note-list padded-top"></div>
+              <p class="small-note">Jacobian rank and sensitivity correlation screen local practical identifiability only. Bootstrap excludes model selection, autocorrelation and imported equilibrium fit uncertainty.</p>
+            </details>
           </div></section>
       </div>
     </div>
