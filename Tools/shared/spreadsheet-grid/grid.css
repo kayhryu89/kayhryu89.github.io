@@ -12,3 +12,6 @@
 .sheet-table input:focus{background:#fff;border:2px solid #1a778e;padding:7px 8px;box-shadow:inset 0 0 0 1px #e6f7fb}
 .sheet-controls{display:flex;gap:8px;justify-content:flex-start;margin:10px 0 0;flex-wrap:wrap}
 .sheet-controls .btn{font-size:11px}
+
+/* Optional columns are controlled by the parent tool; all cells remain in memory. */
+.sheet-table .sheet-column-hidden{display:none!important}
