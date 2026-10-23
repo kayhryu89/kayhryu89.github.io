@@ -1,0 +1,21 @@
+a.nav-item{color:inherit;text-decoration:none}a.nav-item:hover{background:#205164;color:#fff}
+#exampleSelect{border:1px solid #ccd8e1;border-radius:9px;padding:8px;background:white;max-width:250px}
+#eqLinkedBox .btn{display:inline-block;cursor:pointer}
+.confidence-band{fill:rgba(21,94,117,.17);stroke:none}
+.confidence-edge{fill:none;stroke:#155e75;stroke-width:1;stroke-dasharray:4 4}
+.chart .equilibrium{fill:none;stroke:#64748b;stroke-width:1.5;stroke-dasharray:6 4}
+#models label{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+#models input{accent-color:var(--accent)}
+#models .disabled{opacity:.5}
+#resultTable tr{cursor:pointer}
+#eqInfo{margin-top:10px;line-height:1.6}
+#status{min-height:25px}
+@media(max-width:540px){.right-actions{flex-wrap:wrap}#exampleSelect{max-width:100%}.panel-header{flex-wrap:wrap}}
+
+/* Prevent wide regression/correlation tables from enlarging mobile grid tracks. */
+.app,.main,.layout,.stack,.panel,.panel-body,.chart-wrap,.scroll{min-width:0;max-width:100%}
+@media(max-width:980px){.layout,.stack{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:540px){.grid2{grid-template-columns:minmax(0,1fr)}.top{min-width:0;flex-wrap:wrap}.top>div{min-width:0}#resultTable{width:100%}.scroll{width:100%;overflow-x:auto}}
+
+/* Long select option labels must not impose their intrinsic width on narrow mobile panels. */
+#eqMode,#forcingInterpolation{display:block;min-width:0;width:100%;max-width:100%;overflow:hidden;text-overflow:ellipsis}
