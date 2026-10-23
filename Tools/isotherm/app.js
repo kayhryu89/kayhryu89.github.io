@@ -4,6 +4,8 @@ import {EXAMPLES,findExample,exampleCsv} from "./examples.js";
 import {autoSelect} from "./auto_select.js";
 import {bootstrapConfidence,confidenceCsv,parameterConfidenceCsv} from "./confidence.js";
 import {diagnoseIdentifiability} from "./identifiability.js";
+import {mountSpreadsheetGrid,mapColumns} from "../shared/spreadsheet-grid/grid.js";
+import {readXlsx} from "../shared/spreadsheet-grid/xlsx.js";
 
 const $=id=>document.getElementById(id);
 const FIT_SEED=20261023;
@@ -12,6 +14,16 @@ const presets=[...picked];
 let results=[],current=null,source=null,failed=[],chosenExample=null,automatic=null,ciGeneration=0;
 const f=(n,p=4)=>n==null||!Number.isFinite(n)?"—":Number(n).toPrecision(p);
 const status=(s,bad=false)=>{$("status").textContent=s;$("status").className="status"+(bad?" error":"");};
+const GRID_COLUMNS=[
+  {key:"pressure",label:"Pressure / x",aliases:["x","p","concentration","relative_p","p/p0","activity"]},
+  {key:"loading",label:"Loading / q",aliases:["q","qe","uptake","capacity","adsorbed"]},
+  {key:"sigma",label:"Sigma",aliases:["stddev","uncertainty","std_error"]},
+  {key:"branch",label:"Branch",aliases:["direction"]}
+];
+const grid=mountSpreadsheetGrid($("spreadsheetGrid"),{
+  columns:GRID_COLUMNS,
+  onChange:()=>{chosenExample=null;clearResults();preview();}
+});
 const eligible=m=>!m.relative||$("dataDomain").value==="relative";
 function modelPicker(){
   const el=$("modelsList");el.replaceChildren();
@@ -37,7 +49,8 @@ function hybridPicker(){
   $("hybrid1").value="langmuir";$("hybrid2").value="henry";$("hybrid3").value="";
 }
 function data(){
-  const src=parseTable($("dataInput").value,$("branch").value);
+  if(!grid.getRows().length)throw Error("Enter or import data in the table.");
+  const src=parseTable(grid.toCSV(),$("branch").value);
   if($("dataDomain").value==="relative"&&src.data.some(d=>d.x>1))throw Error("Relative pressure requires 0 ≤ p/p₀ ≤ 1.");
   return src;
 }
@@ -53,8 +66,8 @@ function preview(){
 function loadExample(){
   const ex=findExample($("exampleSelect").value);
   if(!ex)return;
+  grid.setDelimited(exampleCsv(ex));
   chosenExample=ex;
-  $("dataInput").value=exampleCsv(ex);
   $("dataDomain").value=ex.domain;$("branch").value=ex.recommended_branch;
   $("xUnit").value=ex.xUnit;$("qUnit").value=ex.qUnit;
   modelPicker();preview();clearResults();
@@ -388,12 +401,19 @@ EXAMPLES.forEach(ex=>{const opt=document.createElement("option");opt.value=ex.id
 $("exampleBtn").addEventListener("click",loadExample);
 $("fileInput").addEventListener("change",async e=>{
   const file=e.target.files?.[0];if(!file)return;
-  if(file.size>2e6){status("Maximum CSV size is 2 MB.",true);return;}
-  try{$("dataInput").value=await file.text();chosenExample=null;clearResults();preview();status("Loaded "+file.name);}
-  catch(error){status("Could not read file: "+error.message,true);}
+  try{
+    if(/\.xlsx$/i.test(file.name)){
+      if(file.size>4e6)throw Error("Maximum Excel file size is 4 MB.");
+      const matrix=await readXlsx(await file.arrayBuffer(),{maxRows:2000,maxColumns:16});
+      grid.setRows(mapColumns(matrix,GRID_COLUMNS));
+    }else if(/\.(csv|tsv|txt)$/i.test(file.name)){
+      if(file.size>2e6)throw Error("Maximum text file size is 2 MB.");
+      grid.setDelimited(await file.text());
+    }else throw Error("Choose a .xlsx, .csv or .tsv file (.xls is not supported).");
+    chosenExample=null;preview();status("Imported "+file.name);
+  }catch(error){status("Could not import file: "+error.message,true);}
   e.target.value="";
 });
-$("dataInput").addEventListener("input",()=>{chosenExample=null;clearResults();preview();});
 $("branch").addEventListener("change",()=>{clearResults();preview();});
 $("dataDomain").addEventListener("change",()=>{
   for(const m of MODELS)if(m.relative&&!eligible(m))picked.delete(m.id);

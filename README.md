@@ -49,3 +49,7 @@ These are **publicly accessible** static HTML/JavaScript applications. Their sou
 **Maintenance rule:** Every time a research tool's browser runtime is implemented or updated, mirror the final reviewed production HTML/JavaScript/CSS into `Tools/<module>/` in this repository, update `Tools/manifest.json` with exact Git blob hashes and the source Research commit, and verify the Quarto `_site/Tools/<module>/index.html` output and live GitHub Pages endpoint. Do not add the tool to `_quarto.yml` website navbar or `index.qmd`. The Quarto `project.resources: ["Tools/**"]` entry only copies files. Publishing still uses the existing `publish.yml` GitHub Actions flow. Read `scripts/tools-deployment.md` for the synchronization checklist.
 
 A push to the private Research repository **does not automatically update** this public repository; the explicit mirroring step must be performed as part of each tool-development task unless a suitably authorized cross-repository automation is configured later.
+
+## Shared interactive UI components
+
+Reusable public-safe browser runtime lives in `Tools/shared/<component>/` and is tracked separately under `Tools/manifest.json` → `shared_assets`. Current example: `Tools/shared/spreadsheet-grid/` supplies the Excel-style data grid and local `.xlsx` parser. Isotherm Studio imports the same module from `../shared/spreadsheet-grid/`. Keep shared runtime files synchronized when any dependent tool changes and validate SHA hashes before Quarto deploy. These assets are **not** homepage navigation entries or standalone pages.

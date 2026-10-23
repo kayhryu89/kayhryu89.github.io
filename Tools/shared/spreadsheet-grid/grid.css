@@ -1,0 +1,14 @@
+.spreadsheet-grid{width:100%;min-width:0}
+.sheet-scroll{overflow:auto;border:1px solid #ccd8e1;border-radius:10px;max-height:330px;background:#fff}
+.sheet-table{border-collapse:separate;border-spacing:0;width:100%;min-width:345px;table-layout:fixed;font-size:12px}
+.sheet-table th{position:sticky;top:0;z-index:1;background:#ecf3f6;border-bottom:1px solid #cbd9e0;color:#365d6a;font-weight:650;font-size:11px;text-align:left;padding:9px 8px}
+.sheet-table th:first-child{width:32px;left:0;z-index:2;text-align:center}
+.sheet-table th:nth-child(2),.sheet-table th:nth-child(3){width:28%}
+.sheet-table th:nth-child(4){width:18%}
+.sheet-table th:nth-child(5){width:26%}
+.sheet-table tbody th{top:auto;z-index:1;position:sticky;left:0;text-align:center;background:#f6f8fa;color:#788996;font-weight:450;border-right:1px solid #e2e8f0;padding:4px}
+.sheet-table td{padding:0!important;border-bottom:1px solid #e2e8f0;border-right:1px solid #eef2f5}
+.sheet-table input{display:block;width:100%;min-width:0;border:1px solid transparent;background:transparent;outline:none;font:inherit;padding:8px 9px;color:#1e293b;border-radius:0}
+.sheet-table input:focus{background:#fff;border:2px solid #1a778e;padding:7px 8px;box-shadow:inset 0 0 0 1px #e6f7fb}
+.sheet-controls{display:flex;gap:8px;justify-content:flex-start;margin:10px 0 0;flex-wrap:wrap}
+.sheet-controls .btn{font-size:11px}
