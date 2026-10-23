@@ -4,6 +4,9 @@ import {fitKinetic,kineticCsv} from "./fitting.js";
 import {chooseKinetic,forwardValidate} from "./selection.js";
 import {kineticIdentifiability,kineticBootstrap,kineticConfidenceCSV,kineticParameterCSV} from "./statistics.js";
 import {KINETIC_EXAMPLES,DEMO_ISOTHERM_REPORT,kineticExampleCSV} from "./examples.js";
+import {mountSpreadsheetGrid,mapColumns} from "../shared/spreadsheet-grid/grid.js";
+import {readXlsx} from "../shared/spreadsheet-grid/xlsx.js";
+import {analyzeKineticBranches,buildKineticCSV} from "./branch_data.js";
 
 const $=id=>document.getElementById(id);
 const fmt=(v,n=4)=>v==null||!Number.isFinite(v)?"—":Number(v).toPrecision(n);
@@ -11,6 +14,32 @@ const ns="http://www.w3.org/2000/svg",selectedIds=new Set(["pfo","pso","avrami",
 let source=null,results=[],current=null,equilibriumModel=null,automatic=null,errors=[],currentExample=null,ciJob=0;
 const yieldUI=()=>new Promise(done=>setTimeout(done,0));
 const status=(text,bad=false)=>{$("status").textContent=text;$("status").className="status"+(bad?" error":"");};
+const GRID_COLUMNS=[
+ {key:"time",label:"Time / t",aliases:["t","times","time_min","time_s","time_sec","time_hours","time_seconds"]},
+ {key:"loading",label:"Loading / q",aliases:["q","qt","uptake","adsorbed","capacity"]},
+ {key:"pressure",label:"Pressure / P",aliases:["p","concentration","cgas","partial_pressure","driving"]},
+ {key:"sigma",label:"Sigma",aliases:["sd","std","stddev","error","uncertainty"]},
+ {key:"branch",label:"Branch",aliases:["mode","direction"]}
+];
+const grid=mountSpreadsheetGrid($("spreadsheetGrid"),{
+ columns:GRID_COLUMNS,
+ onChange:({reason})=>{
+   if(reason==="setRows"||reason==="paste")inferImportedBranchMode({replace:reason==="setRows"});
+   currentExample=null;clearResults();preview();
+ }
+});
+function applyBranchVisibility(){grid.setColumnVisible("branch",$("mixedBranches").checked);}
+function inferImportedBranchMode({replace=false}={}){
+ const info=analyzeKineticBranches(grid.getRows());
+ if(info.mixed||replace)$("mixedBranches").checked=info.mixed;
+ if(info.mixed)$("branch").value="adsorption";
+ else if(info.labels.length===1)$("branch").value=info.labels[0];
+ applyBranchVisibility();modelPicker();
+}
+function dataCSV(){
+ if(!grid.getRows().length)throw Error("Enter or import kinetic observations in the table.");
+ return buildKineticCSV(grid.getRows(),{selectedBranch:$("branch").value,mixed:$("mixedBranches").checked});
+}
 const modelEnabled=id=>{
  if(["elovich","diffusion"].includes(id)&&$("branch").value==="desorption")return false;
  if(id==="ldf"&&$("eqMode").value==="free")return false;
@@ -42,7 +71,7 @@ function clearResults(){
 }
 function exampleLoad(){
  const ex=KINETIC_EXAMPLES.find(x=>x.id===$("exampleSelect").value);if(!ex)return;
- $("csv").value=kineticExampleCSV(ex);$("branch").value="adsorption";
+ grid.setDelimited(kineticExampleCSV(ex));$("branch").value="adsorption";$("mixedBranches").checked=false;applyBranchVisibility();
  $("tUnit").value="min";$("qUnit").value="mmol/g";$("pUnit").value="bar";$("weighted").checked=false;$("fitQ0").checked=false;
  equilibriumModel=ex.linked?readIsothermReport(DEMO_ISOTHERM_REPORT,{pressureUnit:"bar",loadingUnit:"mmol/g"}):null;
  $("eqMode").value=ex.linked?"linked":"free";
@@ -54,12 +83,12 @@ function exampleLoad(){
 }
 function preview(){
  try{
-   const r=parseKineticCSV($("csv").value,{branch:$("branch").value});
+   const r=parseKineticCSV(dataCSV(),{branch:$("branch").value});
    $("dataInfo").textContent=r.data.length+" valid time points · "+r.otherBranch+" excluded other-branch rows · "+r.skipped+" invalid rows";
  }catch(e){$("dataInfo").textContent="Data warning: "+e.message;}
 }
 function inputs(){
- const parsed=parseKineticCSV($("csv").value,{branch:$("branch").value});
+ const parsed=parseKineticCSV(dataCSV(),{branch:$("branch").value});
  if($("weighted").checked&&parsed.data.some(d=>!(d.sigma>0)))throw Error("Weighted mode requires sigma>0 for each observation.");
  const mode=$("eqMode").value;
  if(mode==="linked"){
@@ -108,16 +137,18 @@ function chart(host,series,{residual=false,xLabel="Time",yLabel="Uptake"}={}){
    svg.append(make("text",{x:X(t),y:h-m.bottom+18,"text-anchor":"middle",class:"axis-label"},fmt(t,3)));
  }
  if(residual)svg.append(make("line",{x1:m.left,x2:w-m.right,y1:Y(0),y2:Y(0),class:"baseline"}));
+ const bandEdges=[];
  for(const s of series){
    const pt=p=>X(p[0]).toFixed(2)+","+Y(p[1]).toFixed(2);
    if(s.kind==="band"){
      const lower=s.points.map(p=>[p[0],p[1]]),upper=s.points.map(p=>[p[0],p[2]]).reverse();
      svg.append(make("polygon",{points:lower.concat(upper).map(pt).join(" "),class:"confidence-band"}));
-     for(const arr of [lower,upper])svg.append(make("polyline",{points:arr.map(pt).join(" "),class:"confidence-edge"}));
+     bandEdges.push(lower,upper);
    }else if(s.kind==="line"||s.kind==="equilibrium"){
      svg.append(make("polyline",{points:s.points.map(pt).join(" "),class:s.kind==="line"?"line":"equilibrium"}));
    }else for(const p of s.points)svg.append(make("circle",{cx:X(p[0]),cy:Y(p[1]),r:3.5,class:residual?"residual-dot":"dot"}));
  }
+ for(const edge of bandEdges)svg.append(make("polyline",{points:edge.map(pt=>X(pt[0]).toFixed(2)+","+Y(pt[1]).toFixed(2)).join(" "),class:"confidence-edge"}));
  svg.append(make("text",{x:w/2,y:h-3,"text-anchor":"middle",class:"axis-label"},xLabel));
  svg.append(make("text",{x:14,y:h/2,"text-anchor":"middle",class:"axis-label",transform:"rotate(-90 14 "+h/2+")"},yLabel));
  host.replaceChildren(svg);
@@ -151,14 +182,14 @@ function draw(){
 }
 function parameterTable(){
  const host=$("parameters"),table=document.createElement("table"),thead=document.createElement("tr");
- ["Parameter","Physical estimate",...($("showCI").checked?["Marginal CI"]:[]),"Scaled estimate","Scaled bounds"].forEach(x=>{
+ ["Parameter","Physical estimate",...($("showParamCI").checked?["Marginal CI"]:[]),"Scaled estimate","Scaled bounds"].forEach(x=>{
    const th=document.createElement("th");th.textContent=x;thead.append(th);
  });
  table.append(thead);
  for(let i=0;i<current.params.length;i++){
-   const tr=document.createElement("tr"),param=current.model.params[i],c=$("showCI").checked?current.confidence?.parameters?.[i]:null;
+   const tr=document.createElement("tr"),param=current.model.params[i],c=$("showParamCI").checked?current.confidence?.parameters?.[i]:null;
    const fields=[param.name,fmt(current.physicalParameters[i],6),
-     ...($("showCI").checked?[c?"["+fmt(c.lower,4)+", "+fmt(c.upper,4)+"]":"Pending"]:[]),
+     ...($("showParamCI").checked?[c?"["+fmt(c.lower,4)+", "+fmt(c.upper,4)+"]":"Pending"]:[]),
      fmt(current.params[i],6),"["+fmt(param.low,3)+", "+fmt(param.high,3)+"]"];
    for(const value of fields){const td=document.createElement("td");td.textContent=value;tr.append(td);}
    table.append(tr);
@@ -196,19 +227,19 @@ function select(r){
  current=r;ciJob++;$("chosen").textContent=r.label;$("formula").textContent=r.formula;
  $("metricRMSE").textContent=fmt(r.metrics.rmse);$("metricR2").textContent=fmt(r.metrics.r2);
  for(const name of ["exportCSV","exportJSON"])$(name).disabled=false;
- $("exportCI").disabled=!r.confidence;$("exportParamCI").disabled=!r.confidence;
+ $("exportCI").disabled=!r.confidence||!$("showCI").checked;$("exportParamCI").disabled=!r.confidence||!$("showParamCI").checked;
  tableResults();draw();parameterTable();showDiagnostics();
  const host=$("warnings");host.replaceChildren();
  for(const msg of r.warnings){const div=document.createElement("div");div.className="warn";div.textContent=msg;host.append(div);}
- if($("showCI").checked)void refreshConfidence();else $("confidenceNote").textContent="Confidence intervals off.";
+ if($("showCI").checked||$("showParamCI").checked)void refreshConfidence();else $("confidenceNote").textContent="";
 }
 async function refreshConfidence(){
  const token=++ciJob,r=current;
  if(!r)return;
- if(!$("showCI").checked){$("exportCI").disabled=true;$("exportParamCI").disabled=true;$("confidenceNote").textContent="Confidence intervals off.";draw();parameterTable();return;}
+ if(!$("showCI").checked&&!$("showParamCI").checked){$("exportCI").disabled=true;$("exportParamCI").disabled=true;$("confidenceNote").textContent="";draw();parameterTable();return;}
  const level=Number($("confidenceLevel").value),replicates=Number($("confidenceN").value);
  const key=[level,replicates].join(":");r.ciCache??={};
- if(r.ciCache[key]){r.confidence=r.ciCache[key];$("exportCI").disabled=false;$("exportParamCI").disabled=false;draw();parameterTable();$("confidenceNote").textContent=confidenceCaption(r.confidence);return;}
+ if(r.ciCache[key]){r.confidence=r.ciCache[key];$("exportCI").disabled=!$("showCI").checked;$("exportParamCI").disabled=!$("showParamCI").checked;draw();parameterTable();$("confidenceNote").textContent=confidenceCaption(r.confidence);return;}
  r.confidence=null;$("exportCI").disabled=true;$("exportParamCI").disabled=true;draw();parameterTable();
  $("confidenceNote").textContent="Calculating "+replicates+" bootstrap refits for "+r.label+"…";
  try{
@@ -216,7 +247,7 @@ async function refreshConfidence(){
      shouldAbort:()=>token!==ciJob,yieldTask:yieldUI,
      onProgress:(i,n)=>{if(token===ciJob&&i%4===1)$("confidenceNote").textContent="Bootstrap "+i+"/"+n+" for "+r.label;}});
    if(token!==ciJob)return;
-   r.confidence=ci;r.ciCache[key]=ci;$("exportCI").disabled=false;$("exportParamCI").disabled=false;
+   r.confidence=ci;r.ciCache[key]=ci;$("exportCI").disabled=!$("showCI").checked;$("exportParamCI").disabled=!$("showParamCI").checked;
    draw();parameterTable();$("confidenceNote").textContent=confidenceCaption(ci);
  }catch(e){if(token!==ciJob)return;$("confidenceNote").textContent="Uncertainty unavailable: "+e.message;status("Bootstrap: "+e.message,true);}
 }
@@ -279,7 +310,9 @@ function report(){
    source_example:currentExample,units:{time:$("tUnit").value,loading:$("qUnit").value,pressure:$("pUnit").value},
    branch:$("branch").value,selected_model:r.id,
    equilibrium:r.equilibrium,forcing_interpolation:r.config.forcingInterpolation,optimizer:r.convergence.algorithm,
-   initial:r.initial,confidence:r.confidence??null,identifiability:r.identifiability??null,
+   initial:r.initial,confidence:($("showCI").checked||$("showParamCI").checked)?r.confidence??null:null,
+   confidence_settings:{curve:$("showCI").checked,parameters:$("showParamCI").checked,level:Number($("confidenceLevel").value),replicates:Number($("confidenceN").value)},
+   identifiability:r.identifiability??null,
    automatic_selection:automatic?{method:automatic.criterion,recommended:automatic.winner?.fit.id||null,excluded:errors}:null,
    runs:results.map(x=>({id:x.id,label:x.label,formula:x.formula,parameters:Object.fromEntries(x.paramNames.map((p,i)=>[p,x.physicalParameters[i]])),
      normalized_parameters:Object.fromEntries(x.paramNames.map((p,i)=>[p,x.params[i]])),
@@ -289,13 +322,19 @@ function report(){
 }
 KINETIC_EXAMPLES.forEach(ex=>{const op=document.createElement("option");op.value=ex.id;op.textContent=ex.name;$("exampleSelect").append(op);});
 $("loadExample").addEventListener("click",exampleLoad);
-$("csv").addEventListener("input",()=>{currentExample=null;$("exampleInfo").textContent="User-entered data.";clearResults();preview();});
 $("dataFile").addEventListener("change",async e=>{
  const file=e.target.files?.[0];if(!file)return;
  try{
-   if(file.size>2e6)throw Error("Maximum kinetic CSV size is 2 MB.");
-   $("csv").value=await file.text();currentExample=null;$("exampleInfo").textContent="User-uploaded dataset; source and permissions are controlled by the user.";
-   clearResults();preview();status("Uploaded "+file.name);
+   if(/\.xlsx$/i.test(file.name)){
+     if(file.size>4e6)throw Error("Maximum Excel file size is 4 MB.");
+     const matrix=await readXlsx(await file.arrayBuffer(),{maxRows:2000,maxColumns:16});
+     grid.setRows(mapColumns(matrix,GRID_COLUMNS));
+   }else if(/\.(csv|tsv|txt)$/i.test(file.name)){
+     if(file.size>2e6)throw Error("Maximum kinetic text file size is 2 MB.");
+     grid.setDelimited(await file.text());
+   }else throw Error("Choose a .csv, .tsv or .xlsx file; legacy .xls is not supported.");
+   currentExample=null;$("exampleInfo").textContent="User-imported dataset. Verify units, provenance and branch.";
+   clearResults();preview();status("Imported "+file.name);
  }catch(error){status(error.message,true);}
  e.target.value="";
 });
@@ -313,17 +352,38 @@ $("eqMode").addEventListener("change",updateEqPanel);
 $("forcingInterpolation").addEventListener("change",clearResults);
 $("eqValue").addEventListener("change",clearResults);
 $("branch").addEventListener("change",()=>{modelPicker();clearResults();preview();});
+$("mixedBranches").addEventListener("change",()=>{
+ if($("mixedBranches").checked){
+   const fallback=$("branch").value;
+   grid.setRows(grid.getRows().map(row=>{
+     const copy=row.slice();
+     if(!String(copy[4]??"").trim()&&(String(copy[0]??"").trim()||String(copy[1]??"").trim()))copy[4]=fallback;
+     return copy;
+   }),{notifyChange:false});
+ }
+ applyBranchVisibility();clearResults();preview();
+});
 for(const id of ["optimizer","starts","seed","weighted","fitQ0","pUnit","qUnit","tUnit"])$(id).addEventListener("change",clearResults);
-$("showCI").addEventListener("change",refreshConfidence);
-$("confidenceLevel").addEventListener("change",refreshConfidence);
-$("confidenceN").addEventListener("change",refreshConfidence);
+function requestConfidence(){
+ const enabled=$("showCI").checked||$("showParamCI").checked;
+ $("ciControls").classList.toggle("hidden",!enabled);
+ if(enabled&&!current&&!$("fitBtn").disabled&&!$("autoBtn").disabled&&grid.getRows().length){
+   $("confidenceNote").textContent="Fitting selected models before calculating uncertainty…";
+   void fit(false);return;
+ }
+ void refreshConfidence();
+}
+$("showCI").addEventListener("change",requestConfidence);
+$("showParamCI").addEventListener("change",requestConfidence);
+$("confidenceLevel").addEventListener("change",()=>{if($("showCI").checked||$("showParamCI").checked)void refreshConfidence();});
+$("confidenceN").addEventListener("change",()=>{if($("showCI").checked||$("showParamCI").checked)void refreshConfidence();});
 $("fitBtn").addEventListener("click",()=>void fit(false));
 $("autoBtn").addEventListener("click",()=>void fit(true));
 $("exportCSV").addEventListener("click",()=>current&&download("kinetic_"+current.id+".csv","text/csv",kineticCsv(current)));
 $("exportCI").addEventListener("click",()=>{
- if(current?.confidence)download("kinetic_"+current.id+"_confidence.csv","text/csv",
+ if($("showCI").checked&&current?.confidence)download("kinetic_"+current.id+"_confidence.csv","text/csv",
    kineticConfidenceCSV(current.confidence));
 });
-$("exportParamCI").addEventListener("click",()=>current?.confidence&&download("kinetic_"+current.id+"_parameters_CI.csv","text/csv",kineticParameterCSV(current.confidence)));
+$("exportParamCI").addEventListener("click",()=>$("showParamCI").checked&&current?.confidence&&download("kinetic_"+current.id+"_parameters_CI.csv","text/csv",kineticParameterCSV(current.confidence)));
 $("exportJSON").addEventListener("click",()=>current&&download("kinetic_fit_report.json","application/json",JSON.stringify(report(),null,2)));
-modelPicker();$("exampleSelect").value=KINETIC_EXAMPLES[0].id;exampleLoad();
+modelPicker();applyBranchVisibility();$("exampleSelect").value=KINETIC_EXAMPLES[0].id;exampleLoad();

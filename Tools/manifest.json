@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "16862949eee5e3c55f940ab5380fd291d512c234",
+  "source_commit": "5d9e8ec068408039b2ffc2a38ab339f303b8cbde",
   "copy_policy": "Runtime HTML/CSS/JS only; no tests, credentials, private datasets or homepage navigation links.",
   "modules": [
     {
@@ -29,20 +29,21 @@
       "source_directory": "Adsorp_supporting_tool/web/kinetic",
       "entrypoint": "Tools/kinetic/index.html",
       "files": {
-        "index.html": "45bd44590b9343934321d4529747c3dc93090c29",
-        "app.js": "c99ffa7ba57f8a22ce7f37d80fb0fe9049a33ed8",
+        "app.js": "9c5a4c516e5749ee6969605476c4b88093bf7888",
+        "branch_data.js": "28c209ffeb3cc4ee647a961d9dd3baf94cfc373a",
         "examples.js": "f9807802b245a9c7ab60432dd38a8cf2b74a51fe",
         "fitting.js": "6718b6c96c54b77a7088d02253f0434bc69d7e54",
+        "index.html": "c9ef08b978503f4ed05801ab733a40887fb71268",
         "models.js": "83bdde341cc1bfcf94a93c2be97442eaaa05edef",
         "optimizers.js": "3d10a2245fd634be925d0375e7c8b3373c6b8cfe",
         "parser.js": "6da6195977be2e000af46cbc1e22c0e8ed19fb55",
         "selection.js": "d08d57eb9e481894525aa06c4ebbc1864e122afc",
         "statistics.js": "9bb9c787ebe9ccf1e9c08d3292b5a377e1967ba0",
-        "style.css": "a85c6c2d190da354b68ad39e25805a49e48c823d"
+        "style.css": "0580e989964aed63635e995b5c9c15434fa8efa9"
       }
     }
   ],
-  "last_mirror_note": "Global branch input for ordinary Isotherm datasets; optional row-level Branch only when mixed; dynamic table columns and 100-row paste verified. Kinetic unchanged.",
+  "last_mirror_note": "2026-10-24: Kinetic spreadsheet CSV/XLSX/Excel-paste input, explicit single/mixed branches, independent curve/parameter CI, compact diagnostics. Node 24/24; Edge E2E 15/15 (Research run 40032684498).",
   "shared_assets": {
     "Tools/shared/spreadsheet-grid/grid.js": "4ec7f06912a26769f350a345308f0a02ef8cd6cd",
     "Tools/shared/spreadsheet-grid/xlsx.js": "4386bb604dc41687d238e8ca73fa48de90681768",
