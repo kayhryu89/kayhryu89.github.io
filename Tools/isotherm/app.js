@@ -6,6 +6,7 @@ import {bootstrapConfidence,confidenceCsv,parameterConfidenceCsv} from "./confid
 import {diagnoseIdentifiability} from "./identifiability.js";
 
 const $=id=>document.getElementById(id);
+const FIT_SEED=20261023;
 const picked=new Set(["henry","langmuir","dual_langmuir","freundlich","sips","toth","brouers_sotolongo"]);
 const presets=[...picked];
 let results=[],current=null,source=null,failed=[],chosenExample=null,automatic=null,ciGeneration=0;
@@ -311,7 +312,7 @@ async function fit(){
   }catch(e){status(e.message,true);return;}
   $("fitBtn").disabled=true;$("autoBtn").disabled=true;ciGeneration++;results=[];failed=[];current=null;automatic=null;$("recommendation").textContent="";
   try{
-    const options={optimizer:$("optimizer").value,starts:+$("starts").value,seed:+$("seed").value||20261023,weighted:$("weighted").checked};
+    const options={optimizer:$("optimizer").value,starts:+$("starts").value,seed:FIT_SEED,weighted:$("weighted").checked};
     for(let i=0;i<models.length;i++){
       const model=models[i];status("Fitting "+(i+1)+" / "+models.length+" — "+model.label);
       await new Promise(resolve=>setTimeout(resolve,0));
@@ -341,7 +342,7 @@ async function autoFit(){
     $("autoBtn").disabled=true;$("fitBtn").disabled=true;ciGeneration++;results=[];failed=[];current=null;
     $("downloadJSON").disabled=true;$("downloadCSV").disabled=true;
     const opts={relative:$("dataDomain").value==="relative",weighted:$("weighted").checked,
-      starts:+$("starts").value,seed:+$("seed").value||20261023,hybrids:true,optimizer:$("optimizer").value,
+      starts:+$("starts").value,seed:FIT_SEED,hybrids:true,optimizer:$("optimizer").value,
       onProgress:(i,n,label)=>status("Automatic model comparison "+i+"/"+n+": "+label),
       yieldTask:()=>new Promise(resolve=>setTimeout(resolve,0))};
     automatic=await autoSelect(source.data,opts);
@@ -398,8 +399,20 @@ $("allModelsBtn").addEventListener("click",()=>{MODELS.filter(eligible).forEach(
 $("clearModelsBtn").addEventListener("click",()=>{picked.clear();modelPicker();});
 $("enableHybrid").addEventListener("change",()=>$("hybridPicker").classList.toggle("hidden",!$("enableHybrid").checked));
 $("fitBtn").addEventListener("click",fit);
-$("enableCI").addEventListener("change",()=>{$("ciControls").classList.toggle("hidden",!($("enableCI").checked||$("enableParamCI").checked));void updateConfidence();});
-$("enableParamCI").addEventListener("change",()=>{$("ciControls").classList.toggle("hidden",!($("enableCI").checked||$("enableParamCI").checked));void updateConfidence();});
+function requestConfidence(){
+  const enabled=$("enableCI").checked||$("enableParamCI").checked;
+  $("ciControls").classList.toggle("hidden",!enabled);
+  // A checkbox requesting uncertainty is an actionable fit request, even
+  // when the user has only loaded data without pressing a fitting button.
+  if(enabled&&!current&&!$("fitBtn").disabled&&!$("autoBtn").disabled){
+    $("ciNote").textContent="Fitting selected models before calculating confidence intervals…";
+    void fit(); // select() will launch the bootstrap for the chosen model.
+    return;
+  }
+  void updateConfidence();
+}
+$("enableCI").addEventListener("change",requestConfidence);
+$("enableParamCI").addEventListener("change",requestConfidence);
 $("ciLevel").addEventListener("change",()=>{if($("enableCI").checked||$("enableParamCI").checked)void updateConfidence();});
 $("ciReplicates").addEventListener("change",()=>{if($("enableCI").checked||$("enableParamCI").checked)void updateConfidence();});
 $("autoBtn").addEventListener("click",autoFit);
