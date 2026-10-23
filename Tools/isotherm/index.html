@@ -102,7 +102,6 @@
               <div class="field"><label for="optimizer">Optimization algorithm</label><select id="optimizer"><option value="lbfgs" selected>Projected L-BFGS · default</option><option value="lm">Levenberg–Marquardt · baseline</option></select></div>
               <div class="field"><label for="starts">Multistart runs / model</label>
                 <select id="starts"><option value="4">4 · Fast</option><option value="8" selected>8 · Standard</option><option value="16">16 · Thorough</option></select></div>
-              <div class="field"><label for="seed">Random seed</label><input id="seed" type="number" step="1" value="20261023"></div>
             </div>
             <label class="checkbox-line"><input id="weighted" type="checkbox"> Weighted least squares using CSV sigma</label>
             <div class="separator"></div>
@@ -112,9 +111,7 @@
               <div class="field"><label for="ciLevel">Confidence level</label><select id="ciLevel"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></div>
               <div class="field"><label for="ciReplicates">Bootstrap repetitions</label><select id="ciReplicates"><option value="60">60 · Fast</option><option value="120" selected>120 · Standard</option><option value="240">240 · Detailed</option></select></div>
             </div>
-            <details class="helper-details"><summary>Fitting notes</summary>
-              <p>Units are not converted automatically; fit different temperatures separately. Hybrid models represent independent sites. The default optimizer uses bounded multistart projected L-BFGS. Bootstrap intervals describe fitted means or individual parameters, not prediction uncertainty.</p>
-            </details>
+            <div class="micro ci-progress" id="ciNote" aria-live="polite"></div>
             <div class="padded-top" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn primary" id="autoBtn" type="button">Find best model</button><button class="btn" id="fitBtn" type="button">Fit selected models</button></div>
             <div id="status" class="status" aria-live="polite">Ready to fit.</div>
           </div>
@@ -131,7 +128,6 @@
           </div>
           <div class="chart-wrap" id="plot"><div class="empty">Run fitting to view results.</div></div>
           <div class="chart-note" id="plotNote"></div>
-          <div class="chart-note" id="ciNote" aria-live="polite"></div>
         </section>
         <section class="panel">
           <div class="panel-header">
