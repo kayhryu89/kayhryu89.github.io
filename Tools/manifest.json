@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "5d9e8ec068408039b2ffc2a38ab339f303b8cbde",
+  "source_commit": "cc51a133d1fd964113943581ba4fe49df07e90ea",
   "copy_policy": "Runtime HTML/CSS/JS only; no tests, credentials, private datasets or homepage navigation links.",
   "modules": [
     {
@@ -10,7 +10,7 @@
       "source_directory": "Adsorp_supporting_tool/web/isotherm",
       "entrypoint": "Tools/isotherm/index.html",
       "files": {
-        "index.html": "0fb60c34a66b63cd3722e9795fae4095bec77f1a",
+        "index.html": "f5f7e08bb78848b03c18ac4c367797b4ec6aceb4",
         "app.js": "7e4269729446acbf0c0235d4afe269731a73b677",
         "auto_select.js": "86a40750eb57a6101fef3f6d74566c0c0a51af8a",
         "confidence.js": "e5e1b756c4090bd8bb2b19fe2f15ac9f9405f6de",
@@ -33,7 +33,7 @@
         "branch_data.js": "28c209ffeb3cc4ee647a961d9dd3baf94cfc373a",
         "examples.js": "f9807802b245a9c7ab60432dd38a8cf2b74a51fe",
         "fitting.js": "6718b6c96c54b77a7088d02253f0434bc69d7e54",
-        "index.html": "c9ef08b978503f4ed05801ab733a40887fb71268",
+        "index.html": "83ace53d5360cf261348e8f9e350416b37a2a14c",
         "models.js": "83bdde341cc1bfcf94a93c2be97442eaaa05edef",
         "optimizers.js": "3d10a2245fd634be925d0375e7c8b3373c6b8cfe",
         "parser.js": "6da6195977be2e000af46cbc1e22c0e8ed19fb55",
@@ -41,9 +41,23 @@
         "statistics.js": "9bb9c787ebe9ccf1e9c08d3292b5a377e1967ba0",
         "style.css": "0580e989964aed63635e995b5c9c15434fa8efa9"
       }
+    },
+    {
+      "id": "column",
+      "title": "2D Column Studio (conservative FV reference)",
+      "source_directory": "Adsorp_supporting_tool/web/column",
+      "entrypoint": "Tools/column/index.html",
+      "files": {
+        "index.html": "68aed913575347ff6f392c456cc61eb16454f590",
+        "style.css": "3fef20bde5051c267299f368a20bce31fedfa230",
+        "app.js": "0269ba93da9aaf6288191fb57c5c331510320d86",
+        "worker.js": "ae61dc5f569c2fcd99e25bf8fc82fa7f2773e660",
+        "solver.js": "e2ebe9e9aceb42ec47d8f23b73bd3a358db66cc5",
+        "constitutive.js": "bd34887a6445d4bf35f9bebce584d995ffbd059f"
+      }
     }
   ],
-  "last_mirror_note": "2026-10-24: Kinetic spreadsheet CSV/XLSX/Excel-paste input, explicit single/mixed branches, independent curve/parameter CI, compact diagnostics. Node 24/24; Edge E2E 15/15 (Research run 40032684498).",
+  "last_mirror_note": "Added forward-only 2D column conservative finite-volume reference with isotope/kinetic report imports; Isotherm and Kinetic module-side navigation updated; OCFE not implemented.",
   "shared_assets": {
     "Tools/shared/spreadsheet-grid/grid.js": "4ec7f06912a26769f350a345308f0a02ef8cd6cd",
     "Tools/shared/spreadsheet-grid/xlsx.js": "4386bb604dc41687d238e8ca73fa48de90681768",

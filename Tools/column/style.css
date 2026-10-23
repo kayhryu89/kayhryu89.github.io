@@ -1,0 +1,14 @@
+a.nav-item{color:inherit;text-decoration:none}a.nav-item:hover{background:#205164;color:#fff}
+.column-field{min-width:0;width:100%;overflow-x:auto;min-height:260px}
+.column-field svg{display:block;width:100%;max-width:860px;height:auto;margin:auto}
+.column-field text,.column-breakthrough text{font-family:inherit}
+.column-field .axis,.column-breakthrough .axis{fill:#475569;font-size:12px}
+.column-field .tick,.column-breakthrough .tick{stroke:#d8e1e8;stroke-width:1}
+.column-field rect.heatcell{stroke:none}
+.column-breakthrough{display:block;width:100%;height:auto;max-width:850px}
+.column-breakthrough .trace{fill:none;stroke:#17627a;stroke-width:2.6;stroke-linejoin:round}
+#snapshotIndex{display:block;width:100%;accent-color:#155e75}
+#isothermInfo,#kineticInfo{margin-top:8px;line-height:1.5}
+#fieldPlot,.layout,.panel,.stack,.main,.panel-body{min-width:0}
+.row{flex-wrap:wrap}
+@media(max-width:540px){.grid2{grid-template-columns:minmax(0,1fr)}.panel-header{flex-wrap:wrap}.top{min-width:0;flex-wrap:wrap}.main{min-width:0}select{min-width:0;max-width:100%}}
