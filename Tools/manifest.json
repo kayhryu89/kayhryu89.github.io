@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source_repository": "kayhryu89/Research",
+  "source_commit": "20f5ae4c677a3594fc9e6cda5875ce96f6660550",
+  "copy_policy": "Runtime HTML/CSS/JS only; no tests, credentials, private datasets or homepage navigation links.",
+  "modules": [
+    {
+      "id": "isotherm",
+      "title": "Isotherm Studio",
+      "source_directory": "Adsorp_supporting_tool/web/isotherm",
+      "entrypoint": "Tools/isotherm/index.html",
+      "files": {
+        "index.html": "71d54d1ccad14f248eb50d9621a9061212d7cb5c",
+        "app.js": "26b4bc7ab0f786173493a1f942ecd170ca8f33ad",
+        "auto_select.js": "86a40750eb57a6101fef3f6d74566c0c0a51af8a",
+        "confidence.js": "e5e1b756c4090bd8bb2b19fe2f15ac9f9405f6de",
+        "examples.js": "aecc5627d301179d8f5490486166406150dbadfe",
+        "fitting.js": "3e6f316492299e69390e9936648b8837adff86ae",
+        "identifiability.js": "3c20040482931b6c1e0e8bc67979403b3cf8f509",
+        "lbfgs.js": "6482ece3463843dafdf717bd6bc20ce5c410888f",
+        "models.js": "52305a025bd2d4e21a59ca38cf13bb329ba8bb75",
+        "style.css": "76dc846a5b04e2571bf4c9ddca95c22ce6eae08a"
+      }
+    },
+    {
+      "id": "kinetic",
+      "title": "Kinetic Studio",
+      "source_directory": "Adsorp_supporting_tool/web/kinetic",
+      "entrypoint": "Tools/kinetic/index.html",
+      "files": {
+        "index.html": "45bd44590b9343934321d4529747c3dc93090c29",
+        "app.js": "c99ffa7ba57f8a22ce7f37d80fb0fe9049a33ed8",
+        "examples.js": "f9807802b245a9c7ab60432dd38a8cf2b74a51fe",
+        "fitting.js": "6718b6c96c54b77a7088d02253f0434bc69d7e54",
+        "models.js": "83bdde341cc1bfcf94a93c2be97442eaaa05edef",
+        "optimizers.js": "3d10a2245fd634be925d0375e7c8b3373c6b8cfe",
+        "parser.js": "6da6195977be2e000af46cbc1e22c0e8ed19fb55",
+        "selection.js": "d08d57eb9e481894525aa06c4ebbc1864e122afc",
+        "statistics.js": "9bb9c787ebe9ccf1e9c08d3292b5a377e1967ba0",
+        "style.css": "a85c6c2d190da354b68ad39e25805a49e48c823d"
+      }
+    }
+  ]
+}
