@@ -28,6 +28,9 @@ jobs:
       - name: Validate site sources
         run: python validate_site.py
 
+      - name: Validate standalone Tools runtime copies
+        run: python scripts/validate_tools.py
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
