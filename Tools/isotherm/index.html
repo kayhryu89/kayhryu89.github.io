@@ -98,11 +98,14 @@
         <section class="panel" aria-labelledby="settings-heading">
           <div class="panel-header"><h2 id="settings-heading">03 · Fitting settings</h2></div>
           <div class="panel-body">
-            <div class="grid2">
-              <div class="field"><label for="optimizer">Optimization algorithm</label><select id="optimizer"><option value="lbfgs" selected>Projected L-BFGS · default</option><option value="lm">Levenberg–Marquardt · baseline</option></select></div>
-              <div class="field"><label for="starts">Multistart runs / model</label>
-                <select id="starts"><option value="4">4 · Fast</option><option value="8" selected>8 · Standard</option><option value="16">16 · Thorough</option></select></div>
-            </div>
+            <details class="helper-details solver-details">
+              <summary>Advanced solver settings</summary>
+              <div class="grid2">
+                <div class="field"><label for="optimizer">Optimization algorithm</label><select id="optimizer"><option value="lbfgs" selected>Projected L-BFGS · default</option><option value="lm">Levenberg–Marquardt · baseline</option></select></div>
+                <div class="field"><label for="starts">Multistart runs / model</label>
+                  <select id="starts"><option value="4">4 · Fast</option><option value="8" selected>8 · Standard</option><option value="16">16 · Thorough</option></select></div>
+              </div>
+            </details>
             <label class="checkbox-line"><input id="weighted" type="checkbox"> Weighted least squares using CSV sigma</label>
             <div class="separator"></div>
             <label class="checkbox-line"><input id="enableCI" type="checkbox"> <strong>Show confidence interval around fitted curve</strong></label>
@@ -153,9 +156,13 @@
             <div id="formula" class="formula hidden"></div>
             <div id="paramTable" class="scroll padded-top"></div>
             <div id="paramCINote" class="small-note padded-top" aria-live="polite"></div>
-            <div id="identifiabilitySummary" class="model-note-list padded-top" aria-live="polite"></div>
-            <div id="identifiabilityCorrelations" class="scroll padded-top"></div>
-            <div id="warnings" class="model-note-list"></div>
+            <details class="helper-details" id="diagnosticsDetails">
+              <summary>Parameter diagnostics</summary>
+              <div id="identifiabilitySummary" class="model-note-list padded-top" aria-live="polite"></div>
+              <div id="identifiabilityCorrelations" class="scroll padded-top"></div>
+              <div id="warnings" class="model-note-list"></div>
+              <div id="ciDiagnostics" class="small-note padded-top" aria-live="polite"></div>
+            </details>
             <details class="helper-details"><summary>Parameter scaling</summary>
               <div id="normalization" class="small-note"></div>
             </details>
