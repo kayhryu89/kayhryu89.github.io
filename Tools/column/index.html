@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light"><link rel="icon" href="data:,"><meta name="description" content="Forward-only axisymmetric 2D adsorption packed-bed column simulation with conservative mass balance.">
+<title>2D Column Studio | Adsorp Supporting Tool</title>
+<link rel="stylesheet" href="../isotherm/style.css"><link rel="stylesheet" href="./style.css"></head>
+<body><div class="app">
+<aside class="side"><div class="brand">Adsorp<span style="color:#7cc4cc">.</span><small>SUPPORTING TOOL</small></div>
+<nav class="side-nav" aria-label="Modules">
+<a class="nav-item" href="../isotherm/index.html">◯&nbsp; Isotherm fitting</a>
+<a class="nav-item" href="../kinetic/index.html">◯&nbsp; Kinetic fitting</a>
+<div class="nav-item active">◉&nbsp; 2D column simulation</div>
+<div class="nav-item disabled">◯&nbsp; Breakthrough analysis</div></nav>
+<div class="side-foot">2D Column Studio · Forward simulation only<br>No data leave your browser.</div></aside>
+<main class="main"><header class="top"><div><div class="eyebrow">ISOTHERMAL · AXISYMMETRIC · CONSERVATIVE</div>
+<h1>2D Column Simulation</h1><p>Predict gas concentration, solid loading and breakthrough in an adsorption/desorption packed bed.</p></div>
+<div class="badge">Forward-only model</div></header>
+<div class="layout">
+<div class="stack">
+<section class="panel"><div class="panel-header"><h2>01 · Geometry &amp; bed</h2></div><div class="panel-body grid2">
+<div class="field"><label for="length">Bed length (m)</label><input id="length" type="number" value="0.5" min="0.001" step="any"></div>
+<div class="field"><label for="radius">Column radius (m)</label><input id="radius" type="number" value="0.02" min="0.001" step="any"></div>
+<div class="field"><label for="porosity">Void fraction ε</label><input id="porosity" type="number" value="0.4" min="0.01" max="0.99" step="any"></div>
+<div class="field"><label for="density">Solid skeletal density (kg/m³ solid)</label><input id="density" type="number" value="1000" min="1" step="any"></div>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>02 · Gas &amp; transport</h2></div><div class="panel-body">
+<div class="grid2">
+<div class="field"><label for="direction">Experiment direction</label><select id="direction"><option value="adsorption">Adsorption</option><option value="desorption">Desorption</option></select></div>
+<div class="field"><label for="velocity">Superficial axial velocity (m/s)</label><input id="velocity" type="number" value="0.02" min="0" step="any"></div>
+<div class="field"><label for="feed">Inlet tracer concentration (mol/m³ gas)</label><input id="feed" type="number" value="0.8" min="0" step="any"></div>
+<div class="field"><label for="initialC">Initial gas concentration (mol/m³ gas)</label><input id="initialC" type="number" value="0" min="0" step="any"></div>
+<div class="field"><label for="temperature">Gas temperature (K)</label><input id="temperature" type="number" value="298.15" min="150" step="any"></div>
+<div class="field"><label for="pressure">Total pressure (Pa)</label><input id="pressure" type="number" value="101325" min="1000" step="any"></div>
+<div class="field"><label for="dzDisp">Axial effective dispersion D<sub>z</sub> (m²/s)</label><input id="dzDisp" type="number" value="0.00002" min="0" step="any"></div>
+<div class="field"><label for="drDisp">Radial effective dispersion D<sub>r</sub> (m²/s)</label><input id="drDisp" type="number" value="0.0000005" min="0" step="any"></div>
+</div>
+<details class="helper-details"><summary>2D radial inlet &amp; velocity profiles</summary><div class="grid2 padded-top">
+<div class="field"><label for="inletAmp">Inlet concentration radial amplitude</label><input id="inletAmp" type="number" value="0.4" min="-0.95" max="0.95" step="0.05"></div>
+<div class="field"><label for="velocityAmp">Velocity radial amplitude</label><input id="velocityAmp" type="number" value="0" min="-0.95" max="0.95" step="0.05"></div>
+</div><p class="small-note">Linear profiles in area coordinate x=(r/R)²: center-to-wall maldistribution. ±0.95 bound prevents negative imposed concentration and velocity. Both are constant along z; wall and axis radial flux are zero.</p></details>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>03 · Equilibrium &amp; LDF</h2></div><div class="panel-body">
+<div class="grid2"><div class="field"><label for="equilibriumMode">Equilibrium isotherm</label>
+<select id="equilibriumMode"><option value="langmuir">Langmuir · manual</option><option value="henry">Henry · manual</option><option value="imported">Imported Isotherm Studio report</option></select></div>
+<div class="field"><label for="kineticMode">LDF rate source</label><select id="kineticMode"><option value="manual">Specify rate k</option><option value="imported">Imported Kinetic Studio LDF fit</option></select></div></div>
+<div id="langmuirFields" class="grid2 padded-top">
+<div class="field"><label for="qMax">q<sub>max</sub> (mol/kg)</label><input id="qMax" type="number" value="0.01" min="0" step="any"></div>
+<div class="field"><label for="affinity">b (m³/mol gas)</label><input id="affinity" type="number" value="0.7" min="0" step="any"></div></div>
+<div id="henryFields" class="field hidden padded-top"><label for="henry">Henry K (m³/kg)</label><input id="henry" type="number" value="0.008" min="0" step="any"></div>
+<div id="isothermFields" class="hidden padded-top"><label class="btn small" for="isothermFile">Import Isotherm JSON</label>
+<input class="hidden" type="file" accept=".json,application/json" id="isothermFile"><div id="isothermInfo" class="micro">No imported equilibrium.</div></div>
+<div id="manualRateFields" class="grid2 padded-top"><div class="field" id="manualRateField"><label for="rate">LDF rate k (1/s)</label><input id="rate" type="number" value="0.35" min="0" step="any"></div>
+<div class="field"><label for="initialQ">Initial adsorbed loading (mol/kg)</label><input id="initialQ" type="number" value="0" min="0" step="any"></div></div>
+<div id="kineticFields" class="hidden padded-top"><label class="btn small" for="kineticFile">Import Kinetic LDF JSON</label>
+<input class="hidden" type="file" accept=".json,application/json" id="kineticFile"><div id="kineticInfo" class="micro">No imported rate. Initial loading is specified separately.</div></div>
+<div class="small-note padded-top">Use compatible temperature, branch, loading and pressure units when importing reports. Imported equilibrium and kinetic coefficients remain fixed; no parameter estimation occurs inside this simulator.</div>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>04 · Numerical run</h2></div><div class="panel-body">
+<div class="grid2"><div class="field"><label for="nz">Axial finite volumes</label><input id="nz" type="number" value="40" min="4" max="160" step="1"></div>
+<div class="field"><label for="nr">Equal-area radial rings</label><input id="nr" type="number" value="8" min="1" max="32" step="1"></div>
+<div class="field"><label for="endTime">Simulation time (s)</label><input id="endTime" type="number" value="180" min="0.0001" step="any"></div>
+<div class="field"><label for="snapshots">Spatial snapshot intervals</label><select id="snapshots"><option value="4">4</option><option value="8" selected>8</option><option value="12">12</option></select></div></div>
+<details class="helper-details"><summary>Numerical safeguards &amp; assumptions</summary><p>Conservative upwind axial and axisymmetric radial finite volumes, explicit CFL-limited transport, implicit local LDF exchange, exact cellwise species inventory balance. First-order reference implementation, not an OCFE solver. Constant isothermal gas velocity/pressure, dilute tracer and specified dispersion; no energy, Ergun flow, or competitive species equation. Increase nz/nr and check convergence before physical interpretation.</p></details>
+<div class="row padded-top"><button id="runBtn" class="btn primary" type="button">Run 2D simulation</button><button id="cancelBtn" class="btn" type="button" disabled>Cancel</button></div>
+<div class="status" id="status" aria-live="polite">Ready for a forward run.</div>
+</div></section>
+</div>
+<div class="stack">
+<section class="panel"><div class="panel-header"><h2>Concentration field C(z,r,t)</h2><span id="frameLabel">Not simulated</span></div>
+<div class="panel-body">
+<div id="fieldPlot" class="column-field"><div class="empty">Run the model to see the axisymmetric concentration field.</div></div>
+<div class="field padded-top"><label for="snapshotIndex">Snapshot time</label><input id="snapshotIndex" type="range" min="0" max="8" step="1" value="8" disabled></div>
+<div class="micro" id="fieldNote">Equal-area radial rings; gas-phase concentration in mol/m³.</div>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>Outlet breakthrough</h2></div>
+<div id="breakthroughPlot" class="chart-wrap"><div class="empty">Time history appears after simulation.</div></div>
+<div class="chart-note" id="breakthroughNote">Flux-weighted outlet concentration; no PE or fitted breakthrough curve.</div></section>
+<section class="panel"><div class="panel-header"><h2>Conservation &amp; numerical diagnostics</h2></div>
+<div class="metrics">
+<div class="metric"><div class="value" id="stepsMetric">—</div><div class="name">Time steps</div></div>
+<div class="metric"><div class="value" id="massMetric">—</div><div class="name">Relative mass residual</div></div>
+<div class="metric"><div class="value" id="minMetric">—</div><div class="name">Min gas concentration</div></div>
+<div class="metric"><div class="value" id="outletMetric">—</div><div class="name">Final outlet (mol/m³)</div></div>
+</div><div class="panel-body">
+<div id="massDetails" class="micro">No simulation yet.</div>
+<div class="row padded-top"><button id="exportTime" class="btn small" type="button" disabled>Export time-series CSV</button>
+<button id="exportField" class="btn small" type="button" disabled>Export snapshot CSV</button>
+<button id="exportJSON" class="btn small" type="button" disabled>Export run JSON</button></div>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>Model validity</h2></div>
+<div class="panel-body"><p class="small-note">This is a numerically conservative 2D <strong>finite-volume reference solver</strong>. It is intended as the acceptance benchmark for later axial OCFE + radial collocation. First-order spatial/time convergence means fronts are numerically diffused on coarse grids.</p>
+<p class="small-note">Mass conservation is checked on the species inventory (gas + adsorbed phase). That alone does not validate constant-density flow, dispersion inputs, equilibrium/kinetic transferability, or the physical accuracy of breakthrough predictions.</p></div></section>
+</div></div></main></div>
+<script type="module" src="./app.js"></script></body></html>
