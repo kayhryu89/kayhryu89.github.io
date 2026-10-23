@@ -4,3 +4,14 @@
 /* Pointwise bootstrap confidence interval for the selected fitted mean. */
 .confidence-band{fill:rgba(21,94,117,.18);stroke:none;pointer-events:none}
 .confidence-edge{fill:none;stroke:#155e75;stroke-width:1;stroke-dasharray:4 5;opacity:.63;pointer-events:none}
+
+/* Clean workbench: secondary explanations are collapsed, status notes only appear when populated. */
+.helper-details{margin-top:12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.helper-details summary{cursor:pointer;color:var(--accent);font-weight:600;list-style-position:inside}
+.helper-details p{margin:9px 0 2px;line-height:1.5}
+.helper-row{margin-top:12px}
+.helper-row select{min-width:0;max-width:100%;flex:1;padding:8px 10px;border:1px solid #ccd8e1;border-radius:9px;background:white}
+.upload-btn{cursor:pointer}
+.chart-note:empty,.small-note:empty{display:none}
+.top{margin-bottom:18px}.top h1{margin:0;font-size:27px}
+.model-list{max-height:245px}

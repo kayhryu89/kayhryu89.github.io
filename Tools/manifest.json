@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "20f5ae4c677a3594fc9e6cda5875ce96f6660550",
+  "source_commit": "d1125799e26de3c33756902457ceb2ecc2f82f1e",
   "copy_policy": "Runtime HTML/CSS/JS only; no tests, credentials, private datasets or homepage navigation links.",
   "modules": [
     {
@@ -10,8 +10,8 @@
       "source_directory": "Adsorp_supporting_tool/web/isotherm",
       "entrypoint": "Tools/isotherm/index.html",
       "files": {
-        "index.html": "71d54d1ccad14f248eb50d9621a9061212d7cb5c",
-        "app.js": "26b4bc7ab0f786173493a1f942ecd170ca8f33ad",
+        "index.html": "60a009f53726ff887d6979ce543eafc4858adb3b",
+        "app.js": "82fa45b70c9b67d9637234cf747e151eb275045f",
         "auto_select.js": "86a40750eb57a6101fef3f6d74566c0c0a51af8a",
         "confidence.js": "e5e1b756c4090bd8bb2b19fe2f15ac9f9405f6de",
         "examples.js": "aecc5627d301179d8f5490486166406150dbadfe",
@@ -19,7 +19,7 @@
         "identifiability.js": "3c20040482931b6c1e0e8bc67979403b3cf8f509",
         "lbfgs.js": "6482ece3463843dafdf717bd6bc20ce5c410888f",
         "models.js": "52305a025bd2d4e21a59ca38cf13bb329ba8bb75",
-        "style.css": "76dc846a5b04e2571bf4c9ddca95c22ce6eae08a"
+        "style.css": "ddc27f462184a3800fab0b39ef79deca5dbd878c"
       }
     },
     {
@@ -40,5 +40,6 @@
         "style.css": "a85c6c2d190da354b68ad39e25805a49e48c823d"
       }
     }
-  ]
+  ],
+  "last_mirror_note": "Isotherm compact UI; unchanged kinetic runtime retained from the previous verified copy."
 }
