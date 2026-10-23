@@ -39,3 +39,13 @@ python validate_site.py
 ## JSON data and Python rendering
 
 All three public content databases are JSON. Python `scripts/build_content.py` generates the Publications, Projects, People, and Home page fragments in `_generated/` before Quarto renders. The original Lua filters, BibTeX project database and CSV member database have been retired. Edit JSON sources, not generated Markdown. The Board prototype is unchanged.
+
+## Standalone research tools (unlisted)
+
+Browser-only research utilities are mirrored from the private `kayhryu89/Research` repository under `Tools/<module>/`. The main LASER website navigation is intentionally unchanged; each tool is available only through its direct address (e.g. `https://kayhryu89.github.io/Tools/isotherm/` and `https://kayhryu89.github.io/Tools/kinetic/`).
+
+These are **publicly accessible** static HTML/JavaScript applications. Their source code and bundled demonstration examples are visible to anyone with the URL. Never mirror raw/private research data, credentials, tests, manuscript materials or entire Research folders.
+
+**Maintenance rule:** Every time a research tool's browser runtime is implemented or updated, mirror the final reviewed production HTML/JavaScript/CSS into `Tools/<module>/` in this repository, update `Tools/manifest.json` with exact Git blob hashes and the source Research commit, and verify the Quarto `_site/Tools/<module>/index.html` output and live GitHub Pages endpoint. Do not add the tool to `_quarto.yml` website navbar or `index.qmd`. The Quarto `project.resources: ["Tools/**"]` entry only copies files. Publishing still uses the existing `publish.yml` GitHub Actions flow. Read `scripts/tools-deployment.md` for the synchronization checklist.
+
+A push to the private Research repository **does not automatically update** this public repository; the explicit mirroring step must be performed as part of each tool-development task unless a suitably authorized cross-repository automation is configured later.
