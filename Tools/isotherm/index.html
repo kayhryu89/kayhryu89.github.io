@@ -52,8 +52,9 @@
                 <select id="branch">
                   <option value="adsorption">Adsorption</option>
                   <option value="desorption">Desorption</option>
-                  <option value="all">All (only if justified)</option>
+                  <option value="all" disabled hidden>All (only if justified)</option>
                 </select>
+                <label class="checkbox-line padded-top branch-mode-label"><input id="mixedBranches" type="checkbox"> Mixed adsorption/desorption (row-level Branch)</label>
               </div>
               <div class="field">
                 <label for="xUnit">x unit (label)</label>
