@@ -49,15 +49,6 @@ function preview(){
     }
   }catch(e){$("dataInfo").className="micro";$("dataInfo").textContent=e.message;}
 }
-function unusedExampleGenerator(){
-  const rows=["pressure,loading,branch"];
-  for(let i=0;i<=28;i++){
-    const x=i*.05,base=2.8*1.8*x/(1+1.8*x)+.18*x;
-    rows.push([x.toFixed(4),(base*(1+.015*Math.sin(i*2.13)+.006*Math.cos(i*3.2))).toFixed(7),"adsorption"].join(","));
-  }
-  $("dataInput").value=rows.join("\n");$("dataDomain").value="bulk";$("branch").value="adsorption";
-  $("xUnit").value="bar";$("qUnit").value="mmol/g";modelPicker();preview();status("Example loaded. Run model fitting.");
-}
 function loadExample(){
   const ex=findExample($("exampleSelect").value);
   if(!ex)return;
@@ -65,24 +56,18 @@ function loadExample(){
   $("dataInput").value=exampleCsv(ex);
   $("dataDomain").value=ex.domain;$("branch").value=ex.recommended_branch;
   $("xUnit").value=ex.xUnit;$("qUnit").value=ex.qUnit;
-  $("exampleMeta").replaceChildren();
-  const title=document.createElement("strong");title.textContent=ex.kind==="measured"?"Measured data · ":"Synthetic data · ";
-  const note=document.createElement("span");note.textContent=ex.data_note;
-  $("exampleMeta").append(title,note);
-  if(ex.source_url){
-    const link=document.createElement("a");link.href=ex.source_url;link.target="_blank";link.rel="noopener noreferrer";link.textContent=" Source dataset ↗";$("exampleMeta").append(link);
-  }
   modelPicker();preview();clearResults();
-  status("Loaded "+ex.name+(ex.kind==="measured"?" (literature measurements).":"."));
+  status("Example loaded.");
 }
 function clearResults(){
  ciGeneration++;
  results=[];current=null;automatic=null;
- $("ciNote").textContent="Confidence interval not calculated. Fit a model to start.";
- $("paramCINote").textContent="Parameter confidence intervals are off. Enable in fitting settings.";
+ $("ciNote").textContent="";
+ $("paramCINote").textContent="";
  $("identifiabilitySummary").replaceChildren();$("identifiabilityCorrelations").replaceChildren();
  $("plot").replaceChildren();
- $("recommendation").textContent="Select 'Find best model' to compare models by cross-validated prediction error.";
+ $("recommendation").textContent="";
+ $("rankNote").textContent="";
  $("downloadCSV").disabled=true;$("downloadJSON").disabled=true;$("downloadCI").disabled=true;$("downloadParamCI").disabled=true;
 }
 const ns="http://www.w3.org/2000/svg";
@@ -141,7 +126,7 @@ function drawFit(){
     xLabel:$("dataDomain").value==="relative"?"p/p₀":"x ("+$("xUnit").value+")",
     yLabel:"q ("+$("qUnit").value+")"
   });
-  $("plotNote").textContent="Orange: experiments. Blue: "+current.label+" fit."+(ci?" Shaded: "+Math.round(ci.level*100)+"% pointwise mean confidence band.":"")+" Curves are restricted to the measured x interval.";
+  $("plotNote").textContent=ci?Math.round(ci.level*100)+"% confidence band (fitted mean).":"";
 }
 
 /**
@@ -152,13 +137,13 @@ async function updateConfidence(){
   const request=++ciGeneration;
   const fit=current;
   if(!fit){
-    $("ciNote").textContent=$("enableCI").checked?"Fit a model before calculating confidence intervals.":"Confidence interval off.";
+    $("ciNote").textContent=$("enableCI").checked||$("enableParamCI").checked?"Fit a model before calculating confidence intervals.":"";
     return;
   }
   if(!$("enableCI").checked&&!$("enableParamCI").checked){
     $("downloadCI").disabled=true;$("downloadParamCI").disabled=true;
     drawFit();refreshParameterTable(fit);refreshParamCINote(fit);
-    $("ciNote").textContent="Confidence interval off. Enable it in fitting settings to show the uncertainty band.";
+    $("ciNote").textContent="";
     return;
   }
   const level=Number($("ciLevel").value),replicates=Number($("ciReplicates").value);
@@ -231,7 +216,7 @@ function refreshParameterTable(r){
 }
 function refreshParamCINote(r){
   if(!$("enableParamCI").checked){
-    $("paramCINote").textContent="Parameter intervals off. Enable in fitting settings to compute bootstrap coefficient intervals.";
+    $("paramCINote").textContent="";
     return;
   }
   const ci=r?.confidenceInterval;
@@ -324,7 +309,7 @@ async function fit(){
     if(!models.length)throw Error("Select at least one model.");
     if($("weighted").checked&&source.data.some(d=>!(d.sigma>0)))throw Error("Weighted mode requires a positive sigma column on all selected rows.");
   }catch(e){status(e.message,true);return;}
-  $("fitBtn").disabled=true;$("autoBtn").disabled=true;ciGeneration++;results=[];failed=[];current=null;automatic=null;$("recommendation").textContent="Manual fitting: models ranked by AICc or RMSE, without cross-validation.";
+  $("fitBtn").disabled=true;$("autoBtn").disabled=true;ciGeneration++;results=[];failed=[];current=null;automatic=null;$("recommendation").textContent="";
   try{
     const options={optimizer:$("optimizer").value,starts:+$("starts").value,seed:+$("seed").value||20261023,weighted:$("weighted").checked};
     for(let i=0;i<models.length;i++){
@@ -398,11 +383,11 @@ $("exampleBtn").addEventListener("click",loadExample);
 $("fileInput").addEventListener("change",async e=>{
   const file=e.target.files?.[0];if(!file)return;
   if(file.size>2e6){status("Maximum CSV size is 2 MB.",true);return;}
-  try{$("dataInput").value=await file.text();chosenExample=null;$("exampleMeta").textContent="User-uploaded data; source and license are controlled by you.";clearResults();preview();status("Loaded "+file.name);}
+  try{$("dataInput").value=await file.text();chosenExample=null;clearResults();preview();status("Loaded "+file.name);}
   catch(error){status("Could not read file: "+error.message,true);}
   e.target.value="";
 });
-$("dataInput").addEventListener("input",()=>{chosenExample=null;$("exampleMeta").textContent="User-entered data.";clearResults();preview();});
+$("dataInput").addEventListener("input",()=>{chosenExample=null;clearResults();preview();});
 $("branch").addEventListener("change",()=>{clearResults();preview();});
 $("dataDomain").addEventListener("change",()=>{
   for(const m of MODELS)if(m.relative&&!eligible(m))picked.delete(m.id);
@@ -454,4 +439,5 @@ $("downloadJSON").addEventListener("click",()=>{
   };
   exportFile("isotherm_fitting_report.json","application/json",JSON.stringify(payload,null,2));
 });
-modelPicker();hybridPicker();$("exampleSelect").value=EXAMPLES[0].id;loadExample();
+modelPicker();hybridPicker();$("exampleSelect").value=EXAMPLES[0].id;
+status("Upload a CSV or paste data to begin.");
