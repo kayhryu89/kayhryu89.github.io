@@ -7,6 +7,7 @@
   <meta name="color-scheme" content="light">
   <title>Isotherm Studio | Adsorp Supporting Tool</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../shared/spreadsheet-grid/grid.css">
 </head>
 <body>
 <div class="app">
@@ -31,13 +32,12 @@
           <div class="panel-header"><h2 id="data-heading">01 · Data</h2></div>
           <div class="panel-body">
             <div class="row">
-              <label class="btn small upload-btn" for="fileInput">Upload CSV / TSV</label>
-              <input id="fileInput" type="file" accept=".csv,.tsv,.txt,text/csv" class="hidden">
-              <span class="micro">pressure, loading [, sigma, branch]</span>
+              <label class="btn small upload-btn" for="fileInput">Import CSV / Excel</label>
+              <input id="fileInput" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="hidden">
+              <span class="micro">Paste cells from Excel directly into the table</span>
             </div>
             <div class="field">
-              <label for="dataInput">Data table</label>
-              <textarea id="dataInput" spellcheck="false" placeholder="pressure,loading,branch&#10;0.1,0.23,adsorption&#10;0.2,0.41,adsorption"></textarea>
+              <div id="spreadsheetGrid" aria-label="Editable isotherm data table"></div>
             </div>
             <div class="grid2">
               <div class="field">
