@@ -14,3 +14,7 @@ The public HTML-only mirror lives in `kayhryu89/kayhryu89.github.io/Tools/<modul
 7. Update source project deployment notes with latest website SHA and verification status. Never assume that Research's own `gh-pages` branch creates a reachable Pages site; only the public website repository is the destination.
 
 **Security and behavior:** public static tools are discoverable by URL and are not access-controlled. The UI processes user-supplied data locally and does not persist them to the website. Absence of homepage links does NOT provide confidentiality. GitHub Actions cross-repository private-source access is not currently configured: a development task must carry out this sync explicitly, or the user must approve and configure a credentialed automation. Do not add GitHub Personal Access Tokens to source files.
+
+## Shared runtime components
+
+When browser tools use reusable static helpers from `Research/Adsorp_supporting_tool/web/shared/<component>/`, mirror production-only JS/CSS under `Tools/shared/<component>/`. The manifest `shared_assets` maps every public shared file path to its source Git blob SHA. The publisher's `scripts/validate_tools.py` enforces presence, SHA consistency, and local relative imports. Keep `Tools/isotherm/` and `Tools/kinetic/` as separate direct-entry apps and never introduce links in the laboratory homepage.
