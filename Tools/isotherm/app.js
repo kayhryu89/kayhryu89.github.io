@@ -6,6 +6,7 @@ import {bootstrapConfidence,confidenceCsv,parameterConfidenceCsv} from "./confid
 import {diagnoseIdentifiability} from "./identifiability.js";
 import {mountSpreadsheetGrid,mapColumns} from "../shared/spreadsheet-grid/grid.js";
 import {readXlsx} from "../shared/spreadsheet-grid/xlsx.js";
+import {analyzeRowBranches,buildBranchCSV} from "./branch_data.js";
 
 const $=id=>document.getElementById(id);
 const FIT_SEED=20261023;
@@ -22,8 +23,27 @@ const GRID_COLUMNS=[
 ];
 const grid=mountSpreadsheetGrid($("spreadsheetGrid"),{
   columns:GRID_COLUMNS,
-  onChange:()=>{chosenExample=null;clearResults();preview();}
+  onChange:({reason})=>{
+    if(reason==="setRows"||reason==="paste")inferImportedBranchMode({replace:reason==="setRows"});
+    chosenExample=null;clearResults();preview();
+  }
 });
+function applyBranchVisibility(){
+  const mixed=$("mixedBranches").checked;
+  grid.setColumnVisible("branch",mixed);
+  const all=$("branch").querySelector('option[value="all"]');
+  all.disabled=!mixed;all.hidden=!mixed;
+  if(!mixed&&$("branch").value==="all")$("branch").value="adsorption";
+}
+function inferImportedBranchMode({replace=false}={}){
+  const summary=analyzeRowBranches(grid.getRows());
+  if(summary.mixed||replace){
+    $("mixedBranches").checked=summary.mixed;
+    if(summary.mixed) $("branch").value="adsorption";
+  }
+  if(!summary.mixed&&summary.labels.length===1)$("branch").value=summary.labels[0];
+  applyBranchVisibility();
+}
 const eligible=m=>!m.relative||$("dataDomain").value==="relative";
 function modelPicker(){
   const el=$("modelsList");el.replaceChildren();
@@ -50,7 +70,10 @@ function hybridPicker(){
 }
 function data(){
   if(!grid.getRows().length)throw Error("Enter or import data in the table.");
-  const src=parseTable(grid.toCSV(),$("branch").value);
+  const csv=buildBranchCSV(grid.getRows(),{
+    selectedBranch:$("branch").value,mixed:$("mixedBranches").checked
+  });
+  const src=parseTable(csv,$("branch").value);
   if($("dataDomain").value==="relative"&&src.data.some(d=>d.x>1))throw Error("Relative pressure requires 0 ≤ p/p₀ ≤ 1.");
   return src;
 }
@@ -415,6 +438,18 @@ $("fileInput").addEventListener("change",async e=>{
   e.target.value="";
 });
 $("branch").addEventListener("change",()=>{clearResults();preview();});
+$("mixedBranches").addEventListener("change",()=>{
+  if($("mixedBranches").checked){
+    const fallback=$("branch").value;
+    const rows=grid.getRows().map(row=>{
+      const copy=row.slice();
+      if(!String(copy[3]??"").trim()&&(String(copy[0]??"").trim()||String(copy[1]??"").trim()))copy[3]=fallback;
+      return copy;
+    });
+    grid.setRows(rows,{notifyChange:false});
+  }
+  applyBranchVisibility();clearResults();preview();
+});
 $("dataDomain").addEventListener("change",()=>{
   for(const m of MODELS)if(m.relative&&!eligible(m))picked.delete(m.id);
   modelPicker();clearResults();preview();$("xUnit").value=$("dataDomain").value==="relative"?"p/p₀":"bar";
@@ -477,5 +512,5 @@ $("downloadJSON").addEventListener("click",()=>{
   };
   exportFile("isotherm_fitting_report.json","application/json",JSON.stringify(payload,null,2));
 });
-modelPicker();hybridPicker();$("exampleSelect").value=EXAMPLES[0].id;
+modelPicker();hybridPicker();applyBranchVisibility();$("exampleSelect").value=EXAMPLES[0].id;
 status("Upload a CSV or paste data to begin.");

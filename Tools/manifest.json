@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "02e57c1ed7ff0552f42da607f84d08e8507b1ff8",
+  "source_commit": "16862949eee5e3c55f940ab5380fd291d512c234",
   "copy_policy": "Runtime HTML/CSS/JS only; no tests, credentials, private datasets or homepage navigation links.",
   "modules": [
     {
@@ -10,8 +10,8 @@
       "source_directory": "Adsorp_supporting_tool/web/isotherm",
       "entrypoint": "Tools/isotherm/index.html",
       "files": {
-        "index.html": "212dc2621d9282f19e651ae33c0e29465158ca64",
-        "app.js": "df2f1c576d8b40d4fea69215c7f8b3977769942e",
+        "index.html": "0fb60c34a66b63cd3722e9795fae4095bec77f1a",
+        "app.js": "7e4269729446acbf0c0235d4afe269731a73b677",
         "auto_select.js": "86a40750eb57a6101fef3f6d74566c0c0a51af8a",
         "confidence.js": "e5e1b756c4090bd8bb2b19fe2f15ac9f9405f6de",
         "examples.js": "aecc5627d301179d8f5490486166406150dbadfe",
@@ -19,7 +19,8 @@
         "identifiability.js": "3c20040482931b6c1e0e8bc67979403b3cf8f509",
         "lbfgs.js": "6482ece3463843dafdf717bd6bc20ce5c410888f",
         "models.js": "52305a025bd2d4e21a59ca38cf13bb329ba8bb75",
-        "style.css": "5d632e40486ec027e59d4e1117b775ab805d89af"
+        "style.css": "5d632e40486ec027e59d4e1117b775ab805d89af",
+        "branch_data.js": "422d08dbcc59a33b27f8f9e8828eeb58c870f06b"
       }
     },
     {
@@ -41,10 +42,10 @@
       }
     }
   ],
-  "last_mirror_note": "Isotherm spreadsheet-style cell editor, CSV/TSV and XLSX import, Excel range paste and copy; shared component mirrored for reuse. Kinetic unchanged.",
+  "last_mirror_note": "Global branch input for ordinary Isotherm datasets; optional row-level Branch only when mixed; dynamic table columns and 100-row paste verified. Kinetic unchanged.",
   "shared_assets": {
-    "Tools/shared/spreadsheet-grid/grid.js": "c9cd9a7dd72f399b0f5a68cd8dbdc170a4479b02",
+    "Tools/shared/spreadsheet-grid/grid.js": "4ec7f06912a26769f350a345308f0a02ef8cd6cd",
     "Tools/shared/spreadsheet-grid/xlsx.js": "4386bb604dc41687d238e8ca73fa48de90681768",
-    "Tools/shared/spreadsheet-grid/grid.css": "5ffeec0d559b5eb93d2699bbcc9d85fa5ea6431c"
+    "Tools/shared/spreadsheet-grid/grid.css": "ef3a7214b0c5f1d7d82cf8cc8c9031e91f8a9ed1"
   }
 }

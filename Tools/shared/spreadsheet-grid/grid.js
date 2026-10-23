@@ -45,6 +45,7 @@ export function mountSpreadsheetGrid(host,{columns,initialRows=8,maxRows=2000,on
   if(!Array.isArray(columns)||columns.length<2||columns.length>16||columns.some(c=>!c.key||!c.label))
     throw Error("Spreadsheet grid needs 2–16 named columns.");
   const count=columns.length;
+  const hiddenColumns=new Set();
   let rows=Array.from({length:initialRows},()=>columns.map(()=>"")),focused={r:0,c:0};
   host.classList.add("spreadsheet-grid");
   const frame=document.createElement("div");frame.className="sheet-scroll";
@@ -60,7 +61,19 @@ export function mountSpreadsheetGrid(host,{columns,initialRows=8,maxRows=2000,on
   host.replaceChildren(frame,buttons);
   function getRows(){return rows.filter(r=>!blank(r)).map(r=>r.slice());}
   function toCSV(){return encodeDelimited([columns.map(c=>c.key),...getRows()]);}
-  function notify(){onChange({rows:getRows(),text:toCSV()});}
+  function visibleIndexes(){return columns.map((c,i)=>hiddenColumns.has(c.key)?-1:i).filter(i=>i>=0);}
+  function toTSV({visibleOnly=true}={}){
+    const indexes=visibleOnly?visibleIndexes():columns.map((_,i)=>i);
+    const selected=rows.filter(r=>r.some((v,i)=>indexes.includes(i)&&String(v).trim()));
+    return encodeDelimited([indexes.map(i=>columns[i].key),...selected.map(r=>indexes.map(i=>r[i]))],"\t");
+  }
+  function notify(reason="edit"){onChange({rows:getRows(),text:toCSV(),reason});}
+  function setColumnVisible(key,show=true){
+    if(!columns.some(c=>c.key===key))throw Error("Unknown spreadsheet column: "+key);
+    if(show)hiddenColumns.delete(key);else hiddenColumns.add(key);
+    const index=columns.findIndex(c=>c.key===key);
+    for(const row of [titles,...body.children])row.children[index+1]?.classList.toggle("sheet-column-hidden",!show);
+  }
   function move(r,c){
     if(c>=count){r++;c=0;}if(c<0){r--;c=count-1;}
     if(r<0||r>=maxRows)return;
@@ -76,7 +89,7 @@ export function mountSpreadsheetGrid(host,{columns,initialRows=8,maxRows=2000,on
     if(r+data.length>maxRows||data.some(line=>c+line.length>count))throw Error("Pasted range exceeds available grid rows/columns.");
     while(rows.length<r+data.length)rows.push(columns.map(()=>""));
     data.forEach((line,dr)=>line.forEach((v,dc)=>{rows[r+dr][c+dc]=cell(v);}));
-    render();notify();move(r,c);
+    render();notify("paste");move(r,c);
   }
   function render(){
     body.replaceChildren();
@@ -105,25 +118,27 @@ export function mountSpreadsheetGrid(host,{columns,initialRows=8,maxRows=2000,on
             else move(r+(e.key==="ArrowUp"||e.shiftKey?-1:1),c);
           }
         });
+        td.classList.toggle("sheet-column-hidden",hiddenColumns.has(columns[c].key));
         td.append(input);tr.append(td);
       });body.append(tr);
     });
+    columns.forEach((col,i)=>titles.children[i+1].classList.toggle("sheet-column-hidden",hiddenColumns.has(col.key)));
   }
   function setRows(data,{notifyChange=true}={}){
     if(data.length>maxRows)throw Error("Spreadsheet row limit exceeded ("+maxRows+").");
     rows=data.map(r=>columns.map((c,i)=>cell(Array.isArray(r)?r[i]:r?.[c.key])));
     while(rows.length<initialRows)rows.push(columns.map(()=>""));
-    render();if(notifyChange)notify();
+    render();if(notifyChange)notify("setRows");
   }
   function setDelimited(text,options){setRows(mapColumns(parseSpreadsheetText(text),columns,options));}
   add.addEventListener("click",()=>{if(rows.length>=maxRows)return;rows.push(columns.map(()=>""));render();move(rows.length-1,0);notify();});
   remove.addEventListener("click",()=>{
     rows.splice(Math.min(focused.r,rows.length-1),1);
     if(rows.length===0)rows.push(columns.map(()=>""));
-    render();move(Math.min(focused.r,rows.length-1),focused.c);notify();
+    render();move(Math.min(focused.r,rows.length-1),focused.c);notify("remove");
   });
   copy.addEventListener("click",async()=>{
-    const text=encodeDelimited([columns.map(c=>c.key),...getRows()],"\t");
+    const text=toTSV({visibleOnly:true});
     try{
       if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(text);
       else{
@@ -138,5 +153,6 @@ export function mountSpreadsheetGrid(host,{columns,initialRows=8,maxRows=2000,on
   });
   clearButton.addEventListener("click",()=>setRows([]));
   render();
-  return {getRows,toCSV,setRows,setDelimited,pasteRows,clear:()=>setRows([]),columns:columns.map(c=>({...c}))};
+  return {getRows,toCSV,toTSV,setRows,setDelimited,pasteRows,setColumnVisible,
+    clear:()=>setRows([]),columns:columns.map(c=>({...c}))};
 }
