@@ -1,5 +1,8 @@
 project:
   type: website
+  # Serve stand-alone tools without adding website navigation entries.
+  resources:
+    - "Tools/**"
 
 website:
   title: "LASER"

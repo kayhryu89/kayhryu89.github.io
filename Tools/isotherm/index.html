@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Adsorp Supporting Tool: browser-based adsorption and desorption isotherm model fitting and hybrid isotherms.">
+  <meta name="color-scheme" content="light">
+  <title>Isotherm Studio | Adsorp Supporting Tool</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">Adsorp<span style="color:#7cc4cc">.</span><small>SUPPORTING TOOL</small></div>
+    <nav class="side-nav" aria-label="Tools">
+      <div class="nav-item active">◉&nbsp; Isotherm fitting</div>
+      <a class="nav-item" href="../kinetic/index.html" style="color:inherit;text-decoration:none">◯&nbsp; Kinetic fitting</a>
+      <div class="nav-item disabled" title="Planned 2D OCFE solver">◌&nbsp; 2D column</div>
+      <div class="nav-item disabled" title="Planned feature">◌&nbsp; Breakthrough</div>
+      <div class="nav-item disabled" title="Planned feature">◌&nbsp; Model library</div>
+    </nav>
+    <div class="side-foot">Version 0.1.0 · Pure browser JS<br>Local computation. Data are not uploaded to any server.</div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div>
+        <div class="eyebrow">ADSORPTION / DESORPTION WORKBENCH</div>
+        <h1>Isotherm Fitting</h1>
+        <p>Calibrate classical and hybrid adsorption models against experimental equilibrium data.</p>
+      </div>
+      <div class="badge">25 models + hybrid</div>
+    </header>
+    <div class="layout">
+      <div class="stack">
+        <section class="panel" aria-labelledby="data-heading">
+          <div class="panel-header"><h2 id="data-heading">01 · Experimental data</h2><span>CSV / TSV</span></div>
+          <div class="panel-body">
+            <div class="row">
+              <select id="exampleSelect" aria-label="Example dataset" style="width:100%;max-width:246px;padding:8px;border:1px solid #ccd8e1;border-radius:9px;background:white"></select><button class="btn small" id="exampleBtn" type="button">Load example</button>
+              <label class="btn small" for="fileInput" style="cursor:pointer">Upload CSV</label>
+              <input id="fileInput" type="file" accept=".csv,.tsv,.txt,text/csv" class="hidden">
+              <span class="grow"></span>
+              <span class="micro">x, q [, sigma, branch]</span>
+            </div>
+            <div class="field">
+              <label for="dataInput">Measured isotherm data</label>
+              <textarea id="dataInput" spellcheck="false" placeholder="pressure,loading,branch&#10;0.1,0.23,adsorption&#10;0.2,0.41,adsorption"></textarea>
+            </div>
+            <div class="grid2">
+              <div class="field">
+                <label for="dataDomain">Driving variable</label>
+                <select id="dataDomain">
+                  <option value="bulk">Pressure / concentration</option>
+                  <option value="relative">Relative pressure p/p₀</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="branch">Branch</label>
+                <select id="branch">
+                  <option value="adsorption">Adsorption</option>
+                  <option value="desorption">Desorption</option>
+                  <option value="all">All (only if justified)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="xUnit">x unit (label)</label>
+                <input id="xUnit" value="bar" placeholder="bar, Pa, mol/L...">
+              </div>
+              <div class="field">
+                <label for="qUnit">q unit (label)</label>
+                <input id="qUnit" value="mmol/g" placeholder="mmol/g, mol/kg...">
+              </div>
+            </div>
+            <div id="dataInfo" class="micro" aria-live="polite">No dataset parsed yet.</div><div id="exampleMeta" class="small-note" aria-live="polite"></div>
+            <p class="small-note">Units are recorded but not converted automatically. Use consistent x/q units. Isotherm data at different temperatures must be fitted separately.</p>
+          </div>
+        </section>
+        <section class="panel" aria-labelledby="models-heading">
+          <div class="panel-header"><h2 id="models-heading">02 · Model selection</h2><span id="selectedCount">0 selected</span></div>
+          <div class="panel-body">
+            <div class="model-toolbar">
+              <button class="btn ghost" type="button" id="coreModelsBtn">Core preset</button>
+              <button class="btn ghost" type="button" id="allModelsBtn">Select all eligible</button>
+              <button class="btn ghost" type="button" id="clearModelsBtn">Clear</button>
+            </div>
+            <div class="model-list" id="modelsList"></div>
+            <div class="separator"></div>
+            <label class="checkbox-line"><input id="enableHybrid" type="checkbox"> <strong>Fit additive hybrid model</strong></label>
+            <div id="hybridPicker" class="grid2 padded-top hidden">
+              <div class="field"><label for="hybrid1">Component 1</label><select id="hybrid1"></select></div>
+              <div class="field"><label for="hybrid2">Component 2</label><select id="hybrid2"></select></div>
+              <div class="field" style="grid-column:1/-1"><label for="hybrid3">Component 3 (optional)</label><select id="hybrid3"><option value="">None</option></select></div>
+            </div>
+            <p class="small-note">Hybrid = sum of 2–3 models for independent site contributions. Not a competitive multi-component isotherm.</p>
+          </div>
+        </section>
+        <section class="panel" aria-labelledby="settings-heading">
+          <div class="panel-header"><h2 id="settings-heading">03 · Fitting settings</h2></div>
+          <div class="panel-body">
+            <div class="grid2">
+              <div class="field"><label for="optimizer">Optimization algorithm</label><select id="optimizer"><option value="lbfgs" selected>Projected L-BFGS · default</option><option value="lm">Levenberg–Marquardt · baseline</option></select></div>
+              <div class="field"><label for="starts">Multistart runs / model</label>
+                <select id="starts"><option value="4">4 · Fast</option><option value="8" selected>8 · Standard</option><option value="16">16 · Thorough</option></select></div>
+              <div class="field"><label for="seed">Random seed</label><input id="seed" type="number" step="1" value="20261023"></div>
+            </div>
+            <label class="checkbox-line"><input id="weighted" type="checkbox"> Weighted least squares using CSV sigma</label>
+            <div class="separator"></div>
+            <label class="checkbox-line"><input id="enableCI" type="checkbox"> <strong>Show confidence interval around fitted curve</strong></label>
+            <label class="checkbox-line padded-top"><input id="enableParamCI" type="checkbox"> <strong>Show parameter confidence intervals</strong></label>
+            <div class="grid2 padded-top hidden" id="ciControls">
+              <div class="field"><label for="ciLevel">Confidence level</label><select id="ciLevel"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></div>
+              <div class="field"><label for="ciReplicates">Bootstrap repetitions</label><select id="ciReplicates"><option value="60">60 · Fast</option><option value="120" selected>120 · Standard</option><option value="240">240 · Detailed</option></select></div>
+            </div>
+            <p class="small-note">Pointwise <em>confidence interval of fitted mean uptake</em>, plus optional individual coefficient intervals (conditional on the fitted model); not a prediction interval. Unweighted: residual bootstrap; with sigma: Gaussian parametric bootstrap. Computed for the selected model only after fitting, with re-fitting and fixed input x values.</p>
+            <div class="hint padded-top">Default fitting uses multistart, log-coordinate, box-constrained projected L-BFGS with a finite-difference gradient. This is not SciPy/Fortran L-BFGS-B; legacy LM is retained for comparison. Always inspect residuals and convergence.</div>
+            <div class="padded-top" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn primary" id="autoBtn" type="button">Find best model</button><button class="btn" id="fitBtn" type="button">Fit selected models</button></div><p class="small-note">Automatic mode compares non-duplicate eligible models using pressure-interleaved cross-validation, complexity and physical checks. It does not establish independent predictive validity.</p>
+            <div id="status" class="status" aria-live="polite">Ready to fit.</div>
+          </div>
+        </section>
+      </div>
+      <div class="stack">
+        <section class="panel">
+          <div class="panel-header"><h2>Fit overview</h2><span id="fitDescriptor">Awaiting data</span></div>
+          <div class="metrics">
+            <div class="metric"><div class="value" id="metricN">—</div><div class="name">Observations</div></div>
+            <div class="metric"><div class="value" id="metricModels">—</div><div class="name">Models fitted</div></div>
+            <div class="metric"><div class="value" id="metricRMSE">—</div><div class="name">Selected RMSE</div></div>
+            <div class="metric"><div class="value" id="metricR2">—</div><div class="name">Selected R²</div></div>
+          </div>
+          <div class="chart-wrap" id="plot"><div class="empty">Select models and run fitting to display experimental points and predictions.</div></div>
+          <div class="chart-note" id="plotNote">Curves are drawn only within the measured x range.</div>
+          <div class="chart-note" id="ciNote" aria-live="polite">Confidence interval off. Enable it in fitting settings to show a pointwise uncertainty band.</div>
+        </section>
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Model comparison</h2>
+            <div class="right-actions">
+              <button class="btn small" id="downloadJSON" type="button" disabled>Export report</button>
+              <button class="btn small" id="downloadCSV" type="button" disabled>Export selected CSV</button>
+              <button class="btn small" id="downloadCI" type="button" disabled>Export CI CSV</button>
+              <button class="btn small" id="downloadParamCI" type="button" disabled>Export parameter CI</button>
+            </div>
+          </div>
+          <div class="scroll">
+            <table><thead><tr><th>Model</th><th class="num">k</th><th class="num">RMSE</th><th class="num">R²</th><th class="num">AICc</th><th class="num">CV RMSE</th><th>Status</th></tr></thead>
+              <tbody id="resultsTable"><tr><td colspan="7"><div class="empty">No fitting results yet.</div></td></tr></tbody>
+            </table>
+          </div>
+          <div class="chart-note" id="rankNote">AICc applies to unweighted fits with enough observations and comparable residual likelihood assumptions.</div><div id="recommendation" class="hint" style="margin:0 20px 20px" aria-live="polite">Automatic recommendation will appear here after selecting “Find best model”.</div>
+        </section>
+        <section class="panel">
+          <div class="panel-header"><h2>Selected model · Residuals & parameters</h2><span id="selectedLabel">—</span></div>
+          <div class="chart-wrap" id="residualPlot"><div class="empty">Residual plot appears after fitting.</div></div>
+          <div class="panel-body">
+            <div id="formula" class="formula hidden"></div>
+            <div id="paramTable" class="scroll padded-top"></div>
+            <div id="paramCINote" class="small-note padded-top" aria-live="polite">Parameter confidence intervals are off. Enable in fitting settings.</div>
+            <div id="identifiabilitySummary" class="model-note-list padded-top" aria-live="polite"></div>
+            <div id="identifiabilityCorrelations" class="scroll padded-top"></div>
+            <div id="warnings" class="model-note-list"></div>
+            <div id="normalization" class="small-note">The fitter rescales input and output for numerical conditioning. Fitted parameters are defined against normalized X and Y; the export contains the exact scales.</div>
+          </div>
+        </section>
+        <footer class="foot">Experimental support tool · Isotherm fitting v0.1.0. Model choice requires scientific judgment; strong fit statistics alone do not validate adsorption mechanisms. Uploaded data remain within the current browser session. <a href="https://pygaps.readthedocs.io/en/master/manual/modelling.html" target="_blank" rel="noopener">Background model reference</a>.</footer>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
