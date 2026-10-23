@@ -74,7 +74,7 @@ def validate() -> int:
                         issues.append(f"Broken local HTML reference {href} in {path.relative_to(ROOT)}")
     # Shared ES modules are independently mirrored and are not standalone HTML apps.
     for rel, expected in report.get("shared_assets", {}).items():
-        if not re.fullmatch(r"Tools/shared/[A-Za-z0-9_-]+/[A-Za-z0-9_-]+\\.(?:js|css)", rel):
+        if not re.fullmatch(r"Tools/shared/[A-Za-z0-9_-]+/[A-Za-z0-9_-]+\.(?:js|css)", rel):
             issues.append(f"Unsupported shared runtime asset path: {rel}")
             continue
         path = safe_path(ROOT, rel)
