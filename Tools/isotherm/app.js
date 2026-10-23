@@ -66,6 +66,7 @@ function clearResults(){
  $("ciNote").textContent="";
  $("paramCINote").textContent="";
  $("identifiabilitySummary").replaceChildren();$("identifiabilityCorrelations").replaceChildren();
+ $("ciDiagnostics").textContent="";
  $("plot").replaceChildren();
  $("recommendation").textContent="";
  $("rankNote").textContent="";
@@ -98,16 +99,20 @@ function plot(target,series,options={}){
     add("text",{x:px,y:H-m.b+20,"text-anchor":"middle",class:"axis-label"},f(x,3));
   }
   if(options.residual)add("line",{x1:m.l,x2:W-m.r,y1:yp(0),y2:yp(0),class:"baseline"});
+  const confidenceOutlines=[];
   for(const group of series){
     if(group.kind==="band"){
       const lower=group.points.map(a=>xp(a[0]).toFixed(2)+","+yp(a[1]).toFixed(2));
       const upper=group.points.map(a=>xp(a[0]).toFixed(2)+","+yp(a[2]).toFixed(2));
       add("polygon",{points:lower.concat(upper.slice().reverse()).join(" "),class:"confidence-band"});
-      add("polyline",{points:lower.join(" "),class:"confidence-edge"});
-      add("polyline",{points:upper.join(" "),class:"confidence-edge"});
+      confidenceOutlines.push(lower,upper);
     }else if(group.kind==="line")add("polyline",{points:group.points.map(a=>xp(a[0]).toFixed(2)+","+yp(a[1]).toFixed(2)).join(" "),class:"line"});
     else for(const a of group.points)add("circle",{cx:xp(a[0]),cy:yp(a[1]),r:4,class:options.residual?"residual-dot":"dot"});
   }
+  // Draw true upper/lower bounds above the fitted mean line so narrow
+  // confidence intervals remain visible. Never artificially widen CI values.
+  for(const points of confidenceOutlines)
+    add("polyline",{points:points.join(" "),class:"confidence-edge"});
   add("text",{x:W/2,y:H-4,"text-anchor":"middle",class:"axis-label"},options.xLabel||"x");
   add("text",{x:14,y:H/2,"text-anchor":"middle",class:"axis-label",transform:"rotate(-90 14 "+(H/2)+")"},options.yLabel||"q");
   target.replaceChildren(svg);
@@ -127,7 +132,7 @@ function drawFit(){
     xLabel:$("dataDomain").value==="relative"?"p/p₀":"x ("+$("xUnit").value+")",
     yLabel:"q ("+$("qUnit").value+")"
   });
-  $("plotNote").textContent=ci?Math.round(ci.level*100)+"% confidence band (fitted mean).":"";
+  $("plotNote").textContent=ci?Math.round(ci.level*100)+"% CI: shaded region between dashed bounds (fitted mean).":"";
 }
 
 /**
@@ -145,6 +150,7 @@ async function updateConfidence(){
     $("downloadCI").disabled=true;$("downloadParamCI").disabled=true;
     drawFit();refreshParameterTable(fit);refreshParamCINote(fit);
     $("ciNote").textContent="";
+    $("ciDiagnostics").textContent="";
     return;
   }
   const level=Number($("ciLevel").value),replicates=Number($("ciReplicates").value);
@@ -156,13 +162,15 @@ async function updateConfidence(){
     fit.confidenceInterval=fit.confidenceCache[key];
     $("downloadCI").disabled=false;$("downloadParamCI").disabled=!$("enableParamCI").checked;
     drawFit();refreshParameterTable(fit);refreshParamCINote(fit);
-    $("ciNote").textContent=ciDescription(fit.confidenceInterval);
+    $("ciNote").textContent="";
+    $("ciDiagnostics").textContent=ciDescription(fit.confidenceInterval);
     return;
   }
   fit.confidenceInterval=null;
+  $("ciDiagnostics").textContent="";
   $("downloadCI").disabled=true;$("downloadParamCI").disabled=true;
   drawFit();refreshParameterTable(fit);refreshParamCINote(fit);
-  $("ciNote").textContent="Calculating "+Math.round(level*100)+"% interval: 0 / "+replicates+" bootstrap refits. Results are conditional on the selected model.";
+  $("ciNote").textContent="Calculating "+Math.round(level*100)+"% confidence interval: 0 / "+replicates;
   if($("enableParamCI").checked)$("paramCINote").textContent="Computing coefficient bootstrap intervals…";
   try{
     const interval=await bootstrapConfidence(fit,source.data,{
@@ -177,7 +185,8 @@ async function updateConfidence(){
     fit.confidenceCache[key]=interval;
     $("downloadCI").disabled=false;$("downloadParamCI").disabled=!$("enableParamCI").checked;
     drawFit();refreshParameterTable(fit);refreshParamCINote(fit);
-    $("ciNote").textContent=ciDescription(interval);
+    $("ciNote").textContent="";
+    $("ciDiagnostics").textContent=ciDescription(interval);
   }catch(e){
     if(request!==ciGeneration)return;
     fit.confidenceInterval=null;
@@ -222,14 +231,10 @@ function refreshParamCINote(r){
   }
   const ci=r?.confidenceInterval;
   if(!ci?.parameters?.length){
-    $("paramCINote").textContent="Parameter bootstrap intervals not available yet; check calculation status above.";
+    $("paramCINote").textContent="Calculating parameter intervals…";
     return;
   }
-  const warnings=ci.warnings.filter(w=>/parameter|site|Hybrid|bound|nonconverg|successful|clipp/i.test(w));
-  $("paramCINote").textContent=Math.round(ci.level*100)+"% individual coefficient percentile intervals · "+
-    ci.successful+"/"+ci.requested+" successful refits · physical input-unit parameterization. "+
-    (warnings.length?"Warnings: "+warnings.join(" "):"")+
-    " These are marginal conditional-on-model intervals, not joint confidence regions.";
+  $("paramCINote").textContent=Math.round(ci.level*100)+"% parameter intervals available.";
 }
 function renderIdentifiability(r){
   const host=$("identifiabilitySummary"),corr=$("identifiabilityCorrelations");

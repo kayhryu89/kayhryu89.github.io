@@ -18,3 +18,9 @@
 
 /* Only show fitting-status feedback if requested, adjacent to CI settings. */
 .ci-progress:not(:empty){margin-top:8px;line-height:1.5}
+
+/* Keep the unmodified, narrow bootstrap interval legible beside the mean curve. */
+.confidence-band{fill:rgba(20,155,154,.25)}
+.confidence-edge{stroke:#b45309;stroke-width:1.65;stroke-dasharray:5 3;opacity:1;stroke-linejoin:round}
+.solver-details{margin-top:0;margin-bottom:14px}
+#diagnosticsDetails:not([open]){margin-top:10px}
