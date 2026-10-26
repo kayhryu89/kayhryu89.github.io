@@ -1,4 +1,5 @@
 import {kineticModel,readIsothermReport,KINETIC_MODELS} from "./models.js";
+import {selectedIsothermSnapshot,isothermSignature} from "../column/model-link.js";
 import {parseKineticCSV} from "./parser.js";
 import {fitKinetic,kineticCsv} from "./fitting.js";
 import {chooseKinetic,forwardValidate} from "./selection.js";
@@ -11,7 +12,7 @@ import {analyzeKineticBranches,buildKineticCSV} from "./branch_data.js";
 const $=id=>document.getElementById(id);
 const fmt=(v,n=4)=>v==null||!Number.isFinite(v)?"—":Number(v).toPrecision(n);
 const ns="http://www.w3.org/2000/svg",selectedIds=new Set(["pfo","pso","avrami","elovich","ldf"]);
-let source=null,results=[],current=null,equilibriumModel=null,automatic=null,errors=[],currentExample=null,ciJob=0;
+let source=null,results=[],current=null,equilibriumModel=null,linkedIsothermReport=null,automatic=null,errors=[],currentExample=null,ciJob=0;
 const yieldUI=()=>new Promise(done=>setTimeout(done,0));
 const status=(text,bad=false)=>{$("status").textContent=text;$("status").className="status"+(bad?" error":"");};
 const GRID_COLUMNS=[
@@ -73,6 +74,7 @@ function exampleLoad(){
  const ex=KINETIC_EXAMPLES.find(x=>x.id===$("exampleSelect").value);if(!ex)return;
  grid.setDelimited(kineticExampleCSV(ex));$("branch").value="adsorption";$("mixedBranches").checked=false;applyBranchVisibility();
  $("tUnit").value="min";$("qUnit").value="mmol/g";$("pUnit").value="bar";$("weighted").checked=false;$("fitQ0").checked=false;
+ linkedIsothermReport=ex.linked?DEMO_ISOTHERM_REPORT:null;
  equilibriumModel=ex.linked?readIsothermReport(DEMO_ISOTHERM_REPORT,{pressureUnit:"bar",loadingUnit:"mmol/g"}):null;
  $("eqMode").value=ex.linked?"linked":"free";
  $("forcingInterpolation").value=ex.linked?"hold":"linear";
@@ -309,6 +311,11 @@ function report(){
  return {schema_version:"0.1",tool:"Adsorp Kinetic Studio",generated_at:new Date().toISOString(),
    source_example:currentExample,units:{time:$("tUnit").value,loading:$("qUnit").value,pressure:$("pUnit").value},
    branch:$("branch").value,selected_model:r.id,
+   temperature_K:$("kinFitTemperature").value.trim()?Number($("kinFitTemperature").value):null,
+   linked_isotherm:r.equilibrium?.type==="imported_isotherm"&&linkedIsothermReport?
+     selectedIsothermSnapshot(linkedIsothermReport):null,
+   linked_isotherm_signature:r.equilibrium?.type==="imported_isotherm"&&linkedIsothermReport?
+     isothermSignature(linkedIsothermReport):null,
    equilibrium:r.equilibrium,forcing_interpolation:r.config.forcingInterpolation,optimizer:r.convergence.algorithm,
    initial:r.initial,confidence:($("showCI").checked||$("showParamCI").checked)?r.confidence??null:null,
    confidence_settings:{curve:$("showCI").checked,parameters:$("showParamCI").checked,level:Number($("confidenceLevel").value),replicates:Number($("confidenceN").value)},
@@ -342,7 +349,9 @@ $("eqFile").addEventListener("change",async e=>{
  const file=e.target.files?.[0];if(!file)return;
  try{
    if(file.size>2e6)throw Error("Maximum isotherm JSON is 2 MB.");
-   equilibriumModel=readIsothermReport(await file.text(),{pressureUnit:$("pUnit").value,loadingUnit:$("qUnit").value});
+   const raw=JSON.parse(await file.text());
+   const next=readIsothermReport(raw,{pressureUnit:$("pUnit").value,loadingUnit:$("qUnit").value});
+   linkedIsothermReport=raw;equilibriumModel=next;
    $("eqInfo").textContent="Loaded "+equilibriumModel.label+" from Isotherm Studio · q* evaluated in "+equilibriumModel.sourceUnits.q+".";
    clearResults();status("Imported "+equilibriumModel.label+".");
  }catch(err){status(err.message,true);}
