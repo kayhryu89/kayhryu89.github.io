@@ -123,3 +123,11 @@
 .breakthrough-page #experimentStatus{margin-top:14px}
 @media(max-width:990px){.breakthrough-page .fit-condition-panels{grid-template-columns:1fr}}
 @media(max-width:540px){.breakthrough-page .fit-conditions>summary{padding:15px;font-size:14px}.breakthrough-page .fit-headline{font-size:16px}.breakthrough-page .fit-condition-panels{padding:0 10px 10px}}
+
+/* Compact spreadsheet treatment for the Breakthrough observations. */
+.breakthrough-page #experimentGrid .sheet-scroll{height:198px;max-height:198px;overflow-y:auto;overflow-x:auto}
+.breakthrough-page #experimentGrid .sheet-table{min-width:300px}
+.breakthrough-page #experimentGrid .sheet-table th{padding:6px 8px}
+.breakthrough-page #experimentGrid .sheet-table input{padding:6px 8px}
+.breakthrough-page #experimentGrid .sheet-table input:focus{padding:5px 7px}
+.breakthrough-page #experimentGridNote{margin:7px 0 0}
