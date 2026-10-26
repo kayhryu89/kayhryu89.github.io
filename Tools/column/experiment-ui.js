@@ -1,4 +1,5 @@
 import {parseBreakthroughCSV,analyzeBreakthrough,compareBreakthrough} from './breakthrough.js';
+import {mountSpreadsheetGrid} from '../shared/spreadsheet-grid/grid.js';
 const $=id=>document.getElementById(id);
 const fittingPage=document.body.classList.contains('breakthrough-page');
 const fitHeadline=text=>{const el=$('fitHeadline');if(el)el.textContent=text;};
@@ -69,11 +70,79 @@ function analyze(){
   summarize();message(measured.length+' measured points analyzed. '+(lastComparison?'Model comparison calculated.':fittingPage?'Ready for parameter estimation.':'Run a forward model to compare.'));
  }catch(e){message('Experiment analysis error: '+e.message,true);}
 }
+// Share the same keyboard-editable, scrollable spreadsheet input used in
+// Isotherm and Kinetic. The hidden CSV field remains the single source sent to
+// the original experimental parser, preserving API/worker compatibility.
+const sheetHost=$('experimentGrid');
+let measuredSheet=null;
+let gridSending=false;
+const updateSheetHeader=()=>{
+ if(!sheetHost)return;
+ const th=sheetHost.querySelectorAll('thead th');
+ if(th.length>=3){
+  th[1].textContent='Time ('+({s:'s',min:'min',h:'h'}[$('expTimeUnit').value]||'s')+')';
+  th[2].textContent=$('expMode').value==='absolute'?'Cout (mol/m³)':'Cout / Cin';
+ }
+};
+if(sheetHost){
+ const canonical=rows=>{
+  const kind=$('expMode').value==='absolute'?'cout':'ratio';
+  return 'time,'+kind+'\n'+rows.filter(row=>row.some(value=>String(value).trim()))
+   .map(row=>row.map(value=>String(value??'').trim()).join(',')).join('\n');
+ };
+ measuredSheet=mountSpreadsheetGrid(sheetHost,{
+  columns:[{key:'time',label:'Time',aliases:['time_s','time_min','time_h','t','times']},
+           {key:'value',label:'Cout / Cin',aliases:['ratio','cout_cin','cout','outlet']}],
+  initialRows:6,maxRows:2000,
+  onChange:({rows})=>{
+   gridSending=true;
+   $('experimentData').value=canonical(rows);
+   $('experimentData').dispatchEvent(new Event('input',{bubbles:true}));
+   gridSending=false;
+   const note=$('experimentGridNote');
+   if(note)note.textContent=rows.filter(row=>row.some(x=>String(x).trim())).length+
+    ' data rows. Analyze to calculate breakthrough metrics.';
+  }
+ });
+ updateSheetHeader();
+ // Programmatic CSV loads (file upload and the reproducible synthetic demo)
+ // are converted to normalized table cells, preserving the plotted data.
+ $('experimentData').addEventListener('input',()=>{
+  if(gridSending)return;
+  const csv=$('experimentData').value.trim();
+  if(!csv){measuredSheet.setRows([],{notifyChange:false});return;}
+  try{
+   const parsed=parseBreakthroughCSV(csv,{
+    timeUnit:$('expTimeUnit').value,
+    concentrationMode:$('expMode').value,
+    feedConcentration:Number($('feed').value)
+   });
+   $('expTimeUnit').value='s';$('expMode').value='ratio';
+   measuredSheet.setRows(parsed.points.map(p=>[String(p.time),String(p.ratio)]),{notifyChange:false});
+   updateSheetHeader();
+   const note=$('experimentGridNote');
+   if(note)note.textContent=parsed.points.length+' observations loaded (normalized to seconds and Cout/Cin).';
+  }catch{
+   // Input may be incomplete while data is being edited programmatically.
+   // Keep it for the original parser to report a precise error on Analyze.
+  }
+ });
+ for(const id of ['expTimeUnit','expMode']){
+  $(id).addEventListener('change',()=>{
+    updateSheetHeader();
+    gridSending=true;
+    $('experimentData').value=canonical(measuredSheet.getRows());
+    $('experimentData').dispatchEvent(new Event('input',{bubbles:true}));
+    gridSending=false;
+  });
+ }
+}
+
 $('expApplySettings').addEventListener('click',currentSettings);
 $('expAnalyze').addEventListener('click',analyze);
 $('expFile').addEventListener('change',async e=>{
  const file=e.target.files?.[0];if(!file)return;
- try{if(file.size>3000000)throw Error('Maximum CSV size is 3 MB.');$('experimentData').value=await file.text();analyze();}
+ try{if(file.size>3000000)throw Error('Maximum CSV size is 3 MB.');$('experimentData').value=await file.text();$('experimentData').dispatchEvent(new Event('input',{bubbles:true}));analyze();}
  catch(err){message(err.message,true);}finally{e.target.value='';}
 });
 $('expExport').addEventListener('click',()=>{
