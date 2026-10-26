@@ -56,13 +56,13 @@
 <input class="hidden" type="file" accept=".json,application/json" id="kineticFile"><div id="kineticInfo" class="micro">No imported rate. Initial loading is specified separately.</div></div>
 <div class="padded-top" id="modelLinkPanel">
 <h3>Fitted-model connection</h3>
-<p class="small-note">Import an Isotherm Studio fit and an LDF Kinetic Studio fit. Recent kinetic reports embed the exact selected Isotherm coefficients, so importing the kinetic report can automatically restore its linked equilibrium. Source units are converted explicitly; incompatible branches and different linked coefficients are rejected.</p>
+
 <div class="field"><label class="checkbox-line"><input type="checkbox" id="linkLegacyAccept"> Allow legacy kinetic reports without a complete linked-equilibrium fingerprint (model and units only)</label></div>
 <div class="field"><label class="checkbox-line"><input type="checkbox" id="linkFixedAccept"> Allow fixed-q* kinetic rate to be transferred to the concentration-dependent column equilibrium</label></div>
 <div class="field"><label class="checkbox-line"><input type="checkbox" id="linkTempAccept"> Allow transfer between different documented calibration temperatures (not thermodynamically corrected)</label></div>
 <div class="row padded-top"><button class="btn small" type="button" id="linkValidate">Verify model compatibility</button><button class="btn small" type="button" id="linkFitBounds">Set kLDF fitting bounds around imported rate</button></div>
 <div class="status" aria-live="polite" id="linkStatus">Manual equilibrium and kinetic parameters; import reports to establish provenance.</div>
-<p class="small-note">Legacy or fixed-target transfers require explicit approval and remain scientifically conditional. Temperature not included in old reports cannot be independently checked. All import approvals and linked-model identities are saved in simulation/fitting exports.</p>
+
 </div>
 </div></section>
 <section class="panel"><div class="panel-header"><h2>04 · Numerical run</h2></div><div class="panel-body">
@@ -72,12 +72,12 @@
 <option value="globaloc1d">1D Global OC · whole-column Legendre GLL</option>
 <option value="fv">Conservative finite volume · 1D/2D alternative</option>
 <option value="fvbe1d">1D FVM · BE transport + BE LDF · matched time grid</option>
-</select><p class="small-note">For a defensible spatial comparison, select Global OC and 1D FV-BE. Both use the SAME first-order BE transport → implicit BE LDF split and identical time samples/substeps; the distinct spatial operators and Global OC limiter remain differences. The existing 1D/2D FV production solver remains explicit transport + implicit LDF, and should NOT be compared directly on runtime. 2D Global OC uses one tensor-product polynomial domain (z, x=(r/R)²), without finite elements. Radial collocation uses nonuniform nodes and cylindrical flux weighting. Global OC does not guarantee monotone fronts; inspect limiter amplitude.</p></div>
+</select></div>
 <div class="field padded-top"><label for="thermalMode">Column heat-transfer model</label>
 <select id="thermalMode"><option value="isothermal">Isothermal (existing reference)</option>
 <option value="nonisothermal">2D non-isothermal LTE · Global OC or FVM</option></select></div>
 <div id="thermalFields" class="hidden padded-top">
-<p class="small-note">Gas and solid share one local temperature T(z,r,t). Positive adsorption heat releases energy; gas heat capacity, solid heat capacity and effective conductivities are assumed constant. This mode has prescribed superficial gas velocity and pressure; no Ergun/momentum or variable-density solution. Non-isothermal and 2D calculations use FVM; Global OC supports 2D nonisothermal LTE with coupled heat release; 1D Global OC remains isothermal for fitting.</p>
+
 <div class="grid2">
 <div class="field"><label for="heatFeedT">Feed gas temperature (K)</label><input type="number" id="heatFeedT" value="298.15" min="150" max="1500" step="any"></div>
 <div class="field"><label for="heatInitialT">Initial bed temperature (K)</label><input type="number" id="heatInitialT" value="298.15" min="150" max="1500" step="any"></div>
@@ -93,14 +93,14 @@
 <select id="heatEqMode"><option value="fixed">Fixed reference isotherm in pressure (no inferred enthalpy shift)</option>
 <option value="vanthoff">van't Hoff affinity / approximate imported pressure-shift</option></select></div>
 </div>
-<p class="small-note">The existing Column temperature field above is the reference temperature for q*. The van't Hoff option assumes a constant adsorption enthalpy for an effective Langmuir/Henry affinity; imported empirical isotherms receive an APPROXIMATE horizontal pressure shift, not a thermodynamically validated multitemperature model. Imported kinetic rates use the reference temperature; temperature dependence of k is optional.</p>
+
 </div>
 <div class="grid2"><div class="field"><label for="nz">Axial FV cells or Global OC nodes (method-specific)</label><input id="nz" type="number" value="24" min="4" max="80" step="1"></div>
 <div class="field"><label for="nr">Equal-area radial rings</label><input id="nr" type="number" value="6" min="1" max="16" step="1"></div>
 <div class="field"><label for="beStepsPerOutput">BE substeps per reported sample (Global OC / FVM-BE in 1D and 2D)</label><input id="beStepsPerOutput" type="number" min="1" max="128" step="1" value="64"></div>
 <div class="field"><label for="endTime">Simulation time (s)</label><input id="endTime" type="number" value="180" min="0.0001" step="any"></div>
 <div class="field"><label for="snapshots">Spatial snapshot intervals</label><select id="snapshots"><option value="4">4</option><option value="8" selected>8</option><option value="12">12</option></select></div></div>
-<details class="helper-details"><summary>Numerical safeguards &amp; assumptions</summary><p>Conservative upwind axial and axisymmetric radial finite volumes, explicit CFL-limited transport, implicit local LDF exchange, exact cellwise species inventory balance. First-order reference implementation, not an OCFE solver. Isothermal by default; optional 2D local-thermal-equilibrium energy transport, adsorption heat and wall exchange. Fixed velocity/pressure, dilute tracer and no Ergun or multicomponent species equation. Increase nz/nr and check convergence before physical interpretation.</p></details>
+
 <div class="row padded-top"><button id="runBtn" class="btn primary" type="button">Run column simulation</button><button id="cancelBtn" class="btn" type="button" disabled>Cancel</button></div>
 <div class="status" id="status" aria-live="polite">Ready for a forward run.</div>
 </div></section>
