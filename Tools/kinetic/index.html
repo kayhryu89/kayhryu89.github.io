@@ -5,24 +5,26 @@
 <link rel="stylesheet" href="../isotherm/style.css"><link rel="stylesheet" href="../shared/spreadsheet-grid/grid.css"><link rel="stylesheet" href="./style.css"></head><body>
 <div class="app">
   <aside class="side"><div class="brand">Adsorp<span style="color:#7cc4cc">.</span><small>SUPPORTING TOOL</small></div>
-  <nav class="side-nav" aria-label="Modules">
-    <a class="nav-item" id="isothermLink" href="../isotherm/index.html">◯&nbsp; Isotherm fitting</a>
-    <div class="nav-item active">◉&nbsp; Kinetic fitting</div>
-    <a class="nav-item" href="../column/index.html">◯&nbsp; 2D column</a>
-    <div class="nav-item disabled">◯&nbsp; Breakthrough</div>
-  </nav><div class="side-foot">Kinetic Studio v0.1 · Pure browser JavaScript<br>Uploaded data remain in this browser session.</div></aside>
+  <nav class="side-nav" aria-label="Adsorption tools">
+<a class="nav-item" href="../isotherm/index.html">Isotherm Fitting</a>
+<a class="nav-item active" href="../kinetic/index.html" aria-current="page">Kinetic Fitting</a>
+<a class="nav-item" href="../breakthrough/index.html">Breakthrough Fitting</a>
+<a class="nav-item" href="../column/index.html">Process Simulation</a>
+</nav><div class="side-foot">Kinetic Studio v0.1 · Pure browser JavaScript<br>Uploaded data remain in this browser session.</div></aside>
   <main class="main">
     <header class="top"><div><div class="eyebrow">ADSORPTION / DESORPTION WORKBENCH</div>
       <h1>Kinetic Fitting</h1><p>Estimate transient uptake rates and connect fitted isotherms to column-compatible LDF kinetics.</p></div>
       <div class="badge">6 kinetic formulations</div></header>
     <div class="layout">
-      <div class="stack">
+      <div class="stack input-stack">
+<div class="workbench-section-label">Setup &amp; Run</div>
         <section class="panel"><div class="panel-header"><h2>01 · Kinetic data</h2></div>
           <div class="panel-body">
             <div class="row"><label class="btn small" for="dataFile">Import CSV / Excel</label><input class="hidden" type="file" id="dataFile" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
               <span class="micro">Paste cells from Excel directly into the table</span></div>
             <div class="field"><div id="spreadsheetGrid" aria-label="Editable kinetic observations"></div></div>
             <div class="grid2">
+              <div class="field"><label for="kinFitTemperature">Experimental temperature (K, optional)</label><input type="number" id="kinFitTemperature" min="150" max="1500" step="any" placeholder="Unknown"><div class="small-note">The report records temperature and linked Isotherm coefficients for downstream use.</div></div>
               <div class="field"><label for="branch">Branch</label><select id="branch"><option value="adsorption">Adsorption</option><option value="desorption">Desorption</option></select>
                 <label class="checkbox-line padded-top branch-mode-label"><input id="mixedBranches" type="checkbox"> Mixed adsorption/desorption (row-level Branch)</label></div>
               <div class="field"><label for="tUnit">Time unit</label><input id="tUnit" value="min"></div>
@@ -72,7 +74,8 @@
             <div class="status" id="status" aria-live="polite">Ready. Load data and fit a model.</div>
           </div></section>
       </div>
-      <div class="stack">
+      <div class="stack results-stack">
+<div class="workbench-section-label">Results &amp; Diagnostics</div>
         <section class="panel"><div class="panel-header"><h2>Kinetic fit overview</h2><span id="descriptor">Awaiting fit</span></div>
           <div class="metrics">
             <div class="metric"><div class="value" id="metricN">—</div><div class="name">Observations</div></div>

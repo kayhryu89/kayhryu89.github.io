@@ -1,39 +1,39 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "cc51a133d1fd964113943581ba4fe49df07e90ea",
-  "copy_policy": "Runtime HTML/CSS/JS only; no tests, credentials, private datasets or homepage navigation links.",
+  "source_commit": "ac23d267fa59d9ba3130fc0fec918365f9308cad",
+  "copy_policy": "Browser runtime HTML/CSS/JS only, no private datasets or package/tests. Four direct Studio entrypoints; Breakthrough shares the Column numerical runtime.",
   "modules": [
     {
       "id": "isotherm",
-      "title": "Isotherm Studio",
+      "title": "Isotherm Fitting",
       "source_directory": "Adsorp_supporting_tool/web/isotherm",
       "entrypoint": "Tools/isotherm/index.html",
       "files": {
-        "index.html": "f5f7e08bb78848b03c18ac4c367797b4ec6aceb4",
-        "app.js": "7e4269729446acbf0c0235d4afe269731a73b677",
+        "app.js": "051d11c83ab86a2ab14e4f6ff45b693bc0445fbe",
         "auto_select.js": "86a40750eb57a6101fef3f6d74566c0c0a51af8a",
+        "branch_data.js": "422d08dbcc59a33b27f8f9e8828eeb58c870f06b",
         "confidence.js": "e5e1b756c4090bd8bb2b19fe2f15ac9f9405f6de",
         "examples.js": "aecc5627d301179d8f5490486166406150dbadfe",
         "fitting.js": "3e6f316492299e69390e9936648b8837adff86ae",
         "identifiability.js": "3c20040482931b6c1e0e8bc67979403b3cf8f509",
+        "index.html": "0fbda2c5de3889e58e4b94deb8599a9a62b358ea",
         "lbfgs.js": "6482ece3463843dafdf717bd6bc20ce5c410888f",
         "models.js": "52305a025bd2d4e21a59ca38cf13bb329ba8bb75",
-        "style.css": "5d632e40486ec027e59d4e1117b775ab805d89af",
-        "branch_data.js": "422d08dbcc59a33b27f8f9e8828eeb58c870f06b"
+        "style.css": "c7330250d00d64b51099fbf715226591548fdab1"
       }
     },
     {
       "id": "kinetic",
-      "title": "Kinetic Studio",
+      "title": "Kinetic Fitting",
       "source_directory": "Adsorp_supporting_tool/web/kinetic",
       "entrypoint": "Tools/kinetic/index.html",
       "files": {
-        "app.js": "9c5a4c516e5749ee6969605476c4b88093bf7888",
+        "app.js": "503404b118b38b1689e3834765656bef2d3b41bc",
         "branch_data.js": "28c209ffeb3cc4ee647a961d9dd3baf94cfc373a",
         "examples.js": "f9807802b245a9c7ab60432dd38a8cf2b74a51fe",
         "fitting.js": "6718b6c96c54b77a7088d02253f0434bc69d7e54",
-        "index.html": "83ace53d5360cf261348e8f9e350416b37a2a14c",
+        "index.html": "8a7b0adc69bfbcd98fcc7fc930c6221b59c252bd",
         "models.js": "83bdde341cc1bfcf94a93c2be97442eaaa05edef",
         "optimizers.js": "3d10a2245fd634be925d0375e7c8b3373c6b8cfe",
         "parser.js": "6da6195977be2e000af46cbc1e22c0e8ed19fb55",
@@ -43,24 +43,46 @@
       }
     },
     {
+      "id": "breakthrough",
+      "title": "Breakthrough Fitting",
+      "source_directory": "Adsorp_supporting_tool/web/breakthrough",
+      "entrypoint": "Tools/breakthrough/index.html",
+      "files": {
+        "index.html": "d85f9290adb7287d9e9f9c7b262b8a6584590331"
+      }
+    },
+    {
       "id": "column",
-      "title": "2D Column Studio (conservative FV reference)",
+      "title": "Process Simulation",
       "source_directory": "Adsorp_supporting_tool/web/column",
       "entrypoint": "Tools/column/index.html",
       "files": {
-        "index.html": "68aed913575347ff6f392c456cc61eb16454f590",
+        "app.js": "de1124178c8d6355e3b6742d686141737c55104c",
+        "breakthrough.js": "95efce458931cda9c04fbca6d2fcf0e73db624ce",
+        "breakthrough_fit.js": "741489d214d816b41a099661578f09fc4455fb3e",
+        "comparison-time.js": "1718db9b5d1e565aa254aa241660aea5e043575d",
+        "constitutive.js": "bd34887a6445d4bf35f9bebce584d995ffbd059f",
+        "experiment-ui.js": "b1a9f1da15a261130ccc02ac0e17772db429791f",
+        "fit-worker.js": "748ec7e1f6f287873b97ba91fa426944901d0eef",
+        "fv1d_be.js": "21f4684aa58a30b7bac1ed05cb55ab850539ad4b",
+        "fv2d_be.js": "1c0158aec8428853fb8f1d71bda4f5dacbfeb61b",
+        "global_oc1d.js": "7bdcb2468cb1a59bca5a8ba7f6d5b505438ff4fd",
+        "global_oc2d.js": "a60e372cb1120d070db38445dc36c8d17aab95f7",
+        "global_oc_thermal2d.js": "ff7693c9035df6863afa13174bb25e2c88f2a72b",
+        "index.html": "36b5cb6b49eb4272eed823bc04186303cc322ebc",
+        "model-link.js": "6b8e4f96f4ca9da8a9170d54f5831988823586fe",
+        "ocfe1d_experimental.js": "d73b5b392814cbea402580d8d6417cae46884b97",
+        "solver.js": "6f846c8127f47468d432bac1b744bb2587e72b70",
         "style.css": "3fef20bde5051c267299f368a20bce31fedfa230",
-        "app.js": "0269ba93da9aaf6288191fb57c5c331510320d86",
-        "worker.js": "ae61dc5f569c2fcd99e25bf8fc82fa7f2773e660",
-        "solver.js": "e2ebe9e9aceb42ec47d8f23b73bd3a358db66cc5",
-        "constitutive.js": "bd34887a6445d4bf35f9bebce584d995ffbd059f"
+        "thermal2d.js": "d319c1d2aa08529117c2ab7e55174f906a3e32f3",
+        "worker.js": "12530c959ebcf2f31066c018070cba3f0570615d"
       }
     }
   ],
-  "last_mirror_note": "Added forward-only 2D column conservative finite-volume reference with isotope/kinetic report imports; Isotherm and Kinetic module-side navigation updated; OCFE not implemented.",
+  "last_mirror_note": "Full four-page vertical-layout rollout; 2D nonisothermal Global OC, 1D Global OC breakthrough k/Dz fitting, original FVM alternatives and optional model linking.",
   "shared_assets": {
+    "Tools/shared/spreadsheet-grid/grid.css": "ef3a7214b0c5f1d7d82cf8cc8c9031e91f8a9ed1",
     "Tools/shared/spreadsheet-grid/grid.js": "4ec7f06912a26769f350a345308f0a02ef8cd6cd",
-    "Tools/shared/spreadsheet-grid/xlsx.js": "4386bb604dc41687d238e8ca73fa48de90681768",
-    "Tools/shared/spreadsheet-grid/grid.css": "ef3a7214b0c5f1d7d82cf8cc8c9031e91f8a9ed1"
+    "Tools/shared/spreadsheet-grid/xlsx.js": "4386bb604dc41687d238e8ca73fa48de90681768"
   }
 }

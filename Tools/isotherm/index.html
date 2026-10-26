@@ -13,11 +13,12 @@
 <div class="app">
   <aside class="side">
     <div class="brand">Adsorp<span style="color:#7cc4cc">.</span><small>SUPPORTING TOOL</small></div>
-    <nav class="side-nav" aria-label="Tools">
-      <div class="nav-item active">◉&nbsp; Isotherm fitting</div>
-      <a class="nav-item" href="../kinetic/index.html" style="color:inherit;text-decoration:none">◯&nbsp; Kinetic fitting</a>
-      <a class="nav-item" href="../column/index.html" style="color:inherit;text-decoration:none">◯&nbsp; 2D column</a>
-    </nav>
+    <nav class="side-nav" aria-label="Adsorption tools">
+<a class="nav-item active" href="../isotherm/index.html" aria-current="page">Isotherm Fitting</a>
+<a class="nav-item" href="../kinetic/index.html">Kinetic Fitting</a>
+<a class="nav-item" href="../breakthrough/index.html">Breakthrough Fitting</a>
+<a class="nav-item" href="../column/index.html">Process Simulation</a>
+</nav>
     <div class="side-foot">Runs locally in your browser.</div>
   </aside>
   <main class="main">
@@ -28,7 +29,8 @@
       <div class="badge">25 models + hybrids</div>
     </header>
     <div class="layout">
-      <div class="stack">
+      <div class="stack input-stack">
+<div class="workbench-section-label">Setup &amp; Run</div>
         <section class="panel" aria-labelledby="data-heading">
           <div class="panel-header"><h2 id="data-heading">01 · Data</h2></div>
           <div class="panel-body">
@@ -48,8 +50,8 @@
                   <option value="relative">Relative pressure p/p₀</option>
                 </select>
               </div>
-              <div class="field">
-                <label for="branch">Branch</label>
+              <div class="field"><label for="fitTemperature">Experimental temperature (K, optional)</label><input id="fitTemperature" type="number" min="150" max="1500" step="any" placeholder="Unknown"><span class="small-note">Saved with the model for column transferability checks.</span></div>
+              <div class="field"><label for="branch">Branch</label>
                 <select id="branch">
                   <option value="adsorption">Adsorption</option>
                   <option value="desorption">Desorption</option>
@@ -122,7 +124,8 @@
           </div>
         </section>
       </div>
-      <div class="stack">
+      <div class="stack results-stack">
+<div class="workbench-section-label">Results &amp; Diagnostics</div>
         <section class="panel">
           <div class="panel-header"><h2>Fit overview</h2><span id="fitDescriptor">Awaiting data</span></div>
           <div class="metrics">

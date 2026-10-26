@@ -42,16 +42,35 @@ export function normalizeColumnConfig(raw){
  const snapshots=boundedInt(t.snapshots??8,"Snapshot intervals",2,20);
  const cfl=num(t.cfl??.75,"Explicit transport CFL",.05,.9);
  const maxSteps=boundedInt(t.maxSteps??150000,"Step limit",100,500000);
+ const beStepsPerOutput=boundedInt(t.beStepsPerOutput??16,"Matched BE steps per output",1,128);
  const cMax=totalPressurePa/(RGAS*temperatureK);
  if(Math.max(feedConcentration*(1+Math.abs(inletAmplitude)),initialConcentration)>cMax*(1+1e-12))
    throw Error("Tracer concentration exceeds ideal-gas total concentration P/(RT).");
  if(nz*nr>3500)throw Error("Grid exceeds 3500 cells (interactive browser safety limit).");
  if(!a.equilibrium)throw Error("Select an equilibrium model.");
+ const h=raw?.thermal||{},thermalEnabled=Boolean(h.enabled);
+ const thermal=thermalEnabled?{
+   enabled:true,
+   feedTemperatureK:num(h.feedTemperatureK??temperatureK,"Thermal feed temperature",150,1500),
+   initialTemperatureK:num(h.initialTemperatureK??temperatureK,"Thermal initial temperature",150,1500),
+   ambientTemperatureK:num(h.ambientTemperatureK??temperatureK,"Thermal ambient temperature",150,1500),
+   referenceTemperatureK:num(h.referenceTemperatureK??temperatureK,"Isotherm reference temperature",150,1500),
+   gasVolumetricHeatCapacityJm3K:num(h.gasVolumetricHeatCapacityJm3K??1200,"Gas volumetric heat capacity",1,1e7),
+   solidHeatCapacityJkgK:num(h.solidHeatCapacityJkgK??900,"Solid heat capacity",1,1e5),
+   conductivityAxialWmK:num(h.conductivityAxialWmK??0.2,"Axial effective thermal conductivity",0,500),
+   conductivityRadialWmK:num(h.conductivityRadialWmK??0.2,"Radial effective thermal conductivity",0,500),
+   wallHeatTransferWm2K:num(h.wallHeatTransferWm2K??0,"Wall heat transfer coefficient",0,1e5),
+   adsorptionHeatJmol:num(h.adsorptionHeatJmol??35000,"Adsorption exothermic heat",0,1e7),
+   activationEnergyJmol:num(h.activationEnergyJmol??0,"LDF apparent activation energy",0,2e5),
+   equilibriumTemperatureMode:String(h.equilibriumTemperatureMode||"fixed").toLowerCase()
+ }: {enabled:false};
+ if(thermalEnabled&&!["fixed","vanthoff"].includes(thermal.equilibriumTemperatureMode))
+   throw Error("Thermal equilibrium temperature model must be fixed or vanthoff.");
  return {geometry:{length,radius},bed:{porosity,particleDensity},
    flow:{superficialVelocity,axialDispersion,radialDispersion,inletAmplitude,velocityAmplitude},
    gas:{feedConcentration,initialConcentration,temperatureK,totalPressurePa,direction},
    adsorption:{initialLoading,rateConstant,equilibrium:a.equilibrium},
-   grid:{nz,nr},simulation:{endTime,snapshots,cfl,maxSteps}};
+   grid:{nz,nr},simulation:{endTime,snapshots,cfl,maxSteps,beStepsPerOutput},thermal};
 }
 export function transportTimeStep(cfg){
  const {nz,nr}=cfg.grid,{length,radius}=cfg.geometry,{porosity:eps}=cfg.bed;
@@ -62,7 +81,7 @@ export function transportTimeStep(cfg){
  const den=axial+radial;
  return den>0?cfg.simulation.cfl*eps/den:cfg.simulation.endTime;
 }
-function localExchange(c0,q0,dt,eps,alpha,k,eq){
+export function localExchange(c0,q0,dt,eps,alpha,k,eq){
  const kt=k*dt;
  if(kt===0||alpha===0)return [c0,q0];
  const beta=kt/(1+kt),inventory=eps*c0+alpha*q0;

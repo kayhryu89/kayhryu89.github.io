@@ -492,7 +492,8 @@ $("downloadJSON").addEventListener("click",()=>{
   if(!current)return;
   const payload={
     schema_version:"0.1",tool:"Adsorp Supporting Tool",created_at:new Date().toISOString(),
-    domain:$("dataDomain").value,branch:$("branch").value,optimizer:$("optimizer").value,
+    domain:$("dataDomain").value,branch:$("branch").value,
+    temperature_K:$("fitTemperature").value.trim()?Number($("fitTemperature").value):null,optimizer:$("optimizer").value,
     units:{x:$("xUnit").value,q:$("qUnit").value},data_columns:source.columns,
     comment:"params uses normalized X=x/xScale and Y=q/yScale; physical_params uses the supplied x/q units. Input units are NOT auto-converted.",
     selected_model:current.id,selected_components:current.modelComponents,
