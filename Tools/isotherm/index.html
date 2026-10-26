@@ -37,7 +37,7 @@
             <div class="row">
               <label class="btn small upload-btn" for="fileInput">Import CSV / Excel</label>
               <input id="fileInput" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="hidden">
-              <span class="micro">Paste cells from Excel directly into the table</span>
+              <button class="btn small" id="exampleBtn" type="button">Load example data</button><span class="micro">Paste cells from Excel directly into the table</span>
             </div>
             <div class="field">
               <div id="spreadsheetGrid" aria-label="Editable isotherm data table"></div>
@@ -69,13 +69,7 @@
               </div>
             </div>
             <div id="dataInfo" class="micro" aria-live="polite"></div>
-            <details class="helper-details">
-              <summary>Load example data</summary>
-              <div class="row helper-row">
-                <select id="exampleSelect" aria-label="Example dataset"></select>
-                <button class="btn small" id="exampleBtn" type="button">Load</button>
-              </div>
-            </details>
+            <select id="exampleSelect" class="hidden" aria-label="Selected example dataset"></select>
           </div>
         </section>
         <section class="panel" aria-labelledby="models-heading">
@@ -94,9 +88,7 @@
               <div class="field"><label for="hybrid2">Component 2</label><select id="hybrid2"></select></div>
               <div class="field" style="grid-column:1/-1"><label for="hybrid3">Component 3 (optional)</label><select id="hybrid3"><option value="">None</option></select></div>
             </div>
-            <details class="helper-details"><summary>About hybrid models</summary>
-              <p>Hybrid fitting adds 2–3 independent-site model contributions; it is not a competitive multicomponent isotherm.</p>
-            </details>
+            
           </div>
         </section>
         <section class="panel" aria-labelledby="settings-heading">
@@ -161,16 +153,10 @@
             <div id="formula" class="formula hidden"></div>
             <div id="paramTable" class="scroll padded-top"></div>
             <div id="paramCINote" class="small-note padded-top" aria-live="polite"></div>
-            <details class="helper-details" id="diagnosticsDetails">
-              <summary>Parameter diagnostics</summary>
-              <div id="identifiabilitySummary" class="model-note-list padded-top" aria-live="polite"></div>
-              <div id="identifiabilityCorrelations" class="scroll padded-top"></div>
-              <div id="warnings" class="model-note-list"></div>
-              <div id="ciDiagnostics" class="small-note padded-top" aria-live="polite"></div>
-            </details>
-            <details class="helper-details"><summary>Parameter scaling</summary>
-              <div id="normalization" class="small-note"></div>
-            </details>
+            <div class="hidden" aria-hidden="true" id="diagnosticsDetails">
+  <div id="identifiabilitySummary"></div><div id="identifiabilityCorrelations"></div>
+  <div id="warnings"></div><div id="ciDiagnostics"></div><div id="normalization"></div>
+</div>
           </div>
         </section>
         <footer class="foot">Data stay in your browser. Check model applicability before using fitted parameters.</footer>

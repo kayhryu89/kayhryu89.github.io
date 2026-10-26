@@ -24,6 +24,7 @@ const GRID_COLUMNS=[
 ];
 const grid=mountSpreadsheetGrid($("spreadsheetGrid"),{
  columns:GRID_COLUMNS,
+ initialRows:5,
  onChange:({reason})=>{
    if(reason==="setRows"||reason==="paste")inferImportedBranchMode({replace:reason==="setRows"});
    currentExample=null;clearResults();preview();
