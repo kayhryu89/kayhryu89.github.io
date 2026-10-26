@@ -40,6 +40,8 @@ async function loadAndFit(){
   put("fitMode","k");put("fitSolver","globaloc1d");
   put("direction","adsorption");put("solverMode","globaloc1d");put("thermalMode","isothermal");
   put("equilibriumMode","langmuir");put("kineticMode","manual");
+  for(const id of ["equilibriumMode","kineticMode","thermalMode"])
+    $(id).dispatchEvent(new Event("change"));
   // Applying one standard change ensures the main Column controller refreshes
   // all dependent mode panels while leaving the input values intact.
   $("solverMode").dispatchEvent(new Event("change"));
