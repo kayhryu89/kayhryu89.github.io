@@ -65,6 +65,16 @@ async function loadAndFit(){
  }catch(error){status("Could not load example: "+(error.message||error),true);}
  finally{button.disabled=false;}
 }
+document.addEventListener('breakthrough:fit-completed',event=>{
+  if(!$("btDemoStatus").textContent.includes("Synthetic"))return;
+  const result=event.detail?.fit;
+  if(!result)return;
+  const value=result.fitted?.k;
+  status("Synthetic breakthrough fit completed: recovered kLDF = "+
+    (Number.isFinite(value)?value.toPrecision(5):"not estimated")+
+    " s⁻¹ (known truth 0.22 s⁻¹), RMSE = "+result.metrics.rmse.toPrecision(4)+
+    ". See the measured-versus-fitted chart below.");
+});
 $("btImportIsotherm")?.addEventListener("click",()=>$("isothermFile").click());
 $("btImportKinetic")?.addEventListener("click",()=>$("kineticFile").click());
 $("btDemo")?.addEventListener("click",()=>void loadAndFit());

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "901174327bdb87eea577a5bb9fbe2e128610e4a0",
+  "source_commit": "f9d5b6c4b4272b4a482ad7070de253f70e844a66",
   "copy_policy": "Browser runtime HTML/CSS/JS only, no private datasets or package/tests. Four direct Studio entrypoints; Breakthrough shares the Column numerical runtime.",
   "modules": [
     {
@@ -20,7 +20,7 @@
         "index.html": "64f11e2838085e427df758c464825bf13c1f6496",
         "lbfgs.js": "6482ece3463843dafdf717bd6bc20ce5c410888f",
         "models.js": "52305a025bd2d4e21a59ca38cf13bb329ba8bb75",
-        "style.css": "9c94a000fef5d15d3a491f4a8df57250d8c67b01"
+        "style.css": "c7751964d6bd458425575d6b0a5aabf765ecba45"
       }
     },
     {
@@ -48,8 +48,8 @@
       "source_directory": "Adsorp_supporting_tool/web/breakthrough",
       "entrypoint": "Tools/breakthrough/index.html",
       "files": {
-        "index.html": "62db8fdc88297444b77f441579c7267bc0fe8391",
-        "demo.js": "ae60a104a9e9ae7d42553a6c5857be94e976c69c"
+        "index.html": "4b40cde532dc2945cc40d14f4110a008df8f0677",
+        "demo.js": "5ab9c8912774c734d1bc47cfccd887a5ae679809"
       }
     },
     {
@@ -63,7 +63,7 @@
         "breakthrough_fit.js": "741489d214d816b41a099661578f09fc4455fb3e",
         "comparison-time.js": "1718db9b5d1e565aa254aa241660aea5e043575d",
         "constitutive.js": "bd34887a6445d4bf35f9bebce584d995ffbd059f",
-        "experiment-ui.js": "b1a9f1da15a261130ccc02ac0e17772db429791f",
+        "experiment-ui.js": "b475b0d80f861d71bb3beef2bd6af46d879d5fbe",
         "fit-worker.js": "748ec7e1f6f287873b97ba91fa426944901d0eef",
         "fv1d_be.js": "21f4684aa58a30b7bac1ed05cb55ab850539ad4b",
         "fv2d_be.js": "1c0158aec8428853fb8f1d71bda4f5dacbfeb61b",
@@ -80,7 +80,7 @@
       }
     }
   ],
-  "last_mirror_note": "Compact Isotherm/Kinetic sheets (five initial rows and internal scrolling), direct example buttons, simplified diagnostics, and prominent linked fitted Isotherm/Kinetic JSON and 1D Global OC breakthrough parameter-recovery demo. Kinetic example explicitly synthetic.",
+  "last_mirror_note": "Breakthrough Fitting is fit-first: measured data/analysis, collapsible known-bed conditions, explicit 1D Global OC/FVM parameter estimation and prominent fitted kLDF/Dz, RMSE, measured-versus-fitted chart. Separate Process Simulation controls/results hidden on breakthrough page; forward solver retained internally for fitting.",
   "shared_assets": {
     "Tools/shared/spreadsheet-grid/grid.css": "ef3a7214b0c5f1d7d82cf8cc8c9031e91f8a9ed1",
     "Tools/shared/spreadsheet-grid/grid.js": "4ec7f06912a26769f350a345308f0a02ef8cd6cd",
