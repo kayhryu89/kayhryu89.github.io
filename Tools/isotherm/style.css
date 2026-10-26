@@ -80,3 +80,18 @@
  .top{align-items:flex-start;flex-wrap:wrap}
  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Compact editable data and consistent left-aligned inline checkboxes */
+#spreadsheetGrid .sheet-scroll{height:176px;max-height:176px;overflow-y:auto;overflow-x:auto}
+#spreadsheetGrid .sheet-table th{padding:6px 8px}
+#spreadsheetGrid .sheet-table input{padding:5px 8px}
+#spreadsheetGrid .sheet-table input:focus{padding:4px 7px}
+.branch-mode-label{display:flex!important;align-items:center!important;justify-content:flex-start;gap:8px;width:100%;text-align:left;font-size:12px}
+.branch-mode-label input{width:16px!important;height:16px;min-width:16px;flex:0 0 16px;margin:0!important;accent-color:var(--accent)}
+#exampleBtn,#loadExample{white-space:nowrap}
+.compact-advanced{border-top:1px solid var(--line);margin:0 0 12px;padding-top:6px}
+.breakthrough-page .import-panel{grid-column:1/-1}
+.import-panel .panel-body{display:grid;gap:10px}
+.import-panel .row{gap:10px}
+.import-panel .import-steps{margin:0;padding-left:18px;color:var(--muted);font-size:12px;line-height:1.6}
+.import-panel .btn{min-height:38px}

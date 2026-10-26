@@ -18,6 +18,22 @@
 <div class="layout">
 <div class="stack input-stack">
 <div class="workbench-section-label">Setup &amp; Run</div>
+<section class="panel import-panel" id="breakthroughImportPanel">
+<div class="panel-header"><h2>Use previously fitted Isotherm / Kinetic models</h2></div>
+<div class="panel-body">
+<ol class="import-steps">
+<li>In <a href="../isotherm/index.html">Isotherm Fitting</a>, fit a model and choose <strong>Export report JSON</strong>.</li>
+<li>Optionally fit an LDF model in <a href="../kinetic/index.html">Kinetic Fitting</a> and export its <strong>report JSON</strong>. When linked, a kinetic report can also carry the selected isotherm coefficients.</li>
+<li>Import the JSON reports here. The equilibrium and LDF source selectors update automatically; review units, temperature, and model compatibility before fitting.</li>
+</ol>
+<div class="row">
+<button id="btImportIsotherm" type="button" class="btn">Import fitted Isotherm JSON</button>
+<button id="btImportKinetic" type="button" class="btn">Import fitted Kinetic JSON</button>
+</div>
+<div class="row"><button id="btDemo" type="button" class="btn primary">Load &amp; fit breakthrough example</button>
+<span class="micro">Synthetic 1D adsorption data, true kLDF = 0.22 s⁻¹, deliberately different initial guess. Not experimental.</span></div>
+<div id="btDemoStatus" class="status" aria-live="polite">The example automatically loads, plots, and fits synthetic observations with 1D Global OC.</div>
+</div></section>
 <section class="panel"><div class="panel-header"><h2>01 · Geometry &amp; bed</h2></div><div class="panel-body grid2">
 <div class="field"><label for="length">Bed length (m)</label><input id="length" type="number" value="0.5" min="0.001" step="any"></div>
 <div class="field"><label for="radius">Column radius (m)</label><input id="radius" type="number" value="0.02" min="0.001" step="any"></div>
@@ -204,4 +220,4 @@
   document.addEventListener('DOMContentLoaded',()=>solver.dispatchEvent(new Event('change')));
 })();
 </script>
-<script type="module" src="../column/app.js"></script><script type="module" src="../column/experiment-ui.js"></script></body></html>
+<script type="module" src="../column/app.js"></script><script type="module" src="../column/experiment-ui.js"></script><script type="module" src="./demo.js"></script></body></html>

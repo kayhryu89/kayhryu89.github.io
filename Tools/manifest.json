@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "ac23d267fa59d9ba3130fc0fec918365f9308cad",
+  "source_commit": "901174327bdb87eea577a5bb9fbe2e128610e4a0",
   "copy_policy": "Browser runtime HTML/CSS/JS only, no private datasets or package/tests. Four direct Studio entrypoints; Breakthrough shares the Column numerical runtime.",
   "modules": [
     {
@@ -10,17 +10,17 @@
       "source_directory": "Adsorp_supporting_tool/web/isotherm",
       "entrypoint": "Tools/isotherm/index.html",
       "files": {
-        "app.js": "051d11c83ab86a2ab14e4f6ff45b693bc0445fbe",
+        "app.js": "2d5ca2ac492d5e0b58ca742887cd2755ae741003",
         "auto_select.js": "86a40750eb57a6101fef3f6d74566c0c0a51af8a",
         "branch_data.js": "422d08dbcc59a33b27f8f9e8828eeb58c870f06b",
         "confidence.js": "e5e1b756c4090bd8bb2b19fe2f15ac9f9405f6de",
         "examples.js": "aecc5627d301179d8f5490486166406150dbadfe",
         "fitting.js": "3e6f316492299e69390e9936648b8837adff86ae",
         "identifiability.js": "3c20040482931b6c1e0e8bc67979403b3cf8f509",
-        "index.html": "0fbda2c5de3889e58e4b94deb8599a9a62b358ea",
+        "index.html": "64f11e2838085e427df758c464825bf13c1f6496",
         "lbfgs.js": "6482ece3463843dafdf717bd6bc20ce5c410888f",
         "models.js": "52305a025bd2d4e21a59ca38cf13bb329ba8bb75",
-        "style.css": "c7330250d00d64b51099fbf715226591548fdab1"
+        "style.css": "9c94a000fef5d15d3a491f4a8df57250d8c67b01"
       }
     },
     {
@@ -29,17 +29,17 @@
       "source_directory": "Adsorp_supporting_tool/web/kinetic",
       "entrypoint": "Tools/kinetic/index.html",
       "files": {
-        "app.js": "503404b118b38b1689e3834765656bef2d3b41bc",
+        "app.js": "1f8f1c9db5cbac76b7ee49120990006c74bdd7a5",
         "branch_data.js": "28c209ffeb3cc4ee647a961d9dd3baf94cfc373a",
         "examples.js": "f9807802b245a9c7ab60432dd38a8cf2b74a51fe",
         "fitting.js": "6718b6c96c54b77a7088d02253f0434bc69d7e54",
-        "index.html": "8a7b0adc69bfbcd98fcc7fc930c6221b59c252bd",
+        "index.html": "9321866b9034e46138da452bbd747d8e204e8d2e",
         "models.js": "83bdde341cc1bfcf94a93c2be97442eaaa05edef",
         "optimizers.js": "3d10a2245fd634be925d0375e7c8b3373c6b8cfe",
         "parser.js": "6da6195977be2e000af46cbc1e22c0e8ed19fb55",
         "selection.js": "d08d57eb9e481894525aa06c4ebbc1864e122afc",
         "statistics.js": "9bb9c787ebe9ccf1e9c08d3292b5a377e1967ba0",
-        "style.css": "0580e989964aed63635e995b5c9c15434fa8efa9"
+        "style.css": "8e689a4995ee1ab62e76bd3087f9d3d5c3f5b9b6"
       }
     },
     {
@@ -48,7 +48,8 @@
       "source_directory": "Adsorp_supporting_tool/web/breakthrough",
       "entrypoint": "Tools/breakthrough/index.html",
       "files": {
-        "index.html": "d85f9290adb7287d9e9f9c7b262b8a6584590331"
+        "index.html": "62db8fdc88297444b77f441579c7267bc0fe8391",
+        "demo.js": "ae60a104a9e9ae7d42553a6c5857be94e976c69c"
       }
     },
     {
@@ -79,7 +80,7 @@
       }
     }
   ],
-  "last_mirror_note": "Full four-page vertical-layout rollout; 2D nonisothermal Global OC, 1D Global OC breakthrough k/Dz fitting, original FVM alternatives and optional model linking.",
+  "last_mirror_note": "Compact Isotherm/Kinetic sheets (five initial rows and internal scrolling), direct example buttons, simplified diagnostics, and prominent linked fitted Isotherm/Kinetic JSON and 1D Global OC breakthrough parameter-recovery demo. Kinetic example explicitly synthetic.",
   "shared_assets": {
     "Tools/shared/spreadsheet-grid/grid.css": "ef3a7214b0c5f1d7d82cf8cc8c9031e91f8a9ed1",
     "Tools/shared/spreadsheet-grid/grid.js": "4ec7f06912a26769f350a345308f0a02ef8cd6cd",
