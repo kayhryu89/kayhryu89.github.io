@@ -95,3 +95,31 @@
 .import-panel .row{gap:10px}
 .import-panel .import-steps{margin:0;padding-left:18px;color:var(--muted);font-size:12px;line-height:1.6}
 .import-panel .btn{min-height:38px}
+
+
+/* Dedicated inverse-problem workflow: no separate Process Simulation controls. */
+.breakthrough-page .input-stack{display:flex!important;flex-direction:column;gap:16px}
+.breakthrough-page .input-stack>.panel,
+.breakthrough-page .input-stack>.fit-conditions{width:100%;max-width:100%;min-width:0}
+.breakthrough-page .fit-internal{display:none!important}
+.breakthrough-page .results-stack>.panel:not(.breakthrough-results){display:none!important}
+.breakthrough-page .fit-conditions{background:var(--surface,#fff);border:1px solid var(--line,#d9e3e7);border-radius:12px;overflow:hidden}
+.breakthrough-page .fit-conditions>summary{cursor:pointer;padding:19px 21px;font-size:16px;font-weight:730;color:var(--text,#173d4e);list-style-position:inside}
+.breakthrough-page .fit-conditions>summary .micro{font-weight:400}
+.breakthrough-page .fit-conditions>p{padding:0 20px;margin:0 0 12px}
+.breakthrough-page .fit-condition-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 16px 16px}
+.breakthrough-page .fit-condition-panels>.panel{min-width:0;margin:0}
+.breakthrough-page #fitSettingsBody{padding-top:8px}
+.breakthrough-page #fitPanel>h3{display:none}
+.breakthrough-page #fitPanel>.small-note:first-of-type{margin-top:0}
+.breakthrough-page .fit-settings-panel #fitBtn{min-height:48px;font-size:15px;font-weight:700}
+.breakthrough-page .fit-headline{font-size:19px;line-height:1.5;font-weight:750;padding:5px 0 15px;margin-bottom:9px;border-bottom:1px solid var(--line,#d9e3e7)}
+.breakthrough-page .fit-chart-main{min-height:310px;width:100%;max-width:none}
+.breakthrough-page .fit-chart-main svg{display:block;width:100%;height:auto;max-width:100%}
+.breakthrough-page #fitMetrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.breakthrough-page #fitStatus{font-weight:650}
+.breakthrough-page #fitResultsPanel{width:100%}
+.breakthrough-page #experimentMetrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.breakthrough-page #experimentStatus{margin-top:14px}
+@media(max-width:990px){.breakthrough-page .fit-condition-panels{grid-template-columns:1fr}}
+@media(max-width:540px){.breakthrough-page .fit-conditions>summary{padding:15px;font-size:14px}.breakthrough-page .fit-headline{font-size:16px}.breakthrough-page .fit-condition-panels{padding:0 10px 10px}}

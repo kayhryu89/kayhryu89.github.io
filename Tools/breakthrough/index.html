@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light"><link rel="icon" href="data:,"><meta name="description" content="Forward-only axisymmetric 2D adsorption packed-bed column simulation with conservative mass balance.">
+<meta name="color-scheme" content="light"><link rel="icon" href="data:,"><meta name="description" content="Fit 1D isothermal breakthrough curves with Global OC or FVM; identify kLDF and axial dispersion from measured data.">
 <title>Breakthrough Fitting | Adsorp Supporting Tool</title>
 <link rel="stylesheet" href="../isotherm/style.css"><link rel="stylesheet" href="../column/style.css"></head>
 <body class="breakthrough-page"><div class="app">
@@ -12,8 +12,8 @@
 <a class="nav-item" href="../column/index.html">Process Simulation</a>
 </nav>
 <div class="side-foot">Breakthrough fitting · Browser-based<br>No data leave your browser.</div></aside>
-<main class="main"><header class="top"><div><div class="eyebrow">ISOTHERMAL · AXISYMMETRIC · CONSERVATIVE</div>
-<h1>Breakthrough Fitting</h1><p>Analyze measured breakthrough curves and estimate kLDF and axial dispersion using 1D Global OC or FVM.</p></div>
+<main class="main"><header class="top"><div><div class="eyebrow">1D ISOTHERMAL · MEASURED BREAKTHROUGH · PARAMETER ESTIMATION</div>
+<h1>Breakthrough Fitting</h1><p>Import a measured breakthrough curve, specify known bed and equilibrium conditions, and estimate kLDF or axial dispersion using 1D Global OC (default) or FVM.</p></div>
 <div class="badge">Global OC · default estimator</div></header>
 <div class="layout">
 <div class="stack input-stack">
@@ -149,8 +149,8 @@
 <button id="exportField" class="btn small" type="button" disabled>Export snapshot CSV</button>
 <button id="exportJSON" class="btn small" type="button" disabled>Export run JSON</button></div>
 </div></section>
-<section class="panel" id="experimentPanel"><div class="panel-header"><h2>Measured breakthrough · analysis &amp; model comparison</h2></div><div class="panel-body">
-<p class="small-note">Paste a CSV with <code>time_s,ratio</code>, <code>time_min,cout_cin</code> or <code>time_s,cout</code> (mol/m³). Experimental data are analyzed independently before running the simulator. The parameter-estimation section below fits a 1D FVM model.</p>
+<section class="panel" id="experimentPanel"><div class="panel-header"><h2>01 · Measured breakthrough data</h2></div><div class="panel-body">
+<p class="small-note">Paste a CSV with <code>time_s,ratio</code>, <code>time_min,cout_cin</code> or <code>time_s,cout</code> (mol/m³). Analyze experimental data first, then estimate the unknown model parameter(s). The internal numerical model runs automatically during fitting.</p>
 <div class="grid2">
 <div class="field"><label for="expTimeUnit">Unlabeled time unit</label><select id="expTimeUnit"><option value="s">Seconds</option><option value="min">Minutes</option><option value="h">Hours</option></select></div>
 <div class="field"><label for="expMode">Unlabeled outlet column</label><select id="expMode"><option value="ratio">Cout/Cin</option><option value="absolute">Cout (mol/m³)</option></select></div>
@@ -166,8 +166,8 @@
 <div class="chart-note" id="experimentChartNote">Measured time series will appear here; run the model for an overlay.</div>
 <p class="small-note" id="experimentWarnings"></p>
 <div class="padded-top" id="fitPanel">
-<h3>Fit measured breakthrough with 1D Global OC or FVM</h3>
-<p class="small-note">Estimate the LDF rate k and/or axial dispersion Dz against the measured Cout/Cin curve using <strong>1D isothermal Global OC</strong> by default, or select FVM for comparison. Equilibrium and all other model parameters are held fixed. This first release supports adsorption step experiments only; set radial rings to 1, radial inlet/velocity amplitudes to zero, and initial gas/solid loadings to zero. Ensure the simulation end time covers every measurement.</p>
+<h3>03 · Estimate kLDF / axial dispersion from measured data</h3>
+<p class="small-note">Estimate the LDF rate k and/or axial dispersion Dz against the measured Cout/Cin curve using <strong>1D isothermal Global OC</strong> by default, or select FVM for comparison. Equilibrium and all other model parameters are held fixed. This first release supports adsorption step experiments only; provide the measured bed and inlet conditions, set initial gas and solid loadings to zero, and ensure the numerical time window covers the measurements.</p>
 <div class="grid2">
 <div class="field"><label for="fitSolver">Parameter-estimation forward solver</label>
 <select id="fitSolver"><option value="globaloc1d" selected>1D Global OC (default, BE)</option><option value="fv">1D finite-volume reference (legacy)</option></select></div>
@@ -179,11 +179,11 @@
 <div class="field"><label for="fitDMin">Dz lower bound (m²/s)</label><input id="fitDMin" type="number" min="1e-10" step="any" value="1e-7"></div>
 <div class="field"><label for="fitDMax">Dz upper bound (m²/s)</label><input id="fitDMax" type="number" min="1e-10" step="any" value="0.001"></div>
 </div>
-<div class="field padded-top"><label for="fitUniform1D"><input id="fitUniform1D" type="checkbox" checked> Use the equivalent radially uniform 1D model for fitting (recommended for ordinary breakthrough experiments)</label>
-<p class="small-note">If checked, fitting temporarily sets radial rings to 1 and radial inlet/velocity profile amplitudes to zero without changing the forward-simulation controls. Any 2D maldistribution is therefore excluded and parameter transfer must be verified separately. Uncheck to require already configured uniform 1D conditions.</p></div>
-<div class="row padded-top"><button type="button" class="btn primary" id="fitBtn">Fit measured breakthrough</button>
+<div class="field padded-top"><label for="fitUniform1D"><input id="fitUniform1D" type="checkbox" checked> Use a radially uniform 1D column model (recommended)</label>
+<p class="small-note">If checked, fitting sets radial rings to 1 and radial inlet/velocity profile amplitudes to zero internally. Any 2D maldistribution is therefore excluded and parameter transfer must be verified separately. Uncheck to require already configured uniform 1D conditions.</p></div>
+<div class="row padded-top"><button type="button" class="btn primary" id="fitBtn">Run parameter estimation</button>
 <button type="button" class="btn" id="fitCancel" disabled>Cancel fit</button>
-<button type="button" class="btn small" id="fitApply" disabled>Apply fitted parameters to model</button>
+<button type="button" class="btn small" id="fitApply" disabled>Use fitted parameters as initial values</button>
 <button type="button" class="btn small" id="fitExport" disabled>Export fitting report JSON</button></div>
 <div class="status" id="fitStatus" aria-live="polite">Analyze a measured curve, then run parameter fitting.</div>
 <div class="metrics" id="fitMetrics"></div>
@@ -198,19 +198,74 @@
 </div></div></main></div>
 <script>
 (function(){
-  // Move the measurement/fit forms into Setup, and model/fit results to the lower section.
-  const setup=document.querySelector('.input-stack'),results=document.querySelector('.results-stack');
-  const experiment=document.getElementById('experimentPanel');
-  if(!setup||!results||!experiment)return;
-  setup.appendChild(experiment);
-  const panel=document.createElement('section');panel.className='panel breakthrough-results';
-  panel.innerHTML='<div class="panel-header"><h2>Measured &amp; fitted breakthrough results</h2></div><div class="panel-body" id="breakthroughResultsBody"></div>';
-  results.appendChild(panel);
-  const body=document.getElementById('breakthroughResultsBody');
-  for(const id of ['experimentStatus','experimentMetrics','experimentChart','experimentChartNote','experimentWarnings','fitStatus','fitMetrics','fitWarnings']){
-    const node=document.getElementById(id);if(node)body.appendChild(node);
+  // The breakthrough workbench is a FITTING interface. Keep the hidden inputs
+  // and forward engine for shared model validation/PE, but do not expose
+  // Process Simulation actions or 2D forward maps on this page.
+  const input=document.querySelector('.input-stack');
+  const results=document.querySelector('.results-stack');
+  const exp=document.getElementById('experimentPanel');
+  const imported=document.getElementById('breakthroughImportPanel');
+  const fit=document.getElementById('fitPanel');
+  if(!input||!results||!exp||!fit||!imported)return;
+  imported.after(exp);
+
+  const conditions=document.createElement('details');
+  conditions.className='fit-conditions';
+  conditions.id='fitConditions';
+  conditions.innerHTML='<summary>02 · Bed, gas, equilibrium & numerical settings <span class="micro">(review known inputs before fitting)</span></summary><p class="small-note">A breakthrough curve cannot identify kLDF by itself. Enter the measured column length, flow, porosity, adsorbent density and a separately calibrated equilibrium isotherm. The synthetic example populates these automatically.</p><div class="fit-condition-panels"></div>';
+  const conditionPanels=conditions.querySelector('.fit-condition-panels');
+  for(const panel of [...input.querySelectorAll(':scope > section.panel')]){
+    if(panel===exp||panel===imported)continue;
+    const name=panel.querySelector('.panel-header h2')?.textContent||'';
+    if(/Geometry|Gas & transport|Equilibrium & LDF|Numerical run/.test(name)){
+      conditionPanels.append(panel);
+      if(name.includes('Numerical run')){
+        panel.querySelector('.panel-header h2').textContent='Spatial resolution & fitting time window';
+      }
+      if(name.includes('Gas & transport')){
+        const dr=document.getElementById('drDisp');dr?.closest('.field')?.classList.add('fit-internal');
+        panel.querySelector('details')?.classList.add('fit-internal');
+      }
+    }
   }
-  const solver=document.getElementById('solverMode');solver.value='globaloc1d';
+  for(const id of ['solverMode','thermalMode','nr','snapshots']){
+    document.getElementById(id)?.closest('.field')?.classList.add('fit-internal');
+  }
+  document.getElementById('thermalFields')?.classList.add('fit-internal');
+  document.getElementById('runBtn')?.closest('.row')?.classList.add('fit-internal');
+  document.getElementById('status')?.classList.add('fit-internal');
+  document.getElementById('endTime')?.closest('.field')?.querySelector('label')?.replaceChildren('Maximum fitting time (s)');
+  document.getElementById('nz')?.closest('.field')?.querySelector('label')?.replaceChildren('Global OC nodes / FVM cells (axial)');
+  document.getElementById('beStepsPerOutput')?.closest('.field')?.querySelector('label')?.replaceChildren('Time substeps per output interval');
+  // Do not show controls intended only for forward 2D spatial simulations.
+  exp.after(conditions);
+
+  const fitCard=document.createElement('section');
+  fitCard.className='panel fit-settings-panel';
+  fitCard.id='fitSettingsPanel';
+  fitCard.innerHTML='<div class="panel-header"><h2>03 · Fit parameters</h2><span class="badge">Global OC default</span></div><div class="panel-body" id="fitSettingsBody"></div>';
+  fitCard.querySelector('#fitSettingsBody').append(fit);
+  conditions.after(fitCard);
+  document.getElementById('fitApply')?.classList.add('fit-internal');
+
+  // Summary, inferred parameters and fitted-vs-measured plot are the FIRST
+  // result, not buried below forward concentration/temperature maps.
+  const output=document.createElement('section');
+  output.className='panel breakthrough-results';
+  output.id='fitResultsPanel';
+  output.innerHTML='<div class="panel-header"><h2>Fitting results · measured vs fitted breakthrough</h2></div><div class="panel-body"><div id="fitHeadline" class="fit-headline" aria-live="polite">No fit yet. Load measurements, analyze, then run parameter estimation.</div><div id="breakthroughResultsBody"></div></div>';
+  results.append(output);
+  const target=output.querySelector('#breakthroughResultsBody');
+  for(const id of ['fitStatus','fitMetrics','experimentChart','experimentChartNote','experimentStatus','experimentMetrics','fitWarnings','experimentWarnings']){
+    const node=document.getElementById(id);if(node)target.append(node);
+  }
+  document.getElementById('experimentChart')?.classList.add('fit-chart-main');
+  document.getElementById('fitStatus')?.classList.add('fit-status-main');
+
+  // Workers remain independent of which forward solver was selected on Process
+  // Simulation. Only the fitting engine is user-selectable on this page.
+  const solver=document.getElementById('solverMode');
+  solver.value='globaloc1d';
   document.getElementById('nr').value='1';
   document.getElementById('nz').value='48';
   document.getElementById('inletAmp').value='0';
