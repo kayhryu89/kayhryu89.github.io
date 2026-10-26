@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source_repository": "kayhryu89/Research",
-  "source_commit": "b21e548f07d11d3c78367003da63ecf603432590",
+  "source_commit": "901174327bdb87eea577a5bb9fbe2e128610e4a0",
   "copy_policy": "Browser runtime HTML/CSS/JS only, no private datasets or package/tests. Four direct Studio entrypoints; Breakthrough shares the Column numerical runtime.",
   "modules": [
     {
@@ -49,7 +49,7 @@
       "entrypoint": "Tools/breakthrough/index.html",
       "files": {
         "index.html": "62db8fdc88297444b77f441579c7267bc0fe8391",
-        "demo.js": "3365dc6ed203857afb8398fe7365df2fb792aed6"
+        "demo.js": "ae60a104a9e9ae7d42553a6c5857be94e976c69c"
       }
     },
     {
