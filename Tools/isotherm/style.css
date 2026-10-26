@@ -24,3 +24,59 @@
 .confidence-edge{stroke:#b45309;stroke-width:1.65;stroke-dasharray:5 3;opacity:1;stroke-linejoin:round}
 .solver-details{margin-top:0;margin-bottom:14px}
 #diagnosticsDetails:not([open]){margin-top:10px}
+
+
+/* Four-module horizontal navigation and vertically structured Studio workspaces. */
+.app{display:flex;flex-direction:column;min-height:100vh}
+.side{position:relative;z-index:12;width:100%;padding:13px clamp(16px,3vw,48px);
+ flex-direction:row;flex-wrap:wrap;align-items:center;gap:15px 28px}
+.brand{font-size:21px;white-space:nowrap;flex-shrink:0}
+.brand small{font-size:9px;letter-spacing:.9px;margin-top:2px}
+.side-nav{display:flex;flex:1;gap:8px;align-items:center;justify-content:flex-start;min-width:0}
+.side-nav .nav-item{display:inline-flex;color:#c5d6dd;text-decoration:none;white-space:nowrap;
+ padding:10px 16px;font-size:13px;min-height:40px;justify-content:center}
+.side-nav .nav-item:focus-visible{outline:2px solid #bbdee3;outline-offset:2px}
+.side-nav .nav-item:hover{background:#205164;color:white}
+.side-nav .nav-item.active{background:#dff3f5;color:#123a49;font-weight:750}
+.side-foot{display:none!important}
+.main{max-width:1500px;width:100%;margin:0 auto;padding:30px clamp(16px,3vw,46px) 75px}
+.top{margin-bottom:22px}
+.layout{grid-template-columns:minmax(0,1fr)!important;gap:26px}
+.layout>.stack{min-width:0}
+.layout>.stack.input-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.layout>.stack.results-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+.layout>.input-stack>.panel{min-width:0}
+.layout>.input-stack>.panel:first-of-type{grid-column:1/-1}
+.layout>.input-stack>#experimentPanel{grid-column:1/-1}
+.workbench-section-label{grid-column:1/-1;font-size:17px;font-weight:750;color:#234d5d;
+ border-bottom:1px solid #d5e2e7;padding:5px 0 13px;letter-spacing:-.2px}
+.layout>.results-stack>.panel{min-width:0}
+.layout>.results-stack .chart-wrap,.layout>.results-stack .column-field{width:100%;max-width:none}
+.layout>.results-stack .chart svg,.layout>.results-stack .column-field svg{max-width:100%}
+.simulation-page #experimentPanel{display:none!important}
+.breakthrough-page .results-stack>.panel:not(.breakthrough-results){display:none!important}
+.breakthrough-page .input-stack>.panel:not(#experimentPanel){display:block}
+.breakthrough-page .breakthrough-results{display:block}
+.breakthrough-page .breakthrough-results #experimentMetrics,
+.breakthrough-page .breakthrough-results #fitMetrics{padding-left:0;padding-right:0}
+.breakthrough-page #experimentChart{min-height:260px}
+.breakthrough-page #experimentChart svg{display:block;width:100%;height:auto;max-width:100%}
+.breakthrough-page .input-stack>#experimentPanel{grid-column:1/-1}
+@media(max-width:1050px){
+ .side{gap:10px;align-items:stretch}
+ .side-nav{width:100%;flex-basis:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+ .side-nav .nav-item{flex:0 0 auto}
+ .layout>.stack.input-stack{grid-template-columns:minmax(0,1fr)}
+ .layout>.stack.input-stack>.panel:first-of-type{grid-column:auto}
+ .layout>.input-stack>#experimentPanel{grid-column:auto}
+}
+@media(max-width:540px){
+ .side{padding:11px 14px;display:flex;flex-direction:column;align-items:stretch}
+ .brand{font-size:18px}
+ .side-nav{display:flex;width:100%;overflow-x:auto;gap:6px;flex-basis:auto}
+ .side-nav .nav-item{font-size:12px;padding:9px 12px}
+ .main{padding:18px 12px 45px}
+ .workbench-section-label{font-size:16px}
+ .top{align-items:flex-start;flex-wrap:wrap}
+ .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

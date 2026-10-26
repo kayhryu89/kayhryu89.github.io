@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light"><link rel="icon" href="data:,"><meta name="description" content="Forward-only axisymmetric 2D adsorption packed-bed column simulation with conservative mass balance.">
+<title>Breakthrough Fitting | Adsorp Supporting Tool</title>
+<link rel="stylesheet" href="../isotherm/style.css"><link rel="stylesheet" href="../column/style.css"></head>
+<body class="breakthrough-page"><div class="app">
+<aside class="side"><div class="brand">Adsorp<span style="color:#7cc4cc">.</span><small>SUPPORTING TOOL</small></div>
+<nav class="side-nav" aria-label="Adsorption tools">
+<a class="nav-item" href="../isotherm/index.html">Isotherm Fitting</a>
+<a class="nav-item" href="../kinetic/index.html">Kinetic Fitting</a>
+<a class="nav-item active" href="../breakthrough/index.html" aria-current="page">Breakthrough Fitting</a>
+<a class="nav-item" href="../column/index.html">Process Simulation</a>
+</nav>
+<div class="side-foot">Breakthrough fitting · Browser-based<br>No data leave your browser.</div></aside>
+<main class="main"><header class="top"><div><div class="eyebrow">ISOTHERMAL · AXISYMMETRIC · CONSERVATIVE</div>
+<h1>Breakthrough Fitting</h1><p>Analyze measured breakthrough curves and estimate kLDF and axial dispersion using 1D Global OC or FVM.</p></div>
+<div class="badge">Global OC · default estimator</div></header>
+<div class="layout">
+<div class="stack input-stack">
+<div class="workbench-section-label">Setup &amp; Run</div>
+<section class="panel"><div class="panel-header"><h2>01 · Geometry &amp; bed</h2></div><div class="panel-body grid2">
+<div class="field"><label for="length">Bed length (m)</label><input id="length" type="number" value="0.5" min="0.001" step="any"></div>
+<div class="field"><label for="radius">Column radius (m)</label><input id="radius" type="number" value="0.02" min="0.001" step="any"></div>
+<div class="field"><label for="porosity">Void fraction ε</label><input id="porosity" type="number" value="0.4" min="0.01" max="0.99" step="any"></div>
+<div class="field"><label for="density">Solid skeletal density (kg/m³ solid)</label><input id="density" type="number" value="1000" min="1" step="any"></div>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>02 · Gas &amp; transport</h2></div><div class="panel-body">
+<div class="grid2">
+<div class="field"><label for="direction">Experiment direction</label><select id="direction"><option value="adsorption">Adsorption</option><option value="desorption">Desorption</option></select></div>
+<div class="field"><label for="velocity">Superficial axial velocity (m/s)</label><input id="velocity" type="number" value="0.02" min="0" step="any"></div>
+<div class="field"><label for="feed">Inlet tracer concentration (mol/m³ gas)</label><input id="feed" type="number" value="0.8" min="0" step="any"></div>
+<div class="field"><label for="initialC">Initial gas concentration (mol/m³ gas)</label><input id="initialC" type="number" value="0" min="0" step="any"></div>
+<div class="field"><label for="temperature">Gas temperature (K)</label><input id="temperature" type="number" value="298.15" min="150" step="any"></div>
+<div class="field"><label for="pressure">Total pressure (Pa)</label><input id="pressure" type="number" value="101325" min="1000" step="any"></div>
+<div class="field"><label for="dzDisp">Axial effective dispersion D<sub>z</sub> (m²/s)</label><input id="dzDisp" type="number" value="0.00002" min="0" step="any"></div>
+<div class="field"><label for="drDisp">Radial effective dispersion D<sub>r</sub> (m²/s)</label><input id="drDisp" type="number" value="0.0000005" min="0" step="any"></div>
+</div>
+<details class="helper-details"><summary>2D radial inlet &amp; velocity profiles</summary><div class="grid2 padded-top">
+<div class="field"><label for="inletAmp">Inlet concentration radial amplitude</label><input id="inletAmp" type="number" value="0" min="-0.95" max="0.95" step="0.05"></div>
+<div class="field"><label for="velocityAmp">Velocity radial amplitude</label><input id="velocityAmp" type="number" value="0" min="-0.95" max="0.95" step="0.05"></div>
+</div><p class="small-note">Linear profiles in area coordinate x=(r/R)²: center-to-wall maldistribution. ±0.95 bound prevents negative imposed concentration and velocity. Both are constant along z; wall and axis radial flux are zero.</p></details>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>03 · Equilibrium &amp; LDF</h2></div><div class="panel-body">
+<div class="grid2"><div class="field"><label for="equilibriumMode">Equilibrium isotherm</label>
+<select id="equilibriumMode"><option value="langmuir">Langmuir · manual</option><option value="henry">Henry · manual</option><option value="imported">Imported Isotherm Studio report</option></select></div>
+<div class="field"><label for="kineticMode">LDF rate source</label><select id="kineticMode"><option value="manual">Specify rate k</option><option value="imported">Imported Kinetic Studio LDF fit</option></select></div></div>
+<div id="langmuirFields" class="grid2 padded-top">
+<div class="field"><label for="qMax">q<sub>max</sub> (mol/kg)</label><input id="qMax" type="number" value="0.01" min="0" step="any"></div>
+<div class="field"><label for="affinity">b (m³/mol gas)</label><input id="affinity" type="number" value="0.7" min="0" step="any"></div></div>
+<div id="henryFields" class="field hidden padded-top"><label for="henry">Henry K (m³/kg)</label><input id="henry" type="number" value="0.008" min="0" step="any"></div>
+<div id="isothermFields" class="hidden padded-top"><label class="btn small" for="isothermFile">Import Isotherm JSON</label>
+<input class="hidden" type="file" accept=".json,application/json" id="isothermFile"><div id="isothermInfo" class="micro">No imported equilibrium.</div></div>
+<div id="manualRateFields" class="grid2 padded-top"><div class="field" id="manualRateField"><label for="rate">LDF rate k (1/s)</label><input id="rate" type="number" value="0.35" min="0" step="any"></div>
+<div class="field"><label for="initialQ">Initial adsorbed loading (mol/kg)</label><input id="initialQ" type="number" value="0" min="0" step="any"></div></div>
+<div id="kineticFields" class="hidden padded-top"><label class="btn small" for="kineticFile">Import Kinetic LDF JSON</label>
+<input class="hidden" type="file" accept=".json,application/json" id="kineticFile"><div id="kineticInfo" class="micro">No imported rate. Initial loading is specified separately.</div></div>
+<div class="padded-top" id="modelLinkPanel">
+<h3>Fitted-model connection</h3>
+<p class="small-note">Import an Isotherm Studio fit and an LDF Kinetic Studio fit. Recent kinetic reports embed the exact selected Isotherm coefficients, so importing the kinetic report can automatically restore its linked equilibrium. Source units are converted explicitly; incompatible branches and different linked coefficients are rejected.</p>
+<div class="field"><label class="checkbox-line"><input type="checkbox" id="linkLegacyAccept"> Allow legacy kinetic reports without a complete linked-equilibrium fingerprint (model and units only)</label></div>
+<div class="field"><label class="checkbox-line"><input type="checkbox" id="linkFixedAccept"> Allow fixed-q* kinetic rate to be transferred to the concentration-dependent column equilibrium</label></div>
+<div class="field"><label class="checkbox-line"><input type="checkbox" id="linkTempAccept"> Allow transfer between different documented calibration temperatures (not thermodynamically corrected)</label></div>
+<div class="row padded-top"><button class="btn small" type="button" id="linkValidate">Verify model compatibility</button><button class="btn small" type="button" id="linkFitBounds">Set kLDF fitting bounds around imported rate</button></div>
+<div class="status" aria-live="polite" id="linkStatus">Manual equilibrium and kinetic parameters; import reports to establish provenance.</div>
+<p class="small-note">Legacy or fixed-target transfers require explicit approval and remain scientifically conditional. Temperature not included in old reports cannot be independently checked. All import approvals and linked-model identities are saved in simulation/fitting exports.</p>
+</div>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>04 · Numerical run</h2></div><div class="panel-body">
+<div class="field"><label for="solverMode">Numerical solver</label><select id="solverMode">
+<option value="globaloc2d" selected>2D Global OC · tensor Legendre GLL in axial and radial coordinates · default</option>
+<option value="fvbe2d">2D FVM-BE · conservative axial/radial implicit comparison</option>
+<option value="globaloc1d">1D Global OC · whole-column Legendre GLL</option>
+<option value="fv">Conservative finite volume · 1D/2D alternative</option>
+<option value="fvbe1d">1D FVM · BE transport + BE LDF · matched time grid</option>
+</select><p class="small-note">For a defensible spatial comparison, select Global OC and 1D FV-BE. Both use the SAME first-order BE transport → implicit BE LDF split and identical time samples/substeps; the distinct spatial operators and Global OC limiter remain differences. The existing 1D/2D FV production solver remains explicit transport + implicit LDF, and should NOT be compared directly on runtime. 2D Global OC uses one tensor-product polynomial domain (z, x=(r/R)²), without finite elements. Radial collocation uses nonuniform nodes and cylindrical flux weighting. Global OC does not guarantee monotone fronts; inspect limiter amplitude.</p></div>
+<div class="field padded-top"><label for="thermalMode">Column heat-transfer model</label>
+<select id="thermalMode"><option value="isothermal">Isothermal (existing reference)</option>
+<option value="nonisothermal">2D non-isothermal LTE · Global OC or FVM</option></select></div>
+<div id="thermalFields" class="hidden padded-top">
+<p class="small-note">Gas and solid share one local temperature T(z,r,t). Positive adsorption heat releases energy; gas heat capacity, solid heat capacity and effective conductivities are assumed constant. This mode has prescribed superficial gas velocity and pressure; no Ergun/momentum or variable-density solution. Non-isothermal and 2D calculations use FVM; Global OC supports 2D nonisothermal LTE with coupled heat release; 1D Global OC remains isothermal for fitting.</p>
+<div class="grid2">
+<div class="field"><label for="heatFeedT">Feed gas temperature (K)</label><input type="number" id="heatFeedT" value="298.15" min="150" max="1500" step="any"></div>
+<div class="field"><label for="heatInitialT">Initial bed temperature (K)</label><input type="number" id="heatInitialT" value="298.15" min="150" max="1500" step="any"></div>
+<div class="field"><label for="heatAmbientT">Surrounding temperature (K)</label><input type="number" id="heatAmbientT" value="298.15" min="150" max="1500" step="any"></div>
+<div class="field"><label for="heatAdsH">Heat released on adsorption, −ΔH (J/mol)</label><input type="number" id="heatAdsH" value="35000" min="0" step="any"></div>
+<div class="field"><label for="heatCpGas">Gas volumetric heat capacity ρg Cpg (J/m³ gas/K)</label><input type="number" id="heatCpGas" value="1200" min="1" step="any"></div>
+<div class="field"><label for="heatCpSolid">Adsorbent heat capacity Cps (J/kg/K)</label><input type="number" id="heatCpSolid" value="900" min="1" step="any"></div>
+<div class="field"><label for="heatLz">Effective axial thermal conductivity λz (W/m/K)</label><input type="number" id="heatLz" value="0.2" min="0" step="any"></div>
+<div class="field"><label for="heatLr">Effective radial thermal conductivity λr (W/m/K)</label><input type="number" id="heatLr" value="0.2" min="0" step="any"></div>
+<div class="field"><label for="heatWallH">Wall heat-transfer coefficient h (W/m²/K)</label><input type="number" id="heatWallH" value="0" min="0" step="any"></div>
+<div class="field"><label for="heatEa">LDF apparent activation energy (J/mol, 0 = constant k)</label><input type="number" id="heatEa" value="0" min="0" step="any"></div>
+<div class="field"><label for="heatEqMode">Equilibrium temperature dependence</label>
+<select id="heatEqMode"><option value="fixed">Fixed reference isotherm in pressure (no inferred enthalpy shift)</option>
+<option value="vanthoff">van't Hoff affinity / approximate imported pressure-shift</option></select></div>
+</div>
+<p class="small-note">The existing Column temperature field above is the reference temperature for q*. The van't Hoff option assumes a constant adsorption enthalpy for an effective Langmuir/Henry affinity; imported empirical isotherms receive an APPROXIMATE horizontal pressure shift, not a thermodynamically validated multitemperature model. Imported kinetic rates use the reference temperature; temperature dependence of k is optional.</p>
+</div>
+<div class="grid2"><div class="field"><label for="nz">Axial FV cells or Global OC nodes (method-specific)</label><input id="nz" type="number" value="24" min="4" max="80" step="1"></div>
+<div class="field"><label for="nr">Equal-area radial rings</label><input id="nr" type="number" value="6" min="1" max="16" step="1"></div>
+<div class="field"><label for="beStepsPerOutput">BE substeps per reported sample (Global OC / FVM-BE in 1D and 2D)</label><input id="beStepsPerOutput" type="number" min="1" max="128" step="1" value="64"></div>
+<div class="field"><label for="endTime">Simulation time (s)</label><input id="endTime" type="number" value="180" min="0.0001" step="any"></div>
+<div class="field"><label for="snapshots">Spatial snapshot intervals</label><select id="snapshots"><option value="4">4</option><option value="8" selected>8</option><option value="12">12</option></select></div></div>
+<details class="helper-details"><summary>Numerical safeguards &amp; assumptions</summary><p>Conservative upwind axial and axisymmetric radial finite volumes, explicit CFL-limited transport, implicit local LDF exchange, exact cellwise species inventory balance. First-order reference implementation, not an OCFE solver. Isothermal by default; optional 2D local-thermal-equilibrium energy transport, adsorption heat and wall exchange. Fixed velocity/pressure, dilute tracer and no Ergun or multicomponent species equation. Increase nz/nr and check convergence before physical interpretation.</p></details>
+<div class="row padded-top"><button id="runBtn" class="btn primary" type="button">Run column simulation</button><button id="cancelBtn" class="btn" type="button" disabled>Cancel</button></div>
+<div class="status" id="status" aria-live="polite">Ready for a forward run.</div>
+</div></section>
+</div>
+<div class="stack results-stack">
+<div class="workbench-section-label">Results &amp; Diagnostics</div>
+<section class="panel"><div class="panel-header"><h2>Concentration field C(z,r,t)</h2><span id="frameLabel">Not simulated</span></div>
+<div class="panel-body">
+<div id="fieldPlot" class="column-field"><div class="empty">Run the model to see the axisymmetric concentration field.</div></div>
+<div class="field padded-top"><label for="snapshotIndex">Snapshot time</label><input id="snapshotIndex" type="range" min="0" max="8" step="1" value="8" disabled></div>
+<div class="micro" id="fieldNote">Equal-area radial rings; gas-phase concentration in mol/m³.</div>
+</div></section>
+<section class="panel" id="thermalResultPanel" style="display:none"><div class="panel-header"><h2>Temperature field T(z,r,t)</h2></div>
+<div class="panel-body"><div id="temperaturePlot" class="column-field">Run non-isothermal Global OC or FVM to see the temperature field.</div>
+<div class="chart-note" id="temperatureNote">Common gas/solid LTE temperature.</div>
+<div id="temperatureTrace" class="chart-wrap"></div><div id="temperatureTraceNote" class="small-note"></div></div></section>
+<section class="panel"><div class="panel-header"><h2>Outlet breakthrough</h2></div>
+<div id="breakthroughPlot" class="chart-wrap"><div class="empty">Time history appears after simulation.</div></div>
+<div class="chart-note" id="breakthroughNote">Flux-weighted outlet concentration; no PE or fitted breakthrough curve.</div></section>
+<section class="panel"><div class="panel-header"><h2>Conservation &amp; numerical diagnostics</h2></div>
+<div class="metrics">
+<div class="metric"><div class="value" id="stepsMetric">—</div><div class="name">Time steps</div></div>
+<div class="metric"><div class="value" id="massMetric">—</div><div class="name">Relative mass residual</div></div>
+<div class="metric"><div class="value" id="minMetric">—</div><div class="name">Min gas concentration</div></div>
+<div class="metric"><div class="value" id="outletMetric">—</div><div class="name">Final outlet (mol/m³)</div></div><div class="metric"><div class="value" id="tempMetric">—</div><div class="name">Peak temperature (K)</div></div>
+<div class="metric"><div class="value" id="energyMetric">—</div><div class="name">Relative energy residual</div></div>
+</div><div class="panel-body">
+<div id="massDetails" class="micro">No simulation yet.</div><div id="energyDetails" class="micro"></div>
+<div class="row padded-top"><button id="exportTime" class="btn small" type="button" disabled>Export time-series CSV</button>
+<button id="exportField" class="btn small" type="button" disabled>Export snapshot CSV</button>
+<button id="exportJSON" class="btn small" type="button" disabled>Export run JSON</button></div>
+</div></section>
+<section class="panel" id="experimentPanel"><div class="panel-header"><h2>Measured breakthrough · analysis &amp; model comparison</h2></div><div class="panel-body">
+<p class="small-note">Paste a CSV with <code>time_s,ratio</code>, <code>time_min,cout_cin</code> or <code>time_s,cout</code> (mol/m³). Experimental data are analyzed independently before running the simulator. The parameter-estimation section below fits a 1D FVM model.</p>
+<div class="grid2">
+<div class="field"><label for="expTimeUnit">Unlabeled time unit</label><select id="expTimeUnit"><option value="s">Seconds</option><option value="min">Minutes</option><option value="h">Hours</option></select></div>
+<div class="field"><label for="expMode">Unlabeled outlet column</label><select id="expMode"><option value="ratio">Cout/Cin</option><option value="absolute">Cout (mol/m³)</option></select></div>
+<div class="field"><label for="expFlow">Measured gas flow (m³/s)</label><input id="expFlow" type="number" min="0" step="any"></div>
+<div class="field"><label for="expMass">Dry adsorbent mass (kg)</label><input id="expMass" type="number" min="0" step="any"></div>
+</div>
+<div class="row padded-top"><button class="btn small" id="expApplySettings" type="button">Estimate flow &amp; mass from model settings</button><label class="btn small" for="expFile">Import measured CSV</label><input class="hidden" id="expFile" type="file" accept=".csv,.txt,text/csv"></div>
+<div class="field padded-top"><label for="experimentData">Measured time series (CSV, editable)</label><textarea id="experimentData" rows="6" spellcheck="false" placeholder="time_s,ratio&#10;0,0&#10;20,0.05&#10;40,0.50&#10;60,0.95"></textarea></div>
+<div class="row padded-top"><button class="btn primary" id="expAnalyze" type="button">Analyze breakthrough</button><button class="btn small" id="expExport" type="button">Export experiment JSON</button></div>
+<div class="status" id="experimentStatus" aria-live="polite">Load measured data to calculate breakthrough metrics.</div>
+<div class="metrics" id="experimentMetrics"></div>
+<div class="chart-wrap" id="experimentChart"></div>
+<div class="chart-note" id="experimentChartNote">Measured time series will appear here; run the model for an overlay.</div>
+<p class="small-note" id="experimentWarnings"></p>
+<div class="padded-top" id="fitPanel">
+<h3>Fit measured breakthrough with 1D Global OC or FVM</h3>
+<p class="small-note">Estimate the LDF rate k and/or axial dispersion Dz against the measured Cout/Cin curve using <strong>1D isothermal Global OC</strong> by default, or select FVM for comparison. Equilibrium and all other model parameters are held fixed. This first release supports adsorption step experiments only; set radial rings to 1, radial inlet/velocity amplitudes to zero, and initial gas/solid loadings to zero. Ensure the simulation end time covers every measurement.</p>
+<div class="grid2">
+<div class="field"><label for="fitSolver">Parameter-estimation forward solver</label>
+<select id="fitSolver"><option value="globaloc1d" selected>1D Global OC (default, BE)</option><option value="fv">1D finite-volume reference (legacy)</option></select></div>
+<div class="field"><label for="fitMode">Estimated parameters</label>
+<select id="fitMode"><option value="k">kLDF only (recommended)</option><option value="dz">Axial dispersion Dz only</option><option value="both">kLDF + Dz (identifiability check)</option></select></div>
+<div class="field"><label for="fitBudget">Maximum forward-model evaluations</label><input id="fitBudget" type="number" min="20" max="350" step="1" value="160"></div>
+<div class="field"><label for="fitKMin">kLDF lower bound (1/s)</label><input id="fitKMin" type="number" min="1e-8" step="any" value="0.0001"></div>
+<div class="field"><label for="fitKMax">kLDF upper bound (1/s)</label><input id="fitKMax" type="number" min="1e-8" step="any" value="20"></div>
+<div class="field"><label for="fitDMin">Dz lower bound (m²/s)</label><input id="fitDMin" type="number" min="1e-10" step="any" value="1e-7"></div>
+<div class="field"><label for="fitDMax">Dz upper bound (m²/s)</label><input id="fitDMax" type="number" min="1e-10" step="any" value="0.001"></div>
+</div>
+<div class="field padded-top"><label for="fitUniform1D"><input id="fitUniform1D" type="checkbox" checked> Use the equivalent radially uniform 1D model for fitting (recommended for ordinary breakthrough experiments)</label>
+<p class="small-note">If checked, fitting temporarily sets radial rings to 1 and radial inlet/velocity profile amplitudes to zero without changing the forward-simulation controls. Any 2D maldistribution is therefore excluded and parameter transfer must be verified separately. Uncheck to require already configured uniform 1D conditions.</p></div>
+<div class="row padded-top"><button type="button" class="btn primary" id="fitBtn">Fit measured breakthrough</button>
+<button type="button" class="btn" id="fitCancel" disabled>Cancel fit</button>
+<button type="button" class="btn small" id="fitApply" disabled>Apply fitted parameters to model</button>
+<button type="button" class="btn small" id="fitExport" disabled>Export fitting report JSON</button></div>
+<div class="status" id="fitStatus" aria-live="polite">Analyze a measured curve, then run parameter fitting.</div>
+<div class="metrics" id="fitMetrics"></div>
+<p id="fitWarnings" class="small-note"></p>
+<p class="small-note">Parameter fitting uses the independently chosen 1D Global OC (default) or original 1D FV forward model. Global OC requires at most 80 axial nodes, and returns a global limiter diagnostic. Always test parameter recovery, mesh and timestep convergence. The fitted RMSE is in-sample, not predictive accuracy. The fit includes an automatic doubled-grid check when possible. Strongly correlated kLDF and Dz may not be separately identifiable from one outlet curve. Use independent measurements for validation.</p>
+</div>
+<p class="small-note">Net inlet−outlet retained gas includes any gas-phase hold-up change; it is not independently measured solid-phase capacity. Use adsorption step experiments at constant volumetric flow and nominal feed concentration for these metrics. Breakthrough thresholds use linear interpolation.</p>
+</div></section>
+<section class="panel"><div class="panel-header"><h2>Model validity</h2></div>
+<div class="panel-body"><p class="small-note">Default for isothermal 1D/2D: <strong>global orthogonal collocation</strong> (Legendre GLL, no finite elements). The established 1D/2D FVM remains an independent conservative comparison option. Both Global OC and FVM support 2D non-isothermal LTE, while 1D Global OC fitting is isothermal. A coupled non-isothermal 2D finite-volume option adds one local thermal-equilibrium temperature field, adsorption heat, axial/radial conduction and wall exchange. The experimental 1D GLL OCFE uses a global mass-conserving limiter; unlike the FV reference, it has not established local positivity/conservation or front accuracy across operating conditions. It is intended as the acceptance benchmark for later axial OCFE + radial collocation. First-order spatial/time convergence means fronts are numerically diffused on coarse grids.</p>
+<p class="small-note">Mass conservation is checked on the species inventory (gas + adsorbed phase). That alone does not validate constant-density flow, dispersion inputs, equilibrium/kinetic transferability, or the physical accuracy of breakthrough predictions.</p></div></section>
+</div></div></main></div>
+<script>
+(function(){
+  // Move the measurement/fit forms into Setup, and model/fit results to the lower section.
+  const setup=document.querySelector('.input-stack'),results=document.querySelector('.results-stack');
+  const experiment=document.getElementById('experimentPanel');
+  if(!setup||!results||!experiment)return;
+  setup.appendChild(experiment);
+  const panel=document.createElement('section');panel.className='panel breakthrough-results';
+  panel.innerHTML='<div class="panel-header"><h2>Measured &amp; fitted breakthrough results</h2></div><div class="panel-body" id="breakthroughResultsBody"></div>';
+  results.appendChild(panel);
+  const body=document.getElementById('breakthroughResultsBody');
+  for(const id of ['experimentStatus','experimentMetrics','experimentChart','experimentChartNote','experimentWarnings','fitStatus','fitMetrics','fitWarnings']){
+    const node=document.getElementById(id);if(node)body.appendChild(node);
+  }
+  const solver=document.getElementById('solverMode');solver.value='globaloc1d';
+  document.getElementById('nr').value='1';
+  document.getElementById('nz').value='48';
+  document.getElementById('inletAmp').value='0';
+  document.getElementById('velocityAmp').value='0';
+  document.getElementById('thermalMode').value='isothermal';
+  document.getElementById('fitSolver').value='globaloc1d';
+  document.addEventListener('DOMContentLoaded',()=>solver.dispatchEvent(new Event('change')));
+})();
+</script>
+<script type="module" src="../column/app.js"></script><script type="module" src="../column/experiment-ui.js"></script></body></html>
