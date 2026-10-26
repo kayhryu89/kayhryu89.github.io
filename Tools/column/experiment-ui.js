@@ -1,5 +1,7 @@
 import {parseBreakthroughCSV,analyzeBreakthrough,compareBreakthrough} from './breakthrough.js';
 const $=id=>document.getElementById(id);
+const fittingPage=document.body.classList.contains('breakthrough-page');
+const fitHeadline=text=>{const el=$('fitHeadline');if(el)el.textContent=text;};
 let measured=null,lastResult=null,lastAnalysis=null,lastComparison=null,lastFit=null,fitWorker=null;
 const message=(text,error=false)=>{$('experimentStatus').textContent=text;$('experimentStatus').className='status'+(error?' error':'');};
 const fmt=x=>x===null||x===undefined?'Not reached':Number(x).toPrecision(5);
@@ -11,13 +13,13 @@ function currentSettings(){
 }
 function drawChart(){
  const root=$('experimentChart');root.replaceChildren();if(!measured)return;
- const simulated=lastResult?.samples?.filter(s=>Number.isFinite(s.outletFraction))||[];
+ const simulated=fittingPage?[]:lastResult?.samples?.filter(s=>Number.isFinite(s.outletFraction))||[];
  const fitted=lastFit?.fittedModel?.samples?.filter(s=>Number.isFinite(s.outletFraction))||[];
  const all=[...measured,...simulated.map(s=>({time:s.time,ratio:s.outletFraction})),...fitted.map(s=>({time:s.time,ratio:s.outletFraction}))];
  const tmax=Math.max(1,...all.map(p=>p.time)),ymax=Math.max(1,...all.map(p=>p.ratio))*1.08;
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
  svg.setAttribute('viewBox','0 0 760 330');svg.setAttribute('role','img');
- svg.setAttribute('aria-label','Measured and simulated outlet concentration ratio versus time');
+ svg.setAttribute('aria-label','Measured and fitted outlet concentration ratio versus time');
  svg.classList.add('column-breakthrough');
  const NS='http://www.w3.org/2000/svg',newEl=(name,attrs,text)=>{const node=document.createElementNS(NS,name);for(const [k,v] of Object.entries(attrs))node.setAttribute(k,String(v));if(text!==undefined)node.textContent=text;return node;};
  const X=t=>66+650*t/tmax,Y=y=>20+255*(1-y/ymax);
@@ -39,7 +41,7 @@ function drawChart(){
  svg.append(newEl('text',{x:390,y:320,'text-anchor':'middle',class:'axis'},'Time (s)'));
  svg.append(newEl('text',{x:15,y:150,'text-anchor':'middle',transform:'rotate(-90 15 150)',class:'axis'},'Cout/Cin'));
  root.append(svg);
- $('experimentChartNote').textContent='Measured: blue solid line. '+(simulated.length?'Forward model: orange dashed line.':'')+(fitted.length?' Fitted '+(lastFit?.fitSolver==='globaloc1d'?'1D Global OC':'1D FVM')+': green dashed line.':'')+' Time in seconds, concentration as Cout/Cin.';
+ $('experimentChartNote').textContent='Measured: blue line/markers. '+(simulated.length?'Forward model: orange dashed line.':'')+(fitted.length?' Fitted '+(lastFit?.fitSolver==='globaloc1d'?'1D Global OC':'1D FVM')+': green dashed line.':'')+' Time in seconds, concentration as Cout/Cin.';
 }
 function summarize(){
  if(!measured)return;
@@ -64,7 +66,7 @@ function analyze(){
   if(lastResult&&lastResult.config.gas.feedConcentration>0){
     try{lastComparison=compareBreakthrough(measured,lastResult.samples);}catch(e){message('Measurements loaded, but model comparison unavailable: '+e.message);}
   }
-  summarize();message(measured.length+' measured points analyzed. '+(lastComparison?'Model comparison calculated.':'Run a forward model to compare.'));
+  summarize();message(measured.length+' measured points analyzed. '+(lastComparison?'Model comparison calculated.':fittingPage?'Ready for parameter estimation.':'Run a forward model to compare.'));
  }catch(e){message('Experiment analysis error: '+e.message,true);}
 }
 $('expApplySettings').addEventListener('click',currentSettings);
@@ -116,6 +118,11 @@ function showFit(){
   ['Fit RMSE',fmt(lastFit.metrics.rmse)],
   ['Evaluations',lastFit.evaluations],
   ['Failed trials',lastFit.failedEvaluations]];
+ if(fittingPage){
+  const k=lastFit.fitted.k,dz=lastFit.fitted.dz;
+  const pars=[k===undefined?null:'kLDF = '+Number(k).toPrecision(5)+' s⁻¹',dz===undefined?null:'Dz = '+Number(dz).toPrecision(5)+' m²/s'].filter(Boolean);
+  fitHeadline('Estimated '+pars.join(' · ')+'   |   RMSE = '+Number(lastFit.metrics.rmse).toPrecision(4));
+ }
  if(lastFit.modelLineage?.kinetic)metrics.push(['Kinetic upstream (1/s)',fmt(lastFit.modelLineage.kinetic.rateConstant)]);
  if(lastFit.gridCheck)metrics.push(['Doubled-grid RMS difference',fmt(lastFit.gridCheck.rmsCurveDifference)]);
  const container=$('fitMetrics');container.replaceChildren();
@@ -149,6 +156,8 @@ function fit(){
            dz:{min:Number($('fitDMin').value),max:Number($('fitDMax').value)}},
    maxEvaluations:Number($('fitBudget').value),fitSolver:$('fitSolver').value};
   lastFit=null;clearFitDisplay();drawChart();
+  fitHeadline('Estimating parameters from measured breakthrough data…');
+  if(fittingPage)$('fitResultsPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
   fitWorker=new Worker(new URL('./fit-worker.js',import.meta.url),{type:'module'});
   fitWorker.onmessage=event=>{
    const data=event.data||{};
@@ -162,6 +171,7 @@ function fit(){
     fitWorker.terminate();fitWorker=null;setFitRunning(false);
     showFit();
     fitMessage('Fitting completed using '+(lastFit.fitSolver==='globaloc1d'?'1D Global OC':'1D FVM')+'. Review mesh/time convergence and identifiability warnings.');
+    document.dispatchEvent(new CustomEvent('breakthrough:fit-completed',{detail:{fit:lastFit}}));
    }
   };
   fitWorker.onerror=e=>{cancelFit('Fit worker failed: '+(e.message||'Unknown error'));$('fitStatus').classList.add('error');};
@@ -193,12 +203,13 @@ for(const id of ['fitSolver','fitMode','fitBudget','fitKMin','fitKMax','fitDMin'
   if(fitWorker)cancelFit('Fitting settings changed; previous run cancelled.');
   if(lastFit){lastFit=null;clearFitDisplay();if(measured)summarize();}
   fitMessage('Fitting settings changed; rerun parameter estimation.');
+  fitHeadline('Settings changed. Run parameter estimation to update these results.');
  });
 }
 $('experimentData').addEventListener('input',()=>{
  measured=null;lastAnalysis=null;lastComparison=null;lastFit=null;
  if(fitWorker)cancelFit('Measurements edited; analyze again before fitting.');
- clearFitDisplay();$('experimentMetrics').replaceChildren();
+ clearFitDisplay();fitHeadline('Measured data edited. Analyze the curve, then run parameter estimation.');$('experimentMetrics').replaceChildren();
  $('experimentChart').replaceChildren();fitMessage('Measurements edited. Analyze the curve before fitting.');
 });
 
